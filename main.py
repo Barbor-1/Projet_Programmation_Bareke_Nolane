@@ -28,13 +28,15 @@ json = GENERATION_API.getJSON()
 #print(gen.json())
 #print(gen.json()['actual_generations_per_production_type'][7]['values'][0])
 
-format_time = format_time()
-format_time.formatTime("2022-04-13T01:00:00+02:00")
-print("TIME ", format_time)
-
+begin_time = format_time()
+end_time = format_time()
 for i in range(0, len(json['actual_generations_per_production_type'])):
     for j in range(0, len(json['actual_generations_per_production_type'][i]['values'])):
-        print(json['actual_generations_per_production_type'][i]['production_type'] + " " + str(json['actual_generations_per_production_type'][i]['values'][j]['value']) + " " + json['actual_generations_per_production_type'][i]['values'][j]['start_date'])
+
+        begin_time.formatTime(json['actual_generations_per_production_type'][i]['values'][j]['start_date'])
+        end_time.formatTime(json['actual_generations_per_production_type'][i]['values'][j]['end_date'])
+        
+        print(json['actual_generations_per_production_type'][i]['production_type'] + " " + str(json['actual_generations_per_production_type'][i]['values'][j]['value']) + " " + str(end_time.getDateTime() - begin_time.getDateTime()))
 
 
 
