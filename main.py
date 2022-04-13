@@ -7,3 +7,5 @@ r = requests.post(URL, headers={"Authorization": "Basic ZDJhMWEyZDctN2E0My00MmQ2
 print(r.json())
 print(r.json()['access_token'])
 token = r.json()['access_token']
+
+gen = requests.get("https://digital.iservices.rte-france.com/open_api/actual_generation/v1/actual_generations_per_production_type", headers={})
