@@ -22,4 +22,10 @@ class RTEauth:
         else:
              return False
 
+class APIrequest:
+    def __init__(self, url, token):
+        self.url = url
+        self.token = token
+    def getJSON(self):
+        return (requests.get(self.url, headers={"Authorization": "Bearer "+ self.token})).json()
 
