@@ -1,6 +1,8 @@
 import pygame
 import button
 from map_gen import map
+from networking import server
+
 running = True
 
 pygame.init()

@@ -1,4 +1,4 @@
-from socket import socket
+import socket
 
 
 class server():
@@ -7,13 +7,14 @@ class server():
         self.ip_address = ""
 
     def startServer(self):
-        self.socket = socket.socket()
-        self.host = socket.gethostname()
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.host = ''
         self.socket.bind((self.host, self.port))
-
+        self.socket.listen(1)
     def send(self, data):
-        self.client.send(data)
-
+        self.client.send(data.encode())
+    def receive(self, limit):
+        return (self.client.recv(limit)).decode()
     def accept(self):
         self.client, self.addr = self.socket.accept()
 
@@ -21,8 +22,8 @@ class server():
         return self.addr
 
     def close(self):
-        self.socket.close()
-
+        self.client.shutdown(socket.SHUT_RDWR)
+        self.client.close()
 
 class client():
     def __init__(self, ip_address):
@@ -30,11 +31,15 @@ class client():
         self.host = ip_address
 
     def startClient(self):
-        self.socket = socket.socket()
-        self.socket.bind((self.host, self.port))
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket.connect((self.host, self.port))
 
     def send(self, data):
-        self.socket.send(data)
+        self.socket.send(data.encode())
 
     def close(self):
+        self.socket.shutdown(socket.SHUT_RDWR)
         self.socket.close()
+    
+    def receive(self, limit):
+        return (self.socket.recv(limit)).decode()
