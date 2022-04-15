@@ -2,7 +2,7 @@ import pygame
 import button
 from map_gen import map
 from networking import server
-
+import os
 running = True
 
 pygame.init()
@@ -10,7 +10,7 @@ pygame.init()
 screen = pygame.display.set_mode((800, 800))
 pygame.display.set_caption("RTS GAME - v1")
 
-carte = map(screen, "carte.bmp")
+carte = map(screen, os.path.join(os.getcwd(), "carte.bmp"))
 carte.display_map()
 
 """button1 = button.Button(0, 0, (255, 255, 255),(255, 0, 0), screen)
