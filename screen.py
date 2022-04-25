@@ -1,7 +1,7 @@
 import pygame
 
 
-class Screen():
+class Screen(): #surface ? : https://www.pygame.org/docs/ref/surface.html + surface.blit()
     def __init__(self, title, width=640, height=445, fill=(255, 255, 255)):
         self.title = title
         self.width = width
