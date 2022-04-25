@@ -8,10 +8,10 @@ running = True
 
 pygame.init()
 
-#screen = pygame.display.set_mode((800, 800))
+#screen = pygame.display.set_mode((800, 800)) # useless, only for testing purposes
 #pygame.display.set_caption("RTS GAME - v1")
 
-screen_object = Screen("RTS GAME - v1", 800, 800)
+screen_object = Screen("RTS GAME - v1-MENU", 800, 800)
 screen_object.makeCurrent()
 screen = screen_object.getScreen()
 
@@ -19,7 +19,7 @@ change_screen = Screen("RTS GAME - v1")
 screen2 = change_screen.getScreen()
 
 
-carte = map(screen, os.path.join(os.getcwd(), "carte.bmp"))
+carte = map(screen, os.path.join(os.getcwd(), "carte.bmp")) #IMPORTANTx
 carte.display_map()
 
 button1 = button.Button(10, 10, (255, 255, 255),(255, 0, 0), screen)
@@ -32,16 +32,14 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
                 running = False
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1: # put it inside class
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1: # put it inside class with event as argument ?| event.button == 1 : left click
             pos = pygame.mouse.get_pos()
 
-            if(button1.collide(pos) == 1):
+            if(button1.collide(pos) == 1):   
                print("collided")
                screen_object.endCurrent() #do nothing, see later
-               change_screen.makeCurrent() # change screen
+               change_screen.makeCurrent() # change screen + update screen => (maybe remove it dont know ?)
                pygame.draw.rect(screen2, (0, 255, 0), (0, 0, 200, 200))
                pygame.display.flip()
 
-
-        
     
