@@ -8,16 +8,17 @@ class Screen():
         self.height = height
         self.fill = fill
         self.current = False
+        self.screen = pygame.display.set_mode((self.width, self.height))
 
     def makeCurrent(self):
         self.current = True
         # update screen
         pygame.display.set_caption(self.title)
-        self.screen = pygame.display.set_mode((self.width, self.height))
+        self.screen = pygame.display.set_mode((self.width, self.height)) # ? to delete (see later)
         self.screen.fill(self.fill)
         pygame.display.flip()
 
-    def endCurrent(self):
+    def endCurrent(self): # TODO : IMPORTANT : make this function do something with makeCurrent(self)
         self.current = False
 
     def getScreen(self):

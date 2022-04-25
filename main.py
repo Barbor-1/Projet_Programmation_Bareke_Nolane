@@ -15,6 +15,10 @@ screen_object = Screen("RTS GAME - v1", 800, 800)
 screen_object.makeCurrent()
 screen = screen_object.getScreen()
 
+change_screen = Screen("RTS GAME - v1")
+screen2 = change_screen.getScreen()
+
+
 carte = map(screen, os.path.join(os.getcwd(), "carte.bmp"))
 carte.display_map()
 
@@ -23,7 +27,7 @@ button1.setLabel("test")
 button1.drawButton()
 
 
-pygame.display.flip()
+pygame.display.flip() # update display (IMPORTANT)
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -33,5 +37,11 @@ while running:
 
             if(button1.collide(pos) == 1):
                print("collided")
+               screen_object.endCurrent() #do nothing, see later
+               change_screen.makeCurrent() # change screen
+               pygame.draw.rect(screen2, (0, 255, 0), (0, 0, 200, 200))
+               pygame.display.flip()
+
+
         
     
