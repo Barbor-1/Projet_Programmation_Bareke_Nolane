@@ -1,7 +1,7 @@
 import pygame
 import button
 from map_gen import map
-from networking import server
+from networking import server, client
 import os
 from screen import Screen
 running = True

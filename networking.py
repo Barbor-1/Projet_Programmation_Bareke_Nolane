@@ -2,8 +2,8 @@ import socket
 
 
 class server():
-    def __init__(self):
-        self.port = 2001
+    def __init__(self, port="2001"): # default value to change
+        self.port = port
         self.ip_address = ""
 
     def startServer(self):
@@ -26,7 +26,7 @@ class server():
         self.client.close()
 
 class client():
-    def __init__(self, ip_address):
+    def __init__(self, ip_address, port="2001"): # default value to change
         self.port = 2001
         self.host = ip_address
 
@@ -43,3 +43,5 @@ class client():
     
     def receive(self, limit):
         return (self.socket.recv(limit)).decode()
+
+#TODO : SCAN ?
