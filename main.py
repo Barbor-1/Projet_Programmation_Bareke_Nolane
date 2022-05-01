@@ -7,7 +7,7 @@ from screen import Screen
 running = True
 
 pygame.init()
-
+fliped = False
 #screen = pygame.display.set_mode((800, 800)) # useless, only for testing purposes
 #pygame.display.set_caption("RTS GAME - v1")
 
@@ -37,6 +37,7 @@ while running:
 
             if(button1.collide(pos) == 1):   
                print("collided")
+               fliped = True
                screen_object.endCurrent() #do nothing, see later
                change_screen.makeCurrent() # change screen + update screen => (maybe remove it dont know ?)
                pygame.draw.rect(screen2, (0, 255, 0), (0, 0, 200, 200))

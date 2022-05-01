@@ -7,7 +7,7 @@ test = demon(input_queue, output_queue)
 input_queue.put("HELLO")
 test.daemon = True
 if __name__ == "__main__":
-    test.start()
+    test.start() # start demon
     for i in range(0, 10):
         input_queue.put(i)
     input_queue.join() # wait for demon to respond 
