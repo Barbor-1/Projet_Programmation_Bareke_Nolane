@@ -1,7 +1,7 @@
 
 import pygame
 class Button:
-    def __init__(self, x, y, color, background_color, screen, size=16):
+    def __init__(self, x, y, color, background_color, screen, size=32):
         self.x = x
         self.y = y
         self.screen = screen
