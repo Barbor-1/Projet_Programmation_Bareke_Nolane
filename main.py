@@ -26,13 +26,11 @@ carte.display_map()
 carte2 = map(screen2, os.path.join(os.getcwd(), "Placeholder.png"))#B- Next time i will make a picture that fits the game
 
 button1 = button.Button(10, 10, (255, 255, 255),(255, 0, 0), screen)
-button1.setLabel("Next")
-button1.initButton()
+button1.initButton("Next")
 button1.drawButton()
 
 button2 = button.Button(60, 10, (0, 0, 0),(235, 125, 56), screen2)
-button2.setLabel("Go back")
-button2.initButton()#Initialise values for example text_rect that could crash when we click the screen in the while
+button2.initButton("Go back")#Initialise values for example text_rect that could crash when we click the screen in the while
 
 pygame.display.flip() # update display (IMPORTANT)
 while running:
