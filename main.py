@@ -1,4 +1,5 @@
 import pygame
+import pygame_widgets
 import button
 from map_gen import map
 from networking import server, client
@@ -19,17 +20,21 @@ screen = screen_object.getScreen()
 change_screen = Screen("RTS GAME - v1", 800, 800)
 screen2 = change_screen.getScreen()
 
-
+# Ecran 1
 carte = map(screen, os.path.join(os.getcwd(), "Test_carte.png")) #IMPORTANTx. B-Currently the background is placeholder
 carte.display_map()
 
-carte2 = map(screen2, os.path.join(os.getcwd(), "Placeholder.png"))#B- Next time i will make a picture that fits the game
-
-button1 = button.Button(10, 10, (255, 255, 255),(255, 0, 0), screen)
+button1 = button.Button(30, 70, (255, 255, 255),(255, 0, 0), screen)
 button1.initButton("Next")
 button1.drawButton()
 
-button2 = button.Button(60, 10, (0, 0, 0),(235, 125, 56), screen2)
+font = pygame.font.SysFont('Corbel',64)
+text1 = font.render("MENU", True, (0, 0, 0))
+screen.blit(text1, text1.get_rect(topleft=(10, 10)))
+# Ecran 2
+carte2 = map(screen2, os.path.join(os.getcwd(), "Placeholder.png"))#B- Next time i will make a picture that fits the game
+
+button2 = button.Button(10, 10, (0, 0, 0),(235, 125, 56), screen2)
 button2.initButton("Go back")#Initialise values for example text_rect that could crash when we click the screen in the while
 
 pygame.display.flip() # update display (IMPORTANT)
@@ -52,6 +57,7 @@ while running:
                pygame.display.flip()
 
             if(button2.collide(pos) == 1 and fliped == True):
+                #Menu Screen
                 #B-Still able to press button 2 even if fliped
                 print("collided 2")
                 fliped = False
@@ -59,4 +65,5 @@ while running:
                 screen_object.makeCurrent() # change screen + update screen => (maybe remove it dont know ?)
                 carte.display_map()
                 button1.drawButton()
+                screen.blit(text1, text1.get_rect(topleft=(10, 10)))
                 pygame.display.flip()
