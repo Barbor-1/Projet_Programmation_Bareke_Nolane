@@ -17,9 +17,14 @@ class server():
         return (self.client.recv(limit)).decode()
     def accept(self):
         self.client, self.addr = self.socket.accept()
+        self.file = self.client.makefile()
 
     def clientAddr(self):
         return self.addr
+
+    def readline(self):
+        return self.file.readline()
+
 
     def close(self):
         self.client.shutdown(socket.SHUT_RDWR)
@@ -36,10 +41,13 @@ class client():
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.settimeout(timeout)
         self.socket.connect((self.host, self.port))
+        self.file = self.socket.makefile(mode='rw')
+
 
     def send(self, data):
         self.socket.send(data.encode())
-
+    def readline(self):
+        return self.file.readline()
     def close(self, shutdown=True):
         if(shutdown):
             self.socket.shutdown(socket.SHUT_RDWR)

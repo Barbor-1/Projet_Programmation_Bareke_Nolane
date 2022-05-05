@@ -11,17 +11,29 @@ class demon(multiprocessing.Process):
         self.address = address
         if(self.is_client == True):
             self.comm = client(self.address, self.port)
+            self.comm.startClient(5)
         else:
             self.comm = server()
             #self.comm.startClient() # TODO : ERROR MANAGEMENT 
         self.input_queue = input_queue
         self.output_queue = output_queue
+        self.unit_list = []
 
-    def run(self): #main loop to call with multiprocessing
+    def run(self): #main loop to call with multiprocessing : only client do server later
         running = True # TODO : SET daemon=true in order for this process to be killed when the games end
         while(running == True):
             #DEBUG
-            self.output_queue.put(self.input_queue.get())
+
+            #GET UNIT
+            #self.unit_list.append(self.comm.readline()) # read a line (see for multiples lines to read)
+
+            command = self.input_queue.get()
+            if(command == "GET_UNIT"):
+                self.output_queue.put(self.unit_list) # return severals unit
             self.input_queue.task_done()
+            first_arg = command.split(" ")
+            if(first_arg == "SET_UNIT"):
+                pass # todo : send unit => see what to send later
+
 
     

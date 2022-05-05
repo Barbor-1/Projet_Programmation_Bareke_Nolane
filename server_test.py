@@ -1,10 +1,11 @@
 from networking import server
 
-server = server()
+server = server(port=12345)
 server.startServer()
 server.accept()
 while(True):
-    data = server.receive(2000)
+    server.send("HELLO\n")
+    data = server.readline()
     if data != "":
         print(data)
     else:
