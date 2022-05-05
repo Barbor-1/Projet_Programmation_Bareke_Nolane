@@ -21,5 +21,6 @@ class Screen(): #surface ? : https://www.pygame.org/docs/ref/surface.html + surf
     def endCurrent(self): # TODO : IMPORTANT : make this function do something with makeCurrent(self)
         self.current = False
 
+
     def getScreen(self):
         return self.screen

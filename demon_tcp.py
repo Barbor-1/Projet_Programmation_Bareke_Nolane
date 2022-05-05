@@ -11,6 +11,8 @@ class demon(multiprocessing.Process):
         self.address = address
         if(self.is_client == True):
             self.comm = client(self.address, self.port)
+        else:
+            self.comm = server()
             #self.comm.startClient() # TODO : ERROR MANAGEMENT 
         self.input_queue = input_queue
         self.output_queue = output_queue
@@ -23,4 +25,3 @@ class demon(multiprocessing.Process):
             self.input_queue.task_done()
 
     
-        

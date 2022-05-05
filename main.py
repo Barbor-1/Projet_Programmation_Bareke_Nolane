@@ -4,6 +4,7 @@ from map_gen import map
 from networking import server, client
 import os
 from screen import Screen
+import pygame_widgets # for textbox
 running = True
 
 pygame.init()
