@@ -25,15 +25,14 @@ class demon(multiprocessing.Process):
             #DEBUG
 
             #GET UNIT
-            #self.unit_list.append(self.comm.readline()) # read a line (see for multiples lines to read)
+            self.unit_list.append(self.comm.readline()) # read a line (see for multiples lines to read)
 
             command = self.input_queue.get()
             if(command == "GET_UNIT"):
                 self.output_queue.put(self.unit_list) # return severals unit
             self.input_queue.task_done()
-            first_arg = command.split(" ")
-            if(first_arg == "SET_UNIT"):
-                pass # todo : send unit => see what to send later
-
+            #first_arg = command.split(" ")
+            #if(first_arg == "SET_UNIT"):
+            #     pass # todo : send unit => see what to send later
 
     
