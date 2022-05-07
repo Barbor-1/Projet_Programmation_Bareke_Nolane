@@ -1,5 +1,7 @@
+import multiprocessing
 from demon_tcp import demon
-from multiprocessing import Process, JoinableQueue
+from multiprocessing import process, JoinableQueue
+from multiprocessing import Manager
 
 input_queue = JoinableQueue() # Queue with task_done and join()
 output_queue = JoinableQueue()
