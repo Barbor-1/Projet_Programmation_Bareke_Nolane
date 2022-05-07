@@ -17,24 +17,36 @@ class demon(multiprocessing.Process):
         self.unit_list = []
 
     def run(self): #main loop to call with multiprocessing : only client do server later
-        running = True # TODO : SET daemon=true in order for this process to be killed when the games end
-        self.comm.startClient(5) # to avoid pickle erorr
+        running = True 
+        self.comm.startClient(5) #IMPORTANT : to avoid pickle error
         while(running == True):
             #DEBUG
 
-            #GET UNIT
-            try:
-                self.unit_list.append(self.comm.readline()) # read a line (see for multiples lines to read)
-            except Exception as e:
-                pass
+            #GET UNIT FROM SERVER => TO PROCESS
+            #TODO : COMMAND PROCESS
+            self.unit_list.append(
+                self.comm.readline().strip('\n')
+                ) # read a line (see for multiples lines to read)
 
             command = self.input_queue.get()
             if(command == "GET_UNIT"):
                 self.output_queue.put(self.unit_list) # return severals unit
             self.input_queue.task_done()
             
-            #first_arg = command.split(" ")
-            #if(first_arg == "SET_UNIT"):
-            #     pass # todo : send unit => see what to send later
+            first_arg = command.split(" ")
+            if(first_arg == "SET_UNIT"):
+                pass # todo : send unit => see what to send later
+
+            #UPDATE UNIT
+            if(first_arg == "UPDATE_UNIT"):
+                pass
+
+            #REMOVE UNIT
+            if(first_arg == "REMOVE_UNIT"):
+                pass
+
+
+
+
 
     

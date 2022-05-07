@@ -11,6 +11,7 @@ class Unit():
         self.health = 10
         self.atk = 5  # Valeur de puissance d'attaque
         self.armor = 2  # Valeur de défense, pas sur qu'on va la garder
+        self.id = 0   #TODO : PUT UNIQUE ID
 
     def getPosX(self):
         return self.pos_x

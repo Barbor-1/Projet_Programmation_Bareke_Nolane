@@ -47,10 +47,7 @@ class client():
         self.file = self.socket.makefile(mode='rw')
 
     def send(self, data):
-        try:
-            self.socket.send(data.encode())
-        except Exception as e:
-            print(e) #TODO TO REMOVE LATER
+        self.socket.send(data.encode())
 
     def readline(self):
         return self.file.readline()
