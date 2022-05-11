@@ -31,3 +31,6 @@ class Unit():
     def attack(self, target):
         if target.getAllegiance() != self.allegiance:
             target.hurt(self.atk)  # Prendre en compte pour avoir un eventuel système de power-up en attaque
+
+    def __str__(self):
+        pass

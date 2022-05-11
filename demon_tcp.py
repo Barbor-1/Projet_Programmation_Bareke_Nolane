@@ -28,6 +28,22 @@ class demon(multiprocessing.Process):
                 self.comm.readline().strip('\n')
                 ) # read a line (see for multiples lines to read)
 
+            temp = self.comm.readline() #TODO READLINES
+            command_receive = temp.split(" ")[0]
+
+            # PAS DE GET UNIT ENTRE SERVEUR ET CLIENT :
+
+            if(command_receive == "SET_UNIT"):
+                pass
+            elif(command_receive == "UPDATE_UNIT"):
+                pass
+            elif(command_receive == "REMOVE_UNIT"):
+                pass
+
+
+
+
+
             command = self.input_queue.get()
             if(command == "GET_UNIT"):
                 self.output_queue.put(self.unit_list) # return severals unit
