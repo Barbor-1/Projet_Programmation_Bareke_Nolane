@@ -2,6 +2,7 @@ import os
 import pygame
 import time
 
+import game
 import button
 from map_gen import map
 from screen import Screen
@@ -80,11 +81,12 @@ while running:
                 screen.blit(text1, text1.get_rect(topleft=(10, 10)))
                 pygame.display.flip()
 
-        if (fliped == False):
-            tick = clock.tick(3600)
+        if (fliped == False): # TODO REPLACE BY GAME MOVEMENT + limits checks + collisions ?
+            #PUT THIS INSIDE ANOTHER FUNCTION ?
+            tick = clock.tick(3600) # UPDATE FPS ?
             carte2.display_map()
             button2.drawButton()
-            unit_1.move(1)
+            unit_1.move(1) #TODO : see on windows for smooth movement
             print(unit_1.getPosX(), unit_1.getPosY())
             unit_1.show()
             pygame.display.flip()
