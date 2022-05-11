@@ -16,4 +16,9 @@ def placeUnit(target, y, player, grid):
 def moveUnit(target, grid):
     newPosX = target.getPosX() + target.getAllegiance
     if newPosX >= grid.getGridSize() | newPosX <= 0:
-        target.move()
+        #verifier si la case est vide, puis faire move
+        nextTarget = grid.getUnitAtGrid(target.getPosX()+1, target.getPosY())
+        if nextTarget == 0:
+            target.move()
+        else:
+            target.attack(nextTarget)  #attack() vérifie déjà l'allegiance des 2 unités

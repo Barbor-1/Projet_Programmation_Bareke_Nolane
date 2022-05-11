@@ -6,7 +6,7 @@ class Grid():
         self.size = size
         self.unit_size = unit_size
         self.grid_size = int(self.size / self.unit_size)
-        self.grid = [[Unit() for i in range(0, self.grid_size)] for j in range(0, self.grid_size)]
+        self.grid = [[0 for i in range(0, self.grid_size)] for j in range(0, self.grid_size)]
 
     def getUnitAtGrid(self, x, y):  # y before x
         return self.grid[y][x]
