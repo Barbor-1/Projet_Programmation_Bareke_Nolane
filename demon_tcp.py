@@ -33,7 +33,7 @@ class demon(multiprocessing.Process):
 
             # PAS DE GET UNIT ENTRE SERVEUR ET CLIENT :
 
-            if(command_receive == "SET_UNIT"):
+            if(command_receive == "SET_UNIT"): #TODO : complete with str(Unit) + UNIT PARSING SYSTEM
                 pass
             elif(command_receive == "UPDATE_UNIT"):
                 pass

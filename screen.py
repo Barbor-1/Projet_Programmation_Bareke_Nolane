@@ -16,7 +16,7 @@ class Screen(): #surface ? : https://www.pygame.org/docs/ref/surface.html + surf
         pygame.display.set_caption(self.title)
         self.screen = pygame.display.set_mode((self.width, self.height)) # ? to delete (see later)
         self.screen.fill(self.fill)
-        pygame.display.flip()
+        #pygame.display.flip()
 
     def endCurrent(self): # TODO : IMPORTANT : make this function do something with makeCurrent(self)
         self.current = False
