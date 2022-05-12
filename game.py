@@ -5,8 +5,7 @@ from player import Player
 
 # Est-ce que le jeu est une classe ou une serie de fonction
 # On va partir sur une liste de fonction
-
-
+id = 0
 def placeUnit(target, y, player, grid):
     #Place une unité dans la grille, dans le cas où on en creer une nouvelle
     if player.allegiance == 1:
@@ -24,11 +23,13 @@ def moveUnit(target, grid):
         nextTarget = grid.getUnitAtGrid(target.getPosX()+1, target.getPosY())
         if nextTarget == 0:
             grid.setUnitAtGrid(target.getPosX()+1, target.getPosY(), target)
-            target.move(1)
+            #target.move(1)
             grid.deleteUnitAtGrid(target.getPosX()-1, target.getPosY())
 
         else:
-            target.attack(nextTarget)  #attack() vérifie déjà l'allegiance des 2 unités
+            if( target.attack(nextTarget)  == -1):
+            #attack() vérifie déjà l'allegiance des 2 unités
+                grid.deleteUnitAtGrid(nextTarget.getPosX(), nextTarget.getPosY())
 
 
 # TODO : Plus de fonction, afficher les unité? avoir la grille sur l'écran. deplacé les unités sur la grille et qu'ils s'affichent
@@ -40,7 +41,10 @@ def showUnits(grid):
             if(target != 0):
                 target.show()
 
-def spawnUnit(screen, grid, joueur=1): # Pourquoi c'est pas en orange?
-    target = Unit(screen) #TODO : inclure allegiance de joueur
+def spawnUnit(screen, grid, joueur): # Pourquoi c'est pas en orange?
+    global id
+    target = Unit(screen, joueur.getAllegiance(), id)
+    id = id + 1
     #Inclure un placeUnit ducoup
     return target # De cette manière l'instance serait créer dans game mais utilisable dans main? Peut bugger
+

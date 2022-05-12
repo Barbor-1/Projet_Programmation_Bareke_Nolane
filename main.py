@@ -17,6 +17,7 @@ running = True
 
 pygame.init()
 fliped = True
+id = 0
 screen = pygame.display.set_mode((800, 800)) # useless, only for testing purposes
 #pygame.display.set_caption("RTS GAME - v1")
 
@@ -54,10 +55,10 @@ pygame.display.flip()  # update display (IMPORTANT)
 player_one = Player(1)
 player_two = Player(-1)
 grid = Grid(unit_size=32, size=640)
-unit1 = game.spawnUnit(change_screen.getScreen(), grid, player_one.allegiance)
+unit1 = game.spawnUnit(change_screen.getScreen(), grid, player_one)
 game.placeUnit(unit1, 0, player_one, grid)
 
-unit2 = game.spawnUnit(change_screen.getScreen(), grid, player_two.allegiance)
+unit2 = game.spawnUnit(change_screen.getScreen(), grid, player_two)
 game.placeUnit(unit2, 0, player_two, grid)
 clock = pygame.time.Clock()
 
@@ -109,10 +110,16 @@ while running:
 
         if (fliped == False): # TODO REPLACE BY GAME MOVEMENT + limits checks + collisions ?
             #PUT THIS INSIDE ANOTHER FUNCTION ?
-            tick = clock.tick(3600) # UPDATE FPS ?
+            tick = clock.tick(60) # UPDATE FPS ?
             button2.drawButton() #IMPORTANT
+
+            layer = tiled_map.layers[0]
+            for x, y, image in layer.tiles():
+                screen.blit(image, (x*32, y*32+60))
+
             game.moveUnit(unit1, grid)
             game.showUnits(grid)
+
             change_screen.update()
             pygame.display.flip()
             print(unit2.health)
