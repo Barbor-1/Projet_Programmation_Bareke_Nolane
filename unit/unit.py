@@ -1,7 +1,6 @@
 import os
-
 import pygame
-
+from player import Player
 
 
 class Unit():
@@ -17,6 +16,7 @@ class Unit():
         self.image = pygame.image.load(os.path.join(os.getcwd(), "New Piskel-1.png.png")) #TODO : CHANGE
         self.screen = screen
         self.limits = pygame.display.get_surface().get_size()[0]
+#TODO : rajouter allegiance au  valeur de départ
 
     def getPosX(self):
         return self.pos_x
@@ -34,9 +34,6 @@ class Unit():
         else:
             self.pos_x += 1 * self.allegiance*speed # TO DO : vérifier si on est pas en dehors de la grid
 
-
-
-
     def hurt(self, atk):
         self.health = atk - self.armor
 
@@ -44,9 +41,12 @@ class Unit():
         if target.getAllegiance() != self.allegiance:
             target.hurt(self.atk)  # Prendre en compte pour avoir un eventuel système de power-up en attaque
 
+    def hurtPlayer(self, joueur):
+        joueur.hurt(self.atk)
+
     def __str__(self):
         pass
 
     def show(self):
-        self.screen.blit(self.image, (self.pos_x, self.pos_y))
+        self.screen.blit(self.image, (self.pos_x*32, self.pos_y*32)) #TODO : put image size in variable
 
