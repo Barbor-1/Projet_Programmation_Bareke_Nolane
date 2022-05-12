@@ -1,5 +1,5 @@
 import pygame
-from unit import unit
+from unit.unit import Unit
 from grid import Grid
 from player import Player
 
@@ -9,9 +9,9 @@ from player import Player
 
 def placeUnit(target, y, player, grid):
     #Place une unité dans la grille, dans le cas où on en creer une nouvelle
-    if player == 1:
+    if player.allegiance == 1:
         grid.setUnitAtGrid(1, y, target)
-    if player == -1:
+    if player.allegiance == -1:
         grid.setUnitAtGrid(grid.getGridSize() - 1, y, target)
 
 
@@ -29,12 +29,13 @@ def moveUnit(target, grid):
 # TODO : Plus de fonction, afficher les unité? avoir la grille sur l'écran. deplacé les unités sur la grille et qu'ils s'affichent
 def showUnits(grid):
     size = grid.getGridSize()
-    for i in size:
-        for j in size:
+    for i in range(0, size):
+        for j in range(0, size):
             target = grid.getUnitAtGrid(i, j)
-            target.show()
+            if(target != 0):
+                target.show()
 
-def spawnUnit(screen, grid, joueur): # Pourquoi c'est pas en orange?
+def spawnUnit(screen, grid, joueur=1): # Pourquoi c'est pas en orange?
     target = Unit(screen) #TODO : inclure allegiance de joueur
     #Inclure un placeUnit ducoup
     return target # De cette manière l'instance serait créer dans game mais utilisable dans main? Peut bugger

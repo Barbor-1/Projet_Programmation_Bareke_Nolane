@@ -1,6 +1,6 @@
 import pygame
 
-class map:
+class Map:
     def __init__(self, screen, image_path):
         self.screen = screen
         self.path = image_path

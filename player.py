@@ -2,7 +2,7 @@
 class Player():
     def __init__(self, allegiance):
         self.health = 20
-        self.allegiance = 1
+        self.allegiance = allegiance
         self.money = 40
 
     def getHealth(self):

@@ -4,9 +4,12 @@ import time
 
 import game
 import button
-from map_gen import map
+from map_gen import Map
 from screen import Screen
 from unit.unit import Unit
+from grid import Grid
+from  player import Player
+import  game
 
 from pytmx.util_pygame import load_pygame # 2.7 mode !
 import pytmx
@@ -27,7 +30,7 @@ change_screen = Screen("RTS GAME - v1", screen, 640, 700)
 screen2 = change_screen.getScreen()
 
 # Ecran 1
-carte_menu = map(screen,
+carte_menu = Map(screen,
 os.path.join(os.getcwd(), "Test_carte.png"))  # IMPORTANTx. B-Currently the background is placeholder
 #TO CHANGE CARTE MENU
 carte_menu.display_map()
@@ -47,7 +50,11 @@ button2.initButton(
 
 screen_object.update()
 pygame.display.flip()  # update display (IMPORTANT)
-unit_1 = Unit(screen2)
+
+player_one = Player(1)
+grid = Grid(unit_size=32, size=640)
+unit1 = game.spawnUnit(change_screen.getScreen(), grid, player_one.allegiance)
+game.placeUnit(unit1, 0, player_one, grid)
 
 
 clock = pygame.time.Clock()
@@ -87,24 +94,21 @@ while running:
                 screen = change_screen.getScreen()
                # carte_menu.display_map()
                 button1.drawButton()
-                screen.blit(text1, text1.get_rect(topleft=(10, 10)))
+                #screen.blit(text1, text1.get_rect(topleft=(10, 10)))
                 layer = tiled_map.layers[0]
                 for x, y, image in layer.tiles():
                     screen.blit(image, (x*32, y*32+60))
                 change_screen.update()
                 pygame.display.flip()
 
-                unit_1.screen = screen
 
 
 
         if (fliped == False): # TODO REPLACE BY GAME MOVEMENT + limits checks + collisions ?
+            print('a')
             #PUT THIS INSIDE ANOTHER FUNCTION ?
             tick = clock.tick(3600) # UPDATE FPS ?
             button2.drawButton() #IMPORTANT
-            unit_1.move(1) #TODO : see on windows for smooth movement
-            unit_1.pos_y = 60
-            print(unit_1.getPosX(), unit_1.getPosY())
-            unit_1.show()
+            game.showUnits(grid)
             change_screen.update()
             pygame.display.flip()
