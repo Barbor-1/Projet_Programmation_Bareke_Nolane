@@ -3,7 +3,6 @@ import os
 import pygame
 
 
-
 class Unit():
     def __init__(self, screen):
         self.pos_x = 0
@@ -34,9 +33,6 @@ class Unit():
         else:
             self.pos_x += 1 * self.allegiance*speed # TO DO : vérifier si on est pas en dehors de la grid
 
-
-
-
     def hurt(self, atk):
         self.health = atk - self.armor
 
@@ -44,7 +40,7 @@ class Unit():
         if target.getAllegiance() != self.allegiance:
             target.hurt(self.atk)  # Prendre en compte pour avoir un eventuel système de power-up en attaque
 
-    def __str__(self):
+    def __str__(self): # TODO
         pass
 
     def show(self):

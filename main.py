@@ -8,6 +8,8 @@ from map_gen import map
 from screen import Screen
 from unit.unit import Unit
 
+from pytmx.util_pygame import load_pygame # 2.7 mode !
+import pytmx
 running = True
 
 pygame.init()
@@ -19,12 +21,15 @@ screen_object = Screen("RTS GAME - v1-MENU", 800, 800)
 screen_object.makeCurrent()
 screen = screen_object.getScreen()
 
+tiled_map = load_pygame("/home/local/AD/nd393594/Bureau/sans_titre.tmx") # IMPORTANT : video mode must be set + same size plz
+
 change_screen = Screen("RTS GAME - v1", 800, 800)
 screen2 = change_screen.getScreen()
 
 # Ecran 1
 carte_menu = map(screen,
-            os.path.join(os.getcwd(), "Test_carte.png"))  # IMPORTANTx. B-Currently the background is placeholder
+os.path.join(os.getcwd(), "Test_carte.png"))  # IMPORTANTx. B-Currently the background is placeholder
+#TO CHANGE CARTE MENU
 carte_menu.display_map()
 
 button1 = button.Button(30, 70, (255, 255, 255), (255, 0, 0), screen2)
@@ -76,15 +81,19 @@ while running:
                 change_screen.makeCurrent()  # do nothing, see later
                 screen_object.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
                 screen = change_screen.getScreen()
-                carte_menu.display_map()
+               # carte_menu.display_map()
                 button1.drawButton()
                 screen.blit(text1, text1.get_rect(topleft=(10, 10)))
+                layer = tiled_map.layers[0]
+                for x, y, image in layer.tiles():
+                    screen.blit(image, (x*32, y*32))
                 pygame.display.flip()
+
+
 
         if (fliped == False): # TODO REPLACE BY GAME MOVEMENT + limits checks + collisions ?
             #PUT THIS INSIDE ANOTHER FUNCTION ?
             tick = clock.tick(3600) # UPDATE FPS ?
-            carte2.display_map()
             button2.drawButton()
             unit_1.move(1) #TODO : see on windows for smooth movement
             print(unit_1.getPosX(), unit_1.getPosY())
