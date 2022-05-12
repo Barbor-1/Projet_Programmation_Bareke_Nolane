@@ -10,21 +10,26 @@ from player import Player
 def placeUnit(target, y, player, grid):
     #Place une unité dans la grille, dans le cas où on en creer une nouvelle
     if player.allegiance == 1:
-        grid.setUnitAtGrid(1, y, target)
+        grid.setUnitAtGrid(0, y, target)
     if player.allegiance == -1:
         grid.setUnitAtGrid(grid.getGridSize() - 1, y, target)
 
 
 def moveUnit(target, grid):
     #Ordonne l'unité d'avancer d'une case dans la grille si elle en est capable
-    newPosX = target.getPosX() + target.getAllegiance
-    if newPosX >= grid.getGridSize()-1 | newPosX <= 0:
+    newPosX = target.getPosX() + target.getAllegiance()
+    if newPosX <= grid.getGridSize()-1 and newPosX >=  0:
         #TODO : Verifier aussi si on est dans la base ennemie
+        #TODO : dans grid, créer une fonction move
         nextTarget = grid.getUnitAtGrid(target.getPosX()+1, target.getPosY())
         if nextTarget == 0:
-            target.move()
+            grid.setUnitAtGrid(target.getPosX()+1, target.getPosY(), target)
+            target.move(1)
+            grid.deleteUnitAtGrid(target.getPosX()-1, target.getPosY())
+
         else:
             target.attack(nextTarget)  #attack() vérifie déjà l'allegiance des 2 unités
+
 
 # TODO : Plus de fonction, afficher les unité? avoir la grille sur l'écran. deplacé les unités sur la grille et qu'ils s'affichent
 def showUnits(grid):

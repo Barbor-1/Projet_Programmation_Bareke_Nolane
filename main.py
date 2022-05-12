@@ -52,12 +52,15 @@ screen_object.update()
 pygame.display.flip()  # update display (IMPORTANT)
 
 player_one = Player(1)
+player_two = Player(-1)
 grid = Grid(unit_size=32, size=640)
 unit1 = game.spawnUnit(change_screen.getScreen(), grid, player_one.allegiance)
 game.placeUnit(unit1, 0, player_one, grid)
 
-
+unit2 = game.spawnUnit(change_screen.getScreen(), grid, player_two.allegiance)
+game.placeUnit(unit2, 0, player_two, grid)
 clock = pygame.time.Clock()
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -105,10 +108,11 @@ while running:
 
 
         if (fliped == False): # TODO REPLACE BY GAME MOVEMENT + limits checks + collisions ?
-            print('a')
             #PUT THIS INSIDE ANOTHER FUNCTION ?
             tick = clock.tick(3600) # UPDATE FPS ?
             button2.drawButton() #IMPORTANT
+            game.moveUnit(unit1, grid)
             game.showUnits(grid)
             change_screen.update()
             pygame.display.flip()
+            print(unit2.health)

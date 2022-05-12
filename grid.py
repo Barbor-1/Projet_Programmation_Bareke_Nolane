@@ -13,7 +13,11 @@ class Grid():
 
     def setUnitAtGrid(self, x, y, target):
         self.grid[y][x] = target
+        target.pos_x = x
+        target.pos_y = y
 
     def getGridSize(self):
         return self.grid_size
-
+    def deleteUnitAtGrid(self, x, y):
+        self.grid[y][x] = 0
+        return self.grid

@@ -48,5 +48,5 @@ class Unit():
         pass
 
     def show(self):
-        self.screen.blit(self.image, (self.pos_x*32, self.pos_y*32)) #TODO : put image size in variable
+        self.screen.blit(self.image, (self.pos_x*32, self.pos_y*32+60)) #TODO : put image size in variable + position
 
