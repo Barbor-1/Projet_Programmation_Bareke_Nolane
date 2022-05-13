@@ -44,3 +44,12 @@ def spawnUnit(screen, grid, joueur):
     #Inclure un placeUnit ducoup?
     return target  # De cette manière l'instance serait créer dans game mais utilisable dans main
 
+
+def takeUnitFromAline(grid, y):
+    ret = []
+    for x in range(0, grid.getGridSize()):
+        target = grid.getUnitAtGrid(x, y)
+        if(target != 0):
+            ret.append(target)
+    return  ret
+

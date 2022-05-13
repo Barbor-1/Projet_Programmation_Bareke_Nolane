@@ -144,9 +144,13 @@ while running:
                 game.showUnits(grid)
                 change_screen.update()
                 pygame.display.flip()
-                print(unit2.health, "x =", unit1.getPosX())
-                for unit in unit_list:
-                    game.moveUnit(unit, grid)
+                for y in range(0, 20):
+                    #prendre toute les unités d'une ligne
+
+                        list = game.takeUnitFromAline(grid, y)
+
+                        for i in list:
+                            game.moveUnit(i, grid)
                 start_ticks = 0
 
 
