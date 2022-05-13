@@ -8,7 +8,7 @@ class Unit():
         self.pos_x = 0
         self.pos_y = 0
         self.allegiance = allegiance  # A qui appartient l'unité. +1 pour un joueur -1 pour l'autre => ça peut passer
-        self.type = ""
+        self.type = "a" # default type just for networking
         self.health = 10
         self.atk = 5  # Valeur de puissance d'attaque
         self.armor = 2  # Valeur de défense, pas sur qu'on va la garder
@@ -52,8 +52,23 @@ class Unit():
     def hurtPlayer(self, joueur):
         joueur.hurt(self.atk)
 
-    def __str__(self):
-        pass
+    def __str__(self): # use __getstate__
+        return str(self.pos_x) + " " +  str(self.pos_y) + " " + str(self.allegiance) + " " +  self.type + " "  + str(self.health)+ " " + str(self.atk)  + " " + str(self.armor) + " " + str(self.id)
 
     def show(self, offset):
         self.screen.blit(self.image, (self.pos_x * self.image.get_height(), self.pos_y * self.image.get_width() + offset))
+
+    def __getstate__(self): # add screen later and update limits # dont use it maybe ? 
+        return (self.pos_x, self.pos_y, self.allegiance,  self.type, self.health, self.atk,self.armor,self.id)
+    def __setstate__(self, i):
+        self.pos_x = i[0]
+        self.pos_y = i[1]
+        self.allegiance =  i[2] 
+        self.type = i[3]
+        self.health = i[4] 
+        self.atk = i[5]
+        self.armor = i[6]
+        self.id = i[7]
+
+
+

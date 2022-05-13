@@ -12,21 +12,34 @@ class server():
         self.socket.bind((self.host, int(self.port)))
         self.socket.listen(1)
 
-    def send(self, data):
-        self.client.send(data.encode())
 
-    def receive(self, limit):
-        return (self.client.recv(limit)).decode()
+    def send(self, data, is_byte=False):
+        if (is_byte == True):
+            self.client.send(data)
+        else:
+            self.client.send(data.encode())
+
+    def receive(self, limit, is_byte=False): # byte = True : no encoding
+        if(is_byte == True):
+            return (self.client.recv(limit))
+        else:
+            return (self.client.recv(limit)).decode()
 
     def accept(self):
         self.client, self.addr = self.socket.accept()
-        self.file = self.client.makefile()
+        self.client.settimeout(5)
+        #self.file = self.client.makefile()
 
     def clientAddr(self):
         return self.addr
 
     def readline(self):
-        return self.file.readline()
+        str = ""
+        chr = self.receive(1)
+        while(chr != '\n' or chr == ''):
+            str = str + chr
+            chr = self.receive(1)
+        return str
 
     def close(self):
         self.client.close()
@@ -42,21 +55,35 @@ class client():
         #print(port)
     def startClient(self, timeout=30):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        #self.socket.settimeout(timeout)
+        self.socket.settimeout(1) #TODO : CHANGE
         self.socket.connect((self.host, int(self.port)))
-        self.file = self.socket.makefile(mode='rw')
+        #self.socket.setblocking(False)
+        #self.file = self.socket.makefile(mode='rw')
 
-    def send(self, data):
-        self.socket.send(data.encode())
+    def send(self, data, is_byte=False):
+        if (is_byte == True):
+            self.socket.send(data)
+        else:
+            self.socket.send(data.encode())
 
     def readline(self):
-        return self.file.readline()
+        str = ""
+        chr = self.receive(1)
+        while(chr != '\n' or chr == ''):
+            str = str + chr
+            chr = self.receive(1)
+        return str
+        
 
     def close(self, shutdown=True):
         if (shutdown):
             self.socket.shutdown(socket.SHUT_RDWR)
         self.socket.close()
 
-    def receive(self, limit):
-        return (self.socket.recv(limit)).decode()
+    def receive(self, limit, is_byte=False): # byte = True : no encoding
+        if(is_byte == True):
+            return (self.socket.recv(limit))
+        else:
+            return (self.socket.recv(limit)).decode()
+
 # TODO : SCAN ?

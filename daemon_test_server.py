@@ -1,21 +1,23 @@
+from copyreg import pickle
+from http import server
 import multiprocessing
+
+import py
+import pygame
 from demon_tcp import demon
 from multiprocessing import process, JoinableQueue
 from multiprocessing import Manager
-import pickle, pygame
 from unit.unit import Unit
 input_queue = JoinableQueue() # Queue with task_done and join()
 output_queue = JoinableQueue()
-test = demon(input_queue, output_queue, port="12345")
+test = demon(input_queue, output_queue, port="12345", is_client=False)
 test.daemon = True
 pygame.init()
-screen = pygame.display.set_mode((800, 800))
+screen = pygame.screen.set_mode((800, 800))
 unit1 = Unit(screen,0, 1)
 if __name__ == "__main__":
     test.start() # start demon
-    data = ("SET_UNIT ") + str(unit1) + "\n"
-    print("command send")
-    input_queue.put(data)
+    input_queue.put("SEND_UNIT " + pickle.loads(unit1))
     input_queue.join()
     print(output_queue.get())
 

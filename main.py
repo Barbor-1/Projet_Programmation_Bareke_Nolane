@@ -60,7 +60,7 @@ game.placeUnit(unit1, 0, player_one, grid)
 unit2 = game.spawnUnit(change_screen.getScreen(), grid, player_two)
 game.placeUnit(unit2, 0, player_two, grid)
 
-toolbar_soldier = Toolbar(change_screen.getScreen(), 100, 0, os.path.join(os.getcwd(), "Soldat.png"))
+toolbar_soldier = Toolbar(change_screen.getScreen(), 100, 0, os.path.join(os.getcwd(), "Soldat.png")) #relative positions !
 clicked_once = False
 unit_list = [unit1, unit2]
 
@@ -133,7 +133,7 @@ while running:
 
         if(fliped == False):
             start_ticks = start_ticks + clock.tick()
-            if (start_ticks > 1000): # TODO REPLACE BY GAME MOVEMENT + limits checks + collisions ?
+            if (start_ticks > 750): # TODO REPLACE BY GAME MOVEMENT + limits checks + collisions ?
                 print("event")
                 #PUT THIS INSIDE ANOTHER FUNCTION ?
                 #tick = clock.tick(1) # UPDATE FPS ?
