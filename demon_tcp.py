@@ -58,7 +58,7 @@ class demon(multiprocessing.Process):
                         except:
                             pass
             sys.stdout.flush()
-
+            
             print("receiving commands")
             sys.stdout.flush()
             command_receive = temp.split(" ")[0]

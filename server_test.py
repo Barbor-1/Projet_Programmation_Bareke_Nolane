@@ -19,7 +19,7 @@ while(True):
             server.accept()
    # unit1 = pickle.loads(unit1)
     print("got unit1")
-    server.close()
-    break
+    #server.close()
+    #break
 
 
