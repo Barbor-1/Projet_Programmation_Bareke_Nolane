@@ -36,9 +36,12 @@ class server():
     def readline(self):
         str = ""
         chr = self.receive(1)
-        while(chr != '\n' or chr == ''):
+        while(chr != '\n'):
             str = str + chr
             chr = self.receive(1)
+            if(chr == ''):
+                print("empty")
+                break
         return str
 
     def close(self):
@@ -55,8 +58,8 @@ class client():
         #print(port)
     def startClient(self, timeout=30):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.settimeout(1) #TODO : CHANGE
         self.socket.connect((self.host, int(self.port)))
+        self.socket.settimeout(5) #TODO : CHANGE
         #self.socket.setblocking(False)
         #self.file = self.socket.makefile(mode='rw')
 
@@ -69,9 +72,12 @@ class client():
     def readline(self):
         str = ""
         chr = self.receive(1)
-        while(chr != '\n' or chr == ''):
+        while(chr != '\n'):
             str = str + chr
             chr = self.receive(1)
+            if(chr == ''):
+                print("empty")
+                break
         return str
         
 
