@@ -17,10 +17,10 @@ def moveUnit(target, grid):
     #Ordonne l'unité d'avancer d'une case dans la grille si elle en est capable
     newPosX = target.getPosX() + target.getAllegiance()
     if newPosX <= grid.getGridSize()-1 and newPosX >=  0:
-        #TODO : Verifier aussi si on est dans la base ennemie
-        nextTarget = grid.getUnitAtGrid(target.getPosX()+1, target.getPosY())
+        #TODO : Verifier aussi si on est dans la base enntarget.getAllegiance()emie
+        nextTarget = grid.getUnitAtGrid(target.getPosX()+target.getAllegiance(), target.getPosY())
         if nextTarget == 0:
-            grid.moveUnitAtGrid(target.getPosX() +1, target.getPosY(), target)
+            grid.moveUnitAtGrid(target.getPosX() +target.getAllegiance(), target.getPosY(), target)
 
         else:
             if( target.attack(nextTarget)  == -1):

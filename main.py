@@ -62,7 +62,7 @@ game.placeUnit(unit2, 0, player_two, grid)
 
 toolbar_soldier = Toolbar(change_screen.getScreen(), 100, 0, os.path.join(os.getcwd(), "Soldat.png"))
 clicked_once = False
-unit_list = []
+unit_list = [unit1, unit2]
 
 clock = pygame.time.Clock()
 #clock = time.time()
@@ -145,7 +145,8 @@ while running:
                 change_screen.update()
                 pygame.display.flip()
                 print(unit2.health, "x =", unit1.getPosX())
-                game.moveUnit(unit1, grid)
+                for unit in unit_list:
+                    game.moveUnit(unit, grid)
                 start_ticks = 0
 
 
