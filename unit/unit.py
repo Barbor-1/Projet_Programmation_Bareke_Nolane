@@ -20,7 +20,6 @@ class Unit():
             self.image = pygame.image.load(os.path.join(os.getcwd(), "SoldierB.png"))
         self.screen = screen
         self.limits = pygame.display.get_surface().get_size()[0]
-#TODO : rajouter allegiance au  valeur de départ
 
     def getPosX(self):
         return self.pos_x
@@ -57,5 +56,5 @@ class Unit():
     def __str__(self):
         pass
 
-    def show(self):
-        self.screen.blit(self.image, (self.pos_x*32, self.pos_y*32+60)) #TODO : put image size in variable + position
+    def show(self, offset):
+        self.screen.blit(self.image, (self.pos_x * self.image.get_height(), self.pos_y * self.image.get_width() + offset))
