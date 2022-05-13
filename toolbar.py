@@ -15,12 +15,12 @@ class Toolbar():
         self.rect.move(self.x, self.y)
 
 
-
     def draw(self):
         self.rect = self.image.get_rect() # update rect
-        self.rect.move(self.x, self.y)
+        self.rect.x= self.x
+        self.rect.y = self.y
         self.screen.blit(self.image, (self.x, self.y))
-        pygame.draw.rect(self.screen, (255, 0, 0), self.rect)
+        #pygame.draw.rect(self.screen, (255, 0, 0), self.rect)
 
 
     def collide(self, pos):

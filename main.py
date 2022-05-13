@@ -61,8 +61,8 @@ unit2 = game.spawnUnit(change_screen.getScreen(), grid, player_two)
 game.placeUnit(unit2, 0, player_two, grid)
 
 toolbar_soldier = Toolbar(change_screen.getScreen(), 100, 0, os.path.join(os.getcwd(), "Soldat.png"))
-
-
+clicked_once = False
+unit_list = []
 
 clock = pygame.time.Clock()
 #clock = time.time()
@@ -113,14 +113,23 @@ while running:
                 pygame.display.flip()
                 start_ticks=0
 
-
+            if(clicked_once == True):
+                print("put soldier at pos", int((pos[1]-60)/32))
+                temp = game.spawnUnit(change_screen.getScreen(), grid, joueur=player_one) #TODO changer joueur en fonction de la zone + changer le x
+                game.placeUnit(temp, int(((pos[1]-60)/32)), player_one, grid)
+                unit_list.append(temp)
+                clicked_once = False
             if(toolbar_soldier.collide(pos)):
                 print("collide solider")
+                if(clicked_once == False):
+                    last_pos = pos
+                    clicked_once = True
+                    print("clicked once")
+
+
                 #move image
-                toolbar_soldier2 = toolbar_soldier
-                toolbar_soldier2.x = pos[0]
-                toolbar_soldier2.y = pos[1]
-                toolbar_soldier2.draw()
+
+
 
         if(fliped == False):
             start_ticks = start_ticks + clock.tick()
