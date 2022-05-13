@@ -4,7 +4,7 @@ import time
 
 import game
 import button
-from map_gen import Map
+from map_gen import Map, Background
 from screen import Screen
 from unit.unit import Unit
 from grid import Grid
@@ -18,17 +18,16 @@ running = True
 pygame.init()
 fliped = True
 id = 0
-screen = pygame.display.set_mode((800, 800)) # useless, only for testing purposes
+screen = pygame.display.set_mode((800, 800), vsync=True ) # useless, only for testing purposes
 #pygame.display.set_caption("RTS GAME - v1")
 
-screen_object = Screen("RTS GAME - v1-MENU", screen, 800, 800)
+screen_object = Screen("RTS GAME - v1-MENU", screen, 800, 800) #TODO : change screens names
 screen_object.makeCurrent()
 screen = screen_object.getScreen()
 
-tiled_map = load_pygame("/home/local/AD/nd393594/Bureau/sans_titre.tmx") # IMPORTANT : video mode must be set + same size plz
-
 change_screen = Screen("RTS GAME - v1", screen, 640, 700)
 screen2 = change_screen.getScreen()
+background = Background(change_screen.getScreen(), "sans_titre.tmx") #TODO : change path
 
 # Ecran 1
 carte_menu = Map(screen,
@@ -70,7 +69,7 @@ while running:
             pos = pygame.mouse.get_pos()
 
             if (button2.collide(pos) == 1 and fliped == False):  # MAIN SCREEN to MENU
-                mode = pygame.display.set_mode((800, 800)) # useless, only for testing purposes
+                mode = pygame.display.set_mode((800, 800), vsync=True ) # useless, only for testing purposes
                 screen_object.screen = mode
                 # B-Still able to press button 1 even if fliped, flashes white when pressed
                 print("collided 1")
@@ -87,7 +86,7 @@ while running:
 
 
             if (button1.collide(pos) == 1 and fliped == True):  # MENU TO MAIN SCREEN
-                mode = pygame.display.set_mode((640, 700)) # useless, only for testing purposes
+                mode = pygame.display.set_mode((640, 700), vsync=True ) # useless, only for testing purposes
                 change_screen.screen = mode
                 # Menu Screen
                 # B-Still able to press button 2 even if fliped
@@ -99,9 +98,7 @@ while running:
                # carte_menu.display_map()
                 button1.drawButton()
                 #screen.blit(text1, text1.get_rect(topleft=(10, 10)))
-                layer = tiled_map.layers[0]
-                for x, y, image in layer.tiles():
-                    screen.blit(image, (x*32, y*32+60))
+                background.display_map()
                 change_screen.update()
                 pygame.display.flip()
 
@@ -110,12 +107,10 @@ while running:
 
         if (fliped == False): # TODO REPLACE BY GAME MOVEMENT + limits checks + collisions ?
             #PUT THIS INSIDE ANOTHER FUNCTION ?
-            tick = clock.tick(60) # UPDATE FPS ?
+            tick = clock.tick(1) # UPDATE FPS ?
             button2.drawButton() #IMPORTANT
 
-            layer = tiled_map.layers[0]
-            for x, y, image in layer.tiles():
-                screen.blit(image, (x*32, y*32+60))
+            background.display_map()
 
             game.moveUnit(unit1, grid)
             game.showUnits(grid)
