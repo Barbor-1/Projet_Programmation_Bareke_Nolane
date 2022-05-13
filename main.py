@@ -18,7 +18,7 @@ running = True
 pygame.init()
 fliped = True
 id = 0
-screen = pygame.display.set_mode((800, 800), vsync=True ) # useless, only for testing purposes
+screen = pygame.display.set_mode((800, 800), vsync=True ) #TODO : see if vsync=True change something otherwise delete it (compatability problem ?)
 #pygame.display.set_caption("RTS GAME - v1")
 
 screen_object = Screen("RTS GAME - v1-MENU", screen, 800, 800) #TODO : change screens names
@@ -44,10 +44,10 @@ text1 = font.render("MENU", True, (0, 0, 0))
 screen.blit(text1, text1.get_rect(topleft=(10, 10)))
 
 
-button2 = button.Button(10, 10, (0, 0, 0), (235, 125, 56), screen2)
+button2 = button.Button(1, 1, (0, 0, 0), (235, 125, 56), screen2)
 button2.initButton(
     "Go back")  # Initialise values for example text_rect that could crash when we click the screen in the while
-
+print(button2.text_rect.h, button2.text_rect.w)
 screen_object.update()
 pygame.display.flip()  # update display (IMPORTANT)
 
@@ -59,7 +59,9 @@ game.placeUnit(unit1, 0, player_one, grid)
 
 unit2 = game.spawnUnit(change_screen.getScreen(), grid, player_two)
 game.placeUnit(unit2, 0, player_two, grid)
+print(unit1.getPosX())
 clock = pygame.time.Clock()
+#clock = time.time()
 
 while running:
     for event in pygame.event.get():
@@ -77,9 +79,10 @@ while running:
                 screen_object.makeCurrent()  # do nothing, see later
                 change_screen.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
                 carte_menu.display_map()
-                # pygame.draw.rect(screen2, (75, 63, 143), (300, 300, 200, 200))
+                # pygame.draw.rect(screen2, (75, 63,
+                # 143), (300, 300, 200, 200))
                 text1 = font.render("MENU", True, (0, 0, 0))
-                screen2.blit(text1, text1.get_rect(topleft=(10, 10)))
+                screen_object.getScreen().blit(text1, text1.get_rect(topleft=(10, 10)))
                 button1.drawButton()
                 screen_object.update()
                 pygame.display.flip()
@@ -96,25 +99,31 @@ while running:
                 screen_object.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
                 screen = change_screen.getScreen()
                # carte_menu.display_map()
-                button1.drawButton()
+                button2.drawButton()
                 #screen.blit(text1, text1.get_rect(topleft=(10, 10)))
                 background.display_map()
                 change_screen.update()
                 pygame.display.flip()
+                start_ticks=0
 
 
 
+        if(fliped == False):
+            start_ticks = start_ticks + clock.tick()
+            print(start_ticks)
+            if (start_ticks > 1000): # TODO REPLACE BY GAME MOVEMENT + limits checks + collisions ?
+                print("event")
+                #PUT THIS INSIDE ANOTHER FUNCTION ?
+                #tick = clock.tick(1) # UPDATE FPS ?
+                button2.drawButton() #IMPORTANT
 
-        if (fliped == False): # TODO REPLACE BY GAME MOVEMENT + limits checks + collisions ?
-            #PUT THIS INSIDE ANOTHER FUNCTION ?
-            tick = clock.tick(1) # UPDATE FPS ?
-            button2.drawButton() #IMPORTANT
+                background.display_map()
 
-            background.display_map()
+                game.showUnits(grid)
+                change_screen.update()
+                pygame.display.flip()
+                print(unit2.health, "x =", unit1.getPosX())
+                game.moveUnit(unit1, grid)
+                start_ticks = 0
 
-            game.moveUnit(unit1, grid)
-            game.showUnits(grid)
 
-            change_screen.update()
-            pygame.display.flip()
-            print(unit2.health)
