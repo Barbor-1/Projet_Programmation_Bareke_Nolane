@@ -31,6 +31,7 @@ def moveUnit(target, grid):
             if( target.attack(nextTarget)  == -1):
             #attack() vérifie déjà l'allegiance des 2 unités
                 grid.deleteUnitAtGrid(nextTarget.getPosX(), nextTarget.getPosY())
+                print("unit", target.getId(), "fell in combat")
 
 
 # TODO : Plus de fonction, afficher les unité? avoir la grille sur l'écran. deplacé les unités sur la grille et qu'ils s'affichent
