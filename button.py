@@ -15,7 +15,7 @@ class Button:
         self.text_rect = self.text.get_rect(topleft=(self.x, self.y)) # get rectangle
     def drawButton(self):
         pygame.draw.rect(self.screen, self.background_color, (self.text_rect.x, self.text_rect.y, self.text_rect.width, self.text_rect.height))
-        self.screen.blit(self.text, self.text_rect) # blit it 
+        self.screen.blit(self.text, self.text_rect) # blit it
     def collide(self, pos):
         return self.text_rect.collidepoint(pos)
 

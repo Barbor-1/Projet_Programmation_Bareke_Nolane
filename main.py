@@ -10,7 +10,7 @@ from unit.unit import Unit
 from grid import Grid
 from  player import Player
 import  game
-
+from toolbar import  Toolbar
 from pytmx.util_pygame import load_pygame # 2.7 mode !
 import pytmx
 running = True
@@ -59,7 +59,11 @@ game.placeUnit(unit1, 0, player_one, grid)
 
 unit2 = game.spawnUnit(change_screen.getScreen(), grid, player_two)
 game.placeUnit(unit2, 0, player_two, grid)
-print(unit1.getPosX())
+
+toolbar_soldier = Toolbar(change_screen.getScreen(), 100, 0, os.path.join(os.getcwd(), "Soldat.png"))
+
+
+
 clock = pygame.time.Clock()
 #clock = time.time()
 
@@ -100,23 +104,32 @@ while running:
                 screen = change_screen.getScreen()
                # carte_menu.display_map()
                 button2.drawButton()
+                toolbar_soldier.draw()
+
                 #screen.blit(text1, text1.get_rect(topleft=(10, 10)))
+
                 background.display_map()
                 change_screen.update()
                 pygame.display.flip()
                 start_ticks=0
 
 
+            if(toolbar_soldier.collide(pos)):
+                print("collide solider")
+                #move image
+                toolbar_soldier2 = toolbar_soldier
+                toolbar_soldier2.x = pos[0]
+                toolbar_soldier2.y = pos[1]
+                toolbar_soldier2.draw()
 
         if(fliped == False):
             start_ticks = start_ticks + clock.tick()
-            print(start_ticks)
             if (start_ticks > 1000): # TODO REPLACE BY GAME MOVEMENT + limits checks + collisions ?
                 print("event")
                 #PUT THIS INSIDE ANOTHER FUNCTION ?
                 #tick = clock.tick(1) # UPDATE FPS ?
                 button2.drawButton() #IMPORTANT
-
+                toolbar_soldier.draw()
                 background.display_map()
 
                 game.showUnits(grid)

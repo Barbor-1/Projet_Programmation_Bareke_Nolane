@@ -12,12 +12,8 @@ class Unit():
         self.health = 10
         self.atk = 5  # Valeur de puissance d'attaque
         self.armor = 2  # Valeur de défense, pas sur qu'on va la garder
-        self.id = id   #TODO : PUT UNIQUE ID
-
-        if allegiance == 1 :
-            self.image = pygame.image.load(os.path.join(os.getcwd(), "Soldat.png"))
-        else :
-            self.image = pygame.image.load(os.path.join(os.getcwd(), "SoldierB.png"))
+        self.id = id
+        self.image = pygame.image.load(os.path.join(os.getcwd(), "Soldat.png")) #TODO : CHANGE PATH
         self.screen = screen
         self.limits = pygame.display.get_surface().get_size()[0]
 #TODO : rajouter allegiance au  valeur de départ
