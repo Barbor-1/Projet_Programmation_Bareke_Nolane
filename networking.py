@@ -26,9 +26,9 @@ class server():
         else:
             return (self.client.recv(limit)).decode()
 
-    def accept(self):
+    def accept(self, timeout=5):
         self.client, self.addr = self.socket.accept()
-        self.client.settimeout(5)
+        self.client.settimeout(timeout)
         #self.file = self.client.makefile()
 
     def clientAddr(self):
@@ -57,12 +57,12 @@ class client():
         self.port = port
         self.host = ip_address
         #print(port)
-    def startClient(self, timeout=30):
+    def startClient(self, timeout=5):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
         self.socket.connect((self.host, int(self.port)))
-        self.socket.settimeout(5) #TODO : CHANGE
+        self.socket.settimeout(timeout) #TODO : CHANGE
         #self.socket.setblocking(False)
         #self.file = self.socket.makefile(mode='rw')
 
