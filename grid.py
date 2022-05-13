@@ -21,3 +21,7 @@ class Grid():
     def deleteUnitAtGrid(self, x, y):
         self.grid[y][x] = 0
         return self.grid
+
+    def moveUnitAtGrid(self, x, y, target):
+        self.deleteUnitAtGrid(target.getPosX(), target.getPosY())
+        self.setUnitAtGrid(x, y, target)

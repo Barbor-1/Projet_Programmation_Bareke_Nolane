@@ -22,9 +22,10 @@ def moveUnit(target, grid):
         #TODO : dans grid, créer une fonction move
         nextTarget = grid.getUnitAtGrid(target.getPosX()+1, target.getPosY())
         if nextTarget == 0:
-            grid.setUnitAtGrid(target.getPosX()+1, target.getPosY(), target)
+            #grid.setUnitAtGrid(target.getPosX()+1, target.getPosY(), target)
             #target.move(1)
-            grid.deleteUnitAtGrid(target.getPosX()-1, target.getPosY())
+            #grid.deleteUnitAtGrid(target.getPosX()-1, target.getPosY())
+            grid.moveUnitAtGrid(target.getPosX() +1, target.getPosY(), target)
 
         else:
             if( target.attack(nextTarget)  == -1):
