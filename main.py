@@ -73,10 +73,10 @@ while running:
     events =  pygame.event.get()
     clock.tick()
     for event in events:
-        if (fliped == True):
+        if (fliped == True): # UPDATE TEXTBOX
             if(textbox.listen(event)):
-                print(textbox.getText())
-            screen_object.update()
+                print(textbox.getText()) # DO SOMETHING ELSE, print only for testing purposes
+            screen_object.update() # UPDATE SCREEN
             pygame.display.flip()
         
         if event.type == pygame.QUIT:
