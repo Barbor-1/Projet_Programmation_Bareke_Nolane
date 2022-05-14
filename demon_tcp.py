@@ -137,6 +137,7 @@ class demon(multiprocessing.Process):
             # UPDATE UNIT
             if(first_arg == "UPDATE_UNIT"):
                 pass
+            #see with BAREKE what to update
 
             # REMOVE UNIT
             if(first_arg == "REMOVE_UNIT"): # REMOVE_UNIT unit_id
