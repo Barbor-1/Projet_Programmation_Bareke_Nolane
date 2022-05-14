@@ -60,9 +60,9 @@ class client():
     def startClient(self, timeout=5):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # ? dont no
-
         self.socket.connect((self.host, int(self.port)))
-        self.socket.settimeout(timeout) #TODO : CHANGE
+        self.socket.settimeout(timeout) #TODO : CHANGE # see where to put it ? before of after connect ?
+
         #self.socket.setblocking(False)
         #self.file = self.socket.makefile(mode='rw')
 
@@ -74,10 +74,16 @@ class client():
 
     def readline(self):
         str = ""
-        chr = self.receive(1)
+        try:
+            chr = self.receive(1)
+        except Exception as e:
+            raise e
         while(chr != '\n'):
             str = str + chr
-            chr = self.receive(1)
+            try:
+                chr = self.receive(1)
+            except Exception as e:
+                raise e
             if(chr == ''):
                 print("empty")
                 raise Exception("no data left, connexion dead ? ")

@@ -1,8 +1,8 @@
-import pickle
 from queue import Empty, Queue
 from networking import client, server
 import multiprocessing
 import sys
+
 
 
 class demon(multiprocessing.Process):
@@ -14,7 +14,7 @@ class demon(multiprocessing.Process):
         if(self.is_client == True):
             self.comm = client(self.address, self.port)
         else:
-            self.comm = server()
+            self.comm = server(self.port)
             # self.comm.startClient() # TODO : ERROR MANAGEMENT
         self.input_queue = input_queue
         self.output_queue = output_queue
@@ -22,16 +22,24 @@ class demon(multiprocessing.Process):
 
     def run(self):  # main loop to call with multiprocessing : only client do server later
         running = True
-        if(self.is_client == False):
+        retry = True
+        if(self.is_client == False):            
+            self.comm.startServer() 
             self.comm.accept()
-            self.comm.startServer()  # IMPORTANT : to avoid pickle error
         else:
-            self.comm.startClient(5)  # IMPORTANT : to avoid pickle error
+            while (retry == True):
+                retry = False # pour réesayer de se connecter ? => compteur ? 
+                try:
+                    self.comm.startClient(5)  
+                except Exception as e:
+                    print("exception while trying to connect for the first time")
+                    retry = True
+                    
+
         print("connected")
         sys.stdout.flush()
         # TODO : see what do if client leaves ?
         while(running == True):
-            # DEBUG
 
             # GET UNIT FROM SERVER => TO PROCESS
             # TODO : COMMAND PROCESS
@@ -39,17 +47,18 @@ class demon(multiprocessing.Process):
                 self.comm.readline().strip('\n')
                 ) # read a line (see for multiples lines to read)
             """
-            print("running")
-            sys.stdout.flush()
             temp = ""
+            print("running")    
+            sys.stdout.flush()
             try:
-                temp = self.comm.readline()  # TODO READLINES
+                temp = self.comm.readline()  # TODO READLINES ? maybe to see
             except Exception as e:
+                print("exception :", e)
+                sys.stdout.flush()
                 if e.args[0] != "timed out":
                     print("connexion reset, trying to reconnect")
                     self.comm.close()
                     if(self.is_client):
-
                         try:
                             self.comm.startClient()
                         except:
@@ -61,25 +70,38 @@ class demon(multiprocessing.Process):
                             pass
             sys.stdout.flush()
             
-            print("receiving commands")
+            print("received commands (or not) from network")
             sys.stdout.flush()
             command_receive = temp.split(" ")[0]
 
             # PAS DE GET UNIT ENTRE SERVEUR ET CLIENT :
-
-            if(command_receive == "SET_UNIT"):  # TODO : complete with pickling
-                pass
-            elif(command_receive == "UPDATE_UNIT"):
+            if(command_receive == "SET_UNIT"):
+                
+                arguments_left = temp.split(" ")[1:]
+                print("argument left", arguments_left)
+                
+                
+                Unit_to_add = (arguments_left[0],  arguments_left[1], arguments_left[2] , arguments_left[3], arguments_left[4], arguments_left[5] ,arguments_left[6], arguments_left[7])
+               
+              
+                self.unit_list.append(Unit_to_add)
+                sys.stdout.flush()
+                
+            elif(command_receive == "UPDATE_UNIT"): # see what to update ? (x and y only ? ) # TODO : complete command parsing
                 pass
             elif(command_receive == "REMOVE_UNIT"):
                 pass
+        
+        #COMMANDS FROM QUEUE
+
 
             try:
                 command = (self.input_queue.get(False))  # nom blocking
-            except Empty:
-                print("queue empty")
+            except (Empty, Exception) as e:
+                print("queue empty", e)
                 sys.stdout.flush()
                 command = ""
+                print("exception at queue reading", e)
             if(command == "GET_UNIT"):
                 self.output_queue.put(self.unit_list)  # return severals unit
                 self.input_queue.task_done()
@@ -109,3 +131,5 @@ class demon(multiprocessing.Process):
             # REMOVE UNIT
             if(first_arg == "REMOVE_UNIT"):
                 pass
+            print("cycle ended")
+            sys.stdout.flush()

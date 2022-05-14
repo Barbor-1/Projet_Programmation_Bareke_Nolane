@@ -2,9 +2,8 @@ import os
 import pygame
 from player import Player
 
-
 class Unit():
-    def __init__(self, screen, allegiance, id):
+    def __init__(self, screen=0, allegiance=0, id=0): # 0 pour éviter le chargement des images dans le démon TCP 
         self.pos_x = 0
         self.pos_y = 0
         self.allegiance = allegiance  # A qui appartient l'unité. +1 pour un joueur -1 pour l'autre => ça peut passer
@@ -14,10 +13,24 @@ class Unit():
         self.armor = 2  # Valeur de défense, pas sur qu'on va la garder
         self.id = id
         if allegiance == 1:
+            pass
+            self.image = pygame.image.load(os.path.join(os.getcwd(), "Soldat.png"))
+        elif allegiance == -1:
+            pass
+            self.image = pygame.image.load(os.path.join(os.getcwd(), "SoldierB.png"))
+        else:
+            pass # do nothing
+        self.screen = screen
+        if(allegiance != 0):
+            self.limits = pygame.display.get_surface().get_size()[0]
+            pass
+    
+
+    def loadImage(self): # pour le chagement des unités a travers le réseau
+        if self.allegiance == 1:
             self.image = pygame.image.load(os.path.join(os.getcwd(), "Soldat.png"))
         else :
             self.image = pygame.image.load(os.path.join(os.getcwd(), "SoldierB.png"))
-        self.screen = screen
         self.limits = pygame.display.get_surface().get_size()[0]
 
     def getPosX(self):
@@ -60,7 +73,7 @@ class Unit():
 
     def __getstate__(self): # add screen later and update limits # dont use it maybe ? 
         return (self.pos_x, self.pos_y, self.allegiance,  self.type, self.health, self.atk,self.armor,self.id)
-    def __setstate__(self, i):
+    def setstate(self, i):
         self.pos_x = i[0]
         self.pos_y = i[1]
         self.allegiance =  i[2] 
