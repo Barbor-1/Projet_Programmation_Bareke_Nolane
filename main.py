@@ -18,7 +18,7 @@ fliped = True
 id = 0
 
 pygame.init()
-screen = pygame.display.set_mode((800, 800), vsync=True ) #TODO : see if vsync=True change something otherwise delete it (compatability problem ?)
+screen = pygame.display.set_mode((800, 800), vsync=True ) 
 #pygame.display.set_caption("RTS GAME - v1")
 
 screen_object = Screen("RTS GAME - v1-MENU", screen, 800, 800) #TODO : change screens names
