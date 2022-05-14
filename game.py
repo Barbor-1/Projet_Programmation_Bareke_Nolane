@@ -23,7 +23,7 @@ def moveUnit(target, grid):
             grid.moveUnitAtGrid(target.getPosX() +target.getAllegiance(), target.getPosY(), target)
 
         else:
-            if( target.attack(nextTarget)  == -1):
+            if( target.attack(nextTarget)  == -1): # if target.attack return -1 => nextTarget is dead and should be removed
             #attack() vérifie déjà l'allegiance des 2 unités
                 grid.deleteUnitAtGrid(nextTarget.getPosX(), nextTarget.getPosY())
                 print("unit", target.getId(), "fell in combat")
