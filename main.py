@@ -9,11 +9,10 @@ from screen import Screen
 from unit.unit import Unit
 from grid import Grid
 from  player import Player
-import  game
 from toolbar import  Toolbar
 from pytmx.util_pygame import load_pygame # 2.7 mode !
+from textbox import Textbox
 import pytmx
-
 running = True
 fliped = True
 id = 0
@@ -44,6 +43,8 @@ font = pygame.font.SysFont('Corbel', 64)
 text1 = font.render("MENU", True, (0, 0, 0))
 screen.blit(text1, text1.get_rect(topleft=(10, 10)))
 
+textbox = Textbox(screen_object.getScreen(), 100, 100, 100, 400, (25, 25, 25))
+textbox.draw()
 
 button2 = button.Button(1, 1, (0, 0, 0), (235, 125, 56), screen2)
 button2.initButton(
@@ -61,7 +62,7 @@ game.placeUnit(unit1, 0, player_one, grid)
 unit2 = game.spawnUnit(change_screen.getScreen(), grid, player_two)
 game.placeUnit(unit2, 0, player_two, grid)
 
-toolbar_soldier = Toolbar(change_screen.getScreen(), 100, 0, os.path.join(os.getcwd(), "Soldat.png")) #relative positions !
+toolbar_soldier = Toolbar(change_screen.getScreen(), button2.text_rect.w + 10, 0, os.path.join(os.getcwd(), "Soldat.png")) #relative positions ! (DONE)
 clicked_once = False
 unit_list = [unit1, unit2]
 
@@ -69,7 +70,15 @@ clock = pygame.time.Clock()
 #clock = time.time()
 
 while running:
-    for event in pygame.event.get():
+    events =  pygame.event.get()
+    clock.tick()
+    for event in events:
+        if (fliped == True):
+            if(textbox.listen(event)):
+                print(textbox.getText())
+            screen_object.update()
+            pygame.display.flip()
+        
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # put it inside class with event as argument ?| event.button == 1 : left click
@@ -81,13 +90,20 @@ while running:
                 # B-Still able to press button 1 even if fliped, flashes white when pressed
                 print("collided 1")
                 fliped = True
+
                 screen_object.makeCurrent()  # do nothing, see later
                 change_screen.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
+
                 carte_menu.display_map()
+
                 # pygame.draw.rect(screen2, (75, 63,
                 # 143), (300, 300, 200, 200))
+
+                textbox.draw()
+
                 text1 = font.render("MENU", True, (0, 0, 0))
                 screen_object.getScreen().blit(text1, text1.get_rect(topleft=(10, 10)))
+
                 button1.drawButton()
                 screen_object.update()
                 pygame.display.flip()
@@ -132,26 +148,26 @@ while running:
 
 
 
-        if(fliped == False):
-            start_ticks = start_ticks + clock.tick()
-            if (start_ticks > 750): # TODO REPLACE BY GAME MOVEMENT + limits checks + collisions ?
-                print("event")
-                #PUT THIS INSIDE ANOTHER FUNCTION ?
-                #tick = clock.tick(1) # UPDATE FPS ?
-                button2.drawButton() #IMPORTANT
-                toolbar_soldier.draw()
-                background.display_map()
+    if(fliped == False):
+        print("time" , time.time() - start_ticks, "fps ", clock.get_fps())
+        if ( time.time() - start_ticks> 0.5): # TODO REPLACE BY GAME MOVEMENT + limits checks + collisions ?
+            print("event")
+            #PUT THIS INSIDE ANOTHER FUNCTION ?
+            #tick = clock.tick(1) # UPDATE FPS ?
+            button2.drawButton() #IMPORTANT
+            toolbar_soldier.draw()
+            background.display_map()
 
-                game.showUnits(grid)
-                change_screen.update()
-                pygame.display.flip()
-                for y in range(0, 20):
-                    #prendre toute les unités d'une ligne
+            game.showUnits(grid)
+            change_screen.update()
+            pygame.display.flip()
+            for y in range(0, 20):
+                #prendre toute les unités d'une ligne
 
-                        list = game.takeUnitFromAline(grid, y)
+                    list = game.takeUnitFromAline(grid, y)
 
-                        for i in list:
-                            game.moveUnit(i, grid)
-                start_ticks = 0
+                    for i in list:
+                        game.moveUnit(i, grid)
+            start_ticks = time.time()
 
 
