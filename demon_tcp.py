@@ -47,7 +47,9 @@ class demon(multiprocessing.Process):
             except Exception as e:
                 if e.args[0] != "timed out":
                     print("connexion reset, trying to reconnect")
+                    self.comm.close()
                     if(self.is_client):
+
                         try:
                             self.comm.startClient()
                         except:

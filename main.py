@@ -13,11 +13,12 @@ import  game
 from toolbar import  Toolbar
 from pytmx.util_pygame import load_pygame # 2.7 mode !
 import pytmx
-running = True
 
-pygame.init()
+running = True
 fliped = True
 id = 0
+
+pygame.init()
 screen = pygame.display.set_mode((800, 800), vsync=True ) #TODO : see if vsync=True change something otherwise delete it (compatability problem ?)
 #pygame.display.set_caption("RTS GAME - v1")
 

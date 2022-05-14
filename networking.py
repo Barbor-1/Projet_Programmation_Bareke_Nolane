@@ -9,7 +9,7 @@ class server():
     def startServer(self):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = ''
-        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # test
+        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # ? dont no
         self.socket.bind((self.host, int(self.port)))
         self.socket.listen(1)
 
@@ -59,7 +59,7 @@ class client():
         #print(port)
     def startClient(self, timeout=5):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # ? dont no
 
         self.socket.connect((self.host, int(self.port)))
         self.socket.settimeout(timeout) #TODO : CHANGE
