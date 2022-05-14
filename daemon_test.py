@@ -15,8 +15,8 @@ if __name__ == "__main__":
     from unit.unit import Unit
     #IMPORTANT : start process before callig pygame.init() !
     while True:
-        print("command send")
         input_queue.put("GET_UNIT")
+        print("command send\n",flush=True)
         input_queue.join()
         unit1 = output_queue.get()
         if(len(unit1) > 0):
@@ -25,3 +25,4 @@ if __name__ == "__main__":
             print("got a unit1", unit1)
         else:
             print("got nothing")
+        

@@ -20,5 +20,9 @@ if __name__ == "__main__":
     unit1.pos_y = 3
     input_queue.put("SET_UNIT " + str(unit1) + "\n")
     input_queue.join()
-    print(output_queue.get())
+    print("removing unit from server (not daemon)")
+    input_queue.put("REMOVE_UNIT " + str(1))
+    input_queue.join()
+    while True:
+        pass
 

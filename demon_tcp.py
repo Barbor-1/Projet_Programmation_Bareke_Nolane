@@ -1,4 +1,6 @@
+from ast import arg
 from queue import Empty, Queue
+from traceback import print_tb
 from networking import client, server
 import multiprocessing
 import sys
@@ -27,6 +29,7 @@ class demon(multiprocessing.Process):
             self.comm.startServer() 
             self.comm.accept()
         else:
+            print("not a server !", flush=True)
             while (retry == True):
                 retry = False # pour réesayer de se connecter ? => compteur ? 
                 try:
@@ -69,7 +72,6 @@ class demon(multiprocessing.Process):
                         except:
                             pass
             sys.stdout.flush()
-            
             print("received commands (or not) from network")
             sys.stdout.flush()
             command_receive = temp.split(" ")[0]
@@ -90,7 +92,15 @@ class demon(multiprocessing.Process):
             elif(command_receive == "UPDATE_UNIT"): # see what to update ? (x and y only ? ) # TODO : complete command parsing
                 pass
             elif(command_receive == "REMOVE_UNIT"):
-                pass
+                arguments_left = temp.split(" ")[1:]
+                unit_id = arguments_left[0]
+                for i in range(0, len(self.unit_list)):
+                    unit_it = self.unit_list[i]
+                    if(unit_it[7] == unit_id):
+                        #remove this unit
+                        self.unit_list.pop(i)
+                print("unit list after remove", self.unit_list, flush=True) # replace sys.stdout.flush() 
+
         
         #COMMANDS FROM QUEUE
 
@@ -129,7 +139,17 @@ class demon(multiprocessing.Process):
                 pass
 
             # REMOVE UNIT
-            if(first_arg == "REMOVE_UNIT"):
-                pass
+            if(first_arg == "REMOVE_UNIT"): # REMOVE_UNIT unit_id
+                print("removing unit remotely", flush=True)
+                to_send = first_arg + " "
+                args = command.split(" ")[1:]
+                for i in args:
+                    to_send += str(i) # only one arg
+                    to_send += " "
+                to_send += "\n"
+                print("sending remove command", to_send)
+                sys.stdout.flush()
+                self.comm.send(to_send, is_byte=False)
+                self.input_queue.task_done()
             print("cycle ended")
             sys.stdout.flush()
