@@ -1,10 +1,11 @@
 
 class Player():
-    def __init__(self, allegiance):
+    def __init__(self, allegiance, screen):
         self.health = 200
         self.allegiance = allegiance
         self.money = 40
-#TODO ajouter screen pour afficher la santé et l'argent du joueur
+        self.screen = screen
+
     def getHealth(self):
         return self.health
 

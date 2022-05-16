@@ -8,7 +8,7 @@ id = 0
 playerList = []
 
 def setPlayer(allegiance,screen):
-    joueur = Player(allegiance)
+    joueur = Player(allegiance,screen)
     playerList.append(joueur)
     return joueur
 

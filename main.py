@@ -66,8 +66,8 @@ if __name__ == "__main__":
     screen_object.update()
     pygame.display.flip()  # update display (IMPORTANT)
 
-    player_one = Player(1)
-    player_two = Player(-1)
+    player_one = game.setPlayer(1, change_screen.getScreen())
+    player_two = game.setPlayer(-1, change_screen.getScreen())
     grid = Grid(unit_size=32, size=640)
     unit1 = game.spawnUnit(change_screen.getScreen(), grid, player_one)
     game.placeUnit(unit1, 0, player_one, grid)
