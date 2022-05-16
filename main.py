@@ -16,7 +16,7 @@ import pytmx
 
 from demon_tcp import demon
 from multiprocessing import process, JoinableQueue
-
+import  network_utils
 running = True
 fliped = True
 id = 0
@@ -25,7 +25,7 @@ id = 0
 #starting demon
 input_queue = JoinableQueue() # Queue with task_done and join()
 output_queue = JoinableQueue()
-test = demon(input_queue, output_queue, port="12345")
+test = demon(input_queue, output_queue, port="12345") # only client for now
 test.daemon = True # important pour que le process se ferme après que le le script principal s'est terminé !
 
 if __name__ == "__main__":
@@ -148,6 +148,9 @@ if __name__ == "__main__":
                     temp = game.spawnUnit(change_screen.getScreen(), grid, joueur=player_one) #TODO changer joueur en fonction de la zone + changer le x
                     game.placeUnit(temp, int(((pos[1]-60)/32)), player_one, grid)
                     unit_list.append(temp)
+                    data_to_send = "SET_UNIT " + str(temp) + "\n"
+                    input_queue.put(data_to_send)
+                    input_queue.join() # wait for command to execute
                     clicked_once = False
                 if(toolbar_soldier.collide(pos)):
                     print("collide solider")
@@ -162,11 +165,30 @@ if __name__ == "__main__":
 
 
         if(fliped == False):
-            print("time" , time.time() - start_ticks, "fps ", clock.get_fps())
+            #print("time" , time.time() - start_ticks, "fps ", clock.get_fps())
             if ( time.time() - start_ticks> 0.5): # TODO REPLACE BY GAME MOVEMENT + limits checks + collisions ?
                 print("event")
-                #PUT THIS INSIDE ANOTHER FUNCTION ?
-                #tick = clock.tick(1) # UPDATE FPS ?
+                #get unit from server
+                input_queue.put("GET_UNIT")
+                input_queue.join()
+                data_out = output_queue.get()
+
+                for data in data_out:
+                    print("data treated :", data)
+                    arg1 = data.split(" ")[0]
+                    if(arg1 == "SET_UNIT"):
+                        unit_to_create = game.spawnUnit(change_screen.getScreen(), grid, joueur=player_one)#TODO changer joueur en fonction de la zone
+                        unit_to_create.setstate(data.split(" ")[1:]) # charge le
+                        game.placeUnit(unit_to_create, unit_to_create.getPosY(), player_two, grid) # change player
+                    if(arg1 == "REMOVE_UNIT"):
+                        unit_list = network_utils.remove_unit(unit_list, data.split(" ")[1])
+
+                    if(arg1 == "UPDATE_UNIT"):
+                        pass
+
+                    if(arg1 == "UPDATE_PLAYER"):
+                        pass
+
                 button2.drawButton() #IMPORTANT
                 toolbar_soldier.draw()
                 background.display_map()

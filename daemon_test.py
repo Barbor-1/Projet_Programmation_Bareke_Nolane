@@ -2,7 +2,7 @@ import multiprocessing
 from demon_tcp import demon
 from multiprocessing import process, JoinableQueue
 from multiprocessing import Manager
-import pygame"
+import pygame
 from unit.unit import Unit
 #from unit.unit import Unit
 input_queue = JoinableQueue() # Queue with task_done and join()
