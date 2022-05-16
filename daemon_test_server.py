@@ -2,7 +2,7 @@ import multiprocessing
 
 from demon_tcp import demon
 from multiprocessing import process, JoinableQueue
-
+import time
 input_queue = JoinableQueue() # Queue with task_done and join()
 output_queue = JoinableQueue()
 test = demon(input_queue, output_queue, port="12345", is_client=False)
@@ -20,8 +20,9 @@ if __name__ == "__main__":
         unit1.pos_y = id % 10
         id = id + 1
         input_queue.put("SET_UNIT " + str(unit1) + "\n")
-        input_queue.join()
-        data_out = output_queue.get()
-        print(data_out)
+        #input_queue.join()
+        #data_out = output_queue.get()
+        print("sending unit", unit1.getPosY(), unit1.getPosX())
+        time.sleep(1)
 
 

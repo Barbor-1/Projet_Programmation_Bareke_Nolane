@@ -151,7 +151,7 @@ if __name__ == "__main__":
                     unit_list.append(temp)
                     data_to_send = "SET_UNIT " + str(temp) + "\n"
                     input_queue.put(data_to_send)
-                    input_queue.join() # wait for command to execute
+                    #input_queue.join() # not waiting for command
                     clicked_once = False
                 if(toolbar_soldier.collide(pos)):
                     print("collide solider")
@@ -166,27 +166,34 @@ if __name__ == "__main__":
 
 
         if(fliped == False):
-            print("time" , time.time() - start_ticks, "fps ", clock.get_fps())
-            if ( (time.time() - start_ticks )> 0.4): # TODO DEGAGER MULTIPROCESS => TROP LENT ?
+            exception = False
+            #print("time" , time.time() - start_ticks, "fps ", clock.get_fps())
+            if ( (time.time() - start_ticks )> 0.5): # TODO DEGAGER MULTIPROCESS => TROP LENT ?
                 print("event")
                 #get unit from server
                 if(counter == 1): #  TO UPDATE
                     print("updating network unit")
-                    input_queue.put("GET_UNIT")
+                    #input_queue.put("GET_UNIT")
                     #input_queue.join()
-                    data_out = output_queue.get()
+                    try:
+                        data_out = output_queue.get(False) # not blocking
+                    except Exception as e:
+                        exception = True
+                        print("Exception while getting output from server ", e, flush=True)
                     counter = 0
-                    for data in data_out:
-                        print("data treated :", data)
-                        arg1 = data.split(" ")[0]
+                    if(exception == False): # no exception
+                        print("got update from server")
+
+                        print("data treated :", data_out)
+                        arg1 = data_out.split(" ")[0]
                         if(arg1 == "SET_UNIT"):
                             unit_to_create = game.spawnUnit(change_screen.getScreen(), grid, joueur=player_two)#TODO changer joueur en fonction de la zone
-                            unit_to_create.setstate(data.split(" ")[1:]) # charge le
+                            unit_to_create.setstate(data_out.split(" ")[1:]) # charge le
                             unit_to_create.loadImage()  # update image
                             game.placeUnit(unit_to_create, unit_to_create.getPosY(), player_two, grid) # change player
 
                         if(arg1 == "REMOVE_UNIT"):
-                            unit_list = network_utils.remove_unit(unit_list, data.split(" ")[1])
+                            unit_list = network_utils.remove_unit(unit_list, data_out.split(" ")[1])
 
                         if(arg1 == "UPDATE_UNIT"):
                             pass
@@ -200,8 +207,8 @@ if __name__ == "__main__":
                 #    input_queue.put("SEND_UNIT " + str(unit) + "\n")
 
 
-                #button2.drawButton() #IMPORTANT
-                #toolbar_soldier.draw()
+                button2.drawButton() #IMPORTANT
+                toolbar_soldier.draw()
                 background.display_map()
 
                 game.showUnits(grid)
@@ -215,6 +222,6 @@ if __name__ == "__main__":
                         for i in list:
                             game.moveUnit(i, grid)
                 start_ticks = time.time()
-                print("new time")
+               # print("new time")
 
 

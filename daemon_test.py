@@ -4,6 +4,7 @@ from multiprocessing import process, JoinableQueue
 from multiprocessing import Manager
 import pygame
 from unit.unit import Unit
+import time
 #from unit.unit import Unit
 input_queue = JoinableQueue() # Queue with task_done and join()
 output_queue = JoinableQueue()
@@ -13,15 +14,12 @@ if __name__ == "__main__":
     test.start() # start demon
 
     #IMPORTANT : start process before callig pygame.init() !
-    #while True:
-    input_queue.put("GET_UNIT")
-    print("command send\n",flush=True)
-    input_queue.join()
-    unit1 = output_queue.get()
-    if(len(unit1) > 0):
-        unit_created = Unit()
-        unit_created.setstate(unit1[0])
-        print("got a unit1", unit1)
-    else:
-        print("got nothing")
+    while True:
+        unit1 = output_queue.get()
+        if(len(unit1) > 0):
+            unit_created = Unit()
+            unit_created.setstate(unit1.split(" ")[1:])
+            print("got a unit1", unit1)
+        else:
+            print("got nothing")
         

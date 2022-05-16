@@ -7,7 +7,7 @@ class server():
         self.ip_address = ""
 
     def startServer(self):
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = ''
         #self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # ? dont no
         self.socket.bind((self.host, int(self.port)))
@@ -22,9 +22,10 @@ class server():
 
     def receive(self, limit, is_byte=False): # byte = True : no encoding
         if(is_byte == True):
-            return (self.client.recv(limit))
+            return self.client.recv(limit)
         else:
             return (self.client.recv(limit)).decode()
+
 
     def accept(self, timeout= 0.1):
         self.client, self.addr = self.socket.accept()
@@ -58,7 +59,7 @@ class client():
         self.host = ip_address
         #print(port)
     def startClient(self, timeout=0.1):
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # ? dont no
         self.socket.connect((self.host, int(self.port)))
         self.socket.settimeout(timeout) #TODO : CHANGE # see where to put it ? before of after connect ?

@@ -25,9 +25,11 @@ class demon(multiprocessing.Process):
     def run(self):  # main loop to call with multiprocessing : only client do server later
         running = True
         retry = True
+
         if(self.is_client == False):            
             self.comm.startServer() 
-            self.comm.accept()
+            self.comm.accept() 
+            print("got a client !")
         else:
             print("not a server !", flush=True)
             while (retry == True):
@@ -37,6 +39,8 @@ class demon(multiprocessing.Process):
                 except Exception as e:
                     print("exception while trying to connect for the first time")
                     retry = True
+            
+            self.comm.startClient()
                     
 
         print("connected")
@@ -51,7 +55,7 @@ class demon(multiprocessing.Process):
                 ) # read a line (see for multiples lines to read)
             """
             temp = ""
-            print("running")    
+            #print("running")    
             sys.stdout.flush()
             try:
                 temp = self.comm.readline()  # TODO READLINES ? maybe to see
@@ -60,7 +64,7 @@ class demon(multiprocessing.Process):
                 sys.stdout.flush()
                 if e.args[0] != "timed out":
                     print("connexion reset, trying to reconnect")
-                    self.comm.close()
+                    self.comm.close() 
                     if(self.is_client):
                         try:
                             self.comm.startClient()
@@ -71,8 +75,9 @@ class demon(multiprocessing.Process):
                             self.comm.accept()
                         except:
                             pass
+                    
             sys.stdout.flush()
-            print("received commands (or not) from network")
+            #print("received commands (or not) from network")
             sys.stdout.flush()
             command_receive = temp.split(" ")[0]
 
@@ -80,17 +85,19 @@ class demon(multiprocessing.Process):
             if(command_receive == "SET_UNIT"):
                 
                 arguments_left = temp.split(" ")[1:]
-                print("argument left", arguments_left)
+                print("got a SET_UNIT", temp)
 
                 #Unit_to_add = (arguments_left[0],  arguments_left[1], arguments_left[2] , arguments_left[3], arguments_left[4], arguments_left[5] ,arguments_left[6], arguments_left[7])
 
                 self.unit_list.append(temp)
+                self.output_queue.put(temp)
                 sys.stdout.flush()
                 
             elif(command_receive == "UPDATE_UNIT"): # UPDATE_UNIT num_of_element (see setstate unit/unit.py) + data
                 self.unit_list.append(temp)
+                self.output_queue.put(temp)
             elif(command_receive == "REMOVE_UNIT"):
-                """arguments_left = temp.split(" ")[1:]
+                """arguments_left = temp.split(" ")[1:] # see main.py
                 unit_id = arguments_left[0]
                 for i in range(0, len(self.unit_list)):
                     unit_it = self.unit_list[i]
@@ -101,6 +108,7 @@ class demon(multiprocessing.Process):
                 print("unit list after remove", self.unit_list, flush=True) # replace sys.stdout.flush() 
                 """
                 self.unit_list.append(temp)
+                self.output_queue.put(temp)
 
         
         #COMMANDS FROM QUEUE
@@ -109,21 +117,17 @@ class demon(multiprocessing.Process):
             try:
                 command = (self.input_queue.get(False))  # nom blocking
             except (Empty, Exception) as e:
-                print("queue empty", e)
+                #print("queue empty", e)
                 sys.stdout.flush()
                 command = ""
-                print("exception at queue reading", e)
-            if(command == "GET_UNIT"):
-                self.output_queue.put(self.unit_list)  # return severals unit
-                self.input_queue.task_done()
+                #print("exception at queue reading", e)
 
             first_arg = command.split(" ")[0]
-            print("first arg", first_arg)
             sys.stdout.flush()
 
             if(first_arg == "SET_UNIT"):
+                print("got a SET_UNIT", command)
                 unit_to_send = command.split(" ")
-                print("list", unit_to_send)
                 unit_to_send.pop(0)
                 string2 = ""
                 for i in unit_to_send:
@@ -133,12 +137,10 @@ class demon(multiprocessing.Process):
                 print("sending ", string, " ", string2)
                 sys.stdout.flush()
                 self.comm.send(string, is_byte=False)
-                self.input_queue.task_done()
 
             # UPDATE UNIT
             if(first_arg == "UPDATE_UNIT"):
                 pass
-            #see with BAREKE what to update
 
             # REMOVE UNIT
             if(first_arg == "REMOVE_UNIT"): # REMOVE_UNIT unit_id
@@ -153,5 +155,5 @@ class demon(multiprocessing.Process):
                 sys.stdout.flush()
                 self.comm.send(to_send, is_byte=False)
                 self.input_queue.task_done()
-            print("cycle ended")
+            #print("cycle ended")
             sys.stdout.flush()
