@@ -60,7 +60,7 @@ class demon(multiprocessing.Process):
             try:
                 temp = self.comm.readline()  # TODO READLINES ? maybe to see
             except Exception as e:
-                print("exception :", e)
+                #print("exception :", e)
                 sys.stdout.flush()
                 if e.args[0] != "timed out":
                     print("connexion reset, trying to reconnect")
