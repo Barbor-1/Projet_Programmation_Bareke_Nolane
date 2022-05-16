@@ -75,58 +75,14 @@ class Unit():
     def __getstate__(self): # add screen later and update limits # dont use it maybe ? 
         return (self.pos_x, self.pos_y, self.allegiance,  self.type, self.health, self.atk,self.armor,self.id)
     def setstate(self, i):
-        self.pos_x = i[0]
-        self.pos_y = i[1]
-        self.allegiance = i[2]pygame 2.1.2 (SDL 2.0.16, Python 3.6.8)
-Hello from the pygame community. https://www.pygame.org/contribute.html
-not a server !
-connected
-running
-22 86
-pos (61, 82)
-collided 2
-event
-exception : timed out
-received commands (or not) from network
-first arg GET_UNIT
-cycle ended
-running
-received commands (or not) from network
-argument left ['0', '0', '-1', 'a', '10', '5', '2', '0']
-queue empty
-exception at queue reading
-first arg
-cycle ended
-running
-received commands (or not) from network
-queue empty
-exception at queue reading
-first arg
-cycle ended
-running
-event
-Traceback (most recent call last):
-  File "/home/local/AD/nd393594/PycharmProjects/Projet_Programmation_Bareke_Nolane/main.py", line 182, in <module>
-    game.placeUnit(unit_to_create, unit_to_create.getPosY(), player_two, grid) # change player
-  File "/home/local/AD/nd393594/PycharmProjects/Projet_Programmation_Bareke_Nolane/game.py", line 13, in placeUnit
-    grid.setUnitAtGrid(grid.getGridSize() - 1, y, target)
-  File "/home/local/AD/nd393594/PycharmProjects/Projet_Programmation_Bareke_Nolane/grid.py", line 15, in setUnitAtGrid
-    self.grid[y][x] = target
-TypeError: list indices must be integers or slices, not str
-exception : timed out
-received commands (or not) from network
-first arg GET_UNIT
-cycle ended
-running
-data treated : SET_UNIT 0 0 -1 a 10 5 2 0
-
-Process finished with exit code 1
-
+        self.pos_x = int(i[0])
+        self.pos_y = int(i[1])
+        self.allegiance = int(i[2])
         self.type = i[3]
-        self.health = i[4] 
-        self.atk = i[5]
-        self.armor = i[6]
-        self.id = i[7]
+        self.health = int(i[4])
+        self.atk = int(i[5])
+        self.armor = int(i[6])
+        self.id = int(i[7])
 
 
 

@@ -177,9 +177,11 @@ if __name__ == "__main__":
                     print("data treated :", data)
                     arg1 = data.split(" ")[0]
                     if(arg1 == "SET_UNIT"):
-                        unit_to_create = game.spawnUnit(change_screen.getScreen(), grid, joueur=player_one)#TODO changer joueur en fonction de la zone
+                        unit_to_create = game.spawnUnit(change_screen.getScreen(), grid, joueur=player_two)#TODO changer joueur en fonction de la zone
                         unit_to_create.setstate(data.split(" ")[1:]) # charge le
+                        unit_to_create.loadImage()  # update image
                         game.placeUnit(unit_to_create, unit_to_create.getPosY(), player_two, grid) # change player
+
                     if(arg1 == "REMOVE_UNIT"):
                         unit_list = network_utils.remove_unit(unit_list, data.split(" ")[1])
 
