@@ -142,6 +142,7 @@ if __name__ == "__main__":
                     change_screen.update()
                     pygame.display.flip()
                     start_ticks=0
+                    counter = 0
 
                 if(clicked_once == True):
                     print("put soldier at pos", int((pos[1]-60)/32))
@@ -165,34 +166,42 @@ if __name__ == "__main__":
 
 
         if(fliped == False):
-            #print("time" , time.time() - start_ticks, "fps ", clock.get_fps())
-            if ( time.time() - start_ticks> 0.5): # TODO REPLACE BY GAME MOVEMENT + limits checks + collisions ?
+            print("time" , time.time() - start_ticks, "fps ", clock.get_fps())
+            if ( (time.time() - start_ticks )> 0.4): # TODO DEGAGER MULTIPROCESS => TROP LENT ?
                 print("event")
                 #get unit from server
-                input_queue.put("GET_UNIT")
-                input_queue.join()
-                data_out = output_queue.get()
+                if(counter == 1): #  TO UPDATE
+                    print("updating network unit")
+                    input_queue.put("GET_UNIT")
+                    #input_queue.join()
+                    data_out = output_queue.get()
+                    counter = 0
+                    for data in data_out:
+                        print("data treated :", data)
+                        arg1 = data.split(" ")[0]
+                        if(arg1 == "SET_UNIT"):
+                            unit_to_create = game.spawnUnit(change_screen.getScreen(), grid, joueur=player_two)#TODO changer joueur en fonction de la zone
+                            unit_to_create.setstate(data.split(" ")[1:]) # charge le
+                            unit_to_create.loadImage()  # update image
+                            game.placeUnit(unit_to_create, unit_to_create.getPosY(), player_two, grid) # change player
 
-                for data in data_out:
-                    print("data treated :", data)
-                    arg1 = data.split(" ")[0]
-                    if(arg1 == "SET_UNIT"):
-                        unit_to_create = game.spawnUnit(change_screen.getScreen(), grid, joueur=player_two)#TODO changer joueur en fonction de la zone
-                        unit_to_create.setstate(data.split(" ")[1:]) # charge le
-                        unit_to_create.loadImage()  # update image
-                        game.placeUnit(unit_to_create, unit_to_create.getPosY(), player_two, grid) # change player
+                        if(arg1 == "REMOVE_UNIT"):
+                            unit_list = network_utils.remove_unit(unit_list, data.split(" ")[1])
 
-                    if(arg1 == "REMOVE_UNIT"):
-                        unit_list = network_utils.remove_unit(unit_list, data.split(" ")[1])
+                        if(arg1 == "UPDATE_UNIT"):
+                            pass
 
-                    if(arg1 == "UPDATE_UNIT"):
-                        pass
+                        if(arg1 == "UPDATE_PLAYER"):
+                            pass
+                counter = counter + 1
 
-                    if(arg1 == "UPDATE_PLAYER"):
-                        pass
+                #sending units :
+                #for unit in unit_list:
+                #    input_queue.put("SEND_UNIT " + str(unit) + "\n")
 
-                button2.drawButton() #IMPORTANT
-                toolbar_soldier.draw()
+
+                #button2.drawButton() #IMPORTANT
+                #toolbar_soldier.draw()
                 background.display_map()
 
                 game.showUnits(grid)
@@ -206,5 +215,6 @@ if __name__ == "__main__":
                         for i in list:
                             game.moveUnit(i, grid)
                 start_ticks = time.time()
+                print("new time")
 
 
