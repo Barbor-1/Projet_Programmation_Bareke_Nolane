@@ -5,6 +5,18 @@ from player import Player
 
 # Liste de fonctions pour main
 id = 0
+playerList = []
+
+def setPlayer(allegiance,screen):
+    joueur = Player(allegiance)
+    playerList.append(joueur)
+    return joueur
+
+def getPlayer(allegiance):
+    for joueur in playerList:
+        if joueur.getAllegiance() == allegiance:
+            return joueur
+
 def placeUnit(target, y, player, grid):
     #Place une unité dans la grille, dans le cas où on en creer une nouvelle
     if player.allegiance == 1:
@@ -17,16 +29,19 @@ def moveUnit(target, grid):
     #Ordonne l'unité d'avancer d'une case dans la grille si elle en est capable
     newPosX = target.getPosX() + target.getAllegiance()
     if newPosX <= grid.getGridSize()-1 and newPosX >=  0:
-        #TODO : Verifier aussi si on est dans la base enntarget.getAllegiance()emie
         nextTarget = grid.getUnitAtGrid(target.getPosX()+target.getAllegiance(), target.getPosY())
         if nextTarget == 0:
             grid.moveUnitAtGrid(target.getPosX() +target.getAllegiance(), target.getPosY(), target)
-
+            if newPosX == grid.getGridSize()-1 and newPosX == 0:
+                ennemi = getPlayer(-target.getAllegiance())
+                target.hurtPlayer(ennemi)
+                grid.deleteUnitAtGrid(target.getPosX(), target.getPosY())
+                print("unit", target.getId(), "attacked enemy base")
         else:
             if( target.attack(nextTarget)  == -1): # if target.attack return -1 => nextTarget is dead and should be removed
             #attack() vérifie déjà l'allegiance des 2 unités
                 grid.deleteUnitAtGrid(nextTarget.getPosX(), nextTarget.getPosY())
-                print("unit", target.getId(), "fell in combat")
+                print("unit", nextTarget.getId(), "fell in combat")
 
 
 def showUnits(grid):
@@ -51,5 +66,4 @@ def takeUnitFromAline(grid, y):
         target = grid.getUnitAtGrid(x, y)
         if(target != 0):
             ret.append(target)
-    return  ret
-
+    return ret

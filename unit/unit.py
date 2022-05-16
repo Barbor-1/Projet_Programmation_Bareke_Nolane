@@ -64,6 +64,7 @@ class Unit():
 
     def hurtPlayer(self, joueur):
         joueur.hurt(self.atk)
+        self.health = 0
 
     def __str__(self): # use __getstate__
         return str(self.pos_x) + " " +  str(self.pos_y) + " " + str(self.allegiance) + " " +  self.type + " "  + str(self.health)+ " " + str(self.atk)  + " " + str(self.armor) + " " + str(self.id)
