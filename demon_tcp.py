@@ -81,25 +81,26 @@ class demon(multiprocessing.Process):
                 
                 arguments_left = temp.split(" ")[1:]
                 print("argument left", arguments_left)
-                
-                
-                Unit_to_add = (arguments_left[0],  arguments_left[1], arguments_left[2] , arguments_left[3], arguments_left[4], arguments_left[5] ,arguments_left[6], arguments_left[7])
-               
-              
-                self.unit_list.append(Unit_to_add)
+
+                #Unit_to_add = (arguments_left[0],  arguments_left[1], arguments_left[2] , arguments_left[3], arguments_left[4], arguments_left[5] ,arguments_left[6], arguments_left[7])
+
+                self.unit_list.append(temp)
                 sys.stdout.flush()
                 
-            elif(command_receive == "UPDATE_UNIT"): # see what to update ? (x and y only ? ) # TODO : complete command parsing
-                pass
+            elif(command_receive == "UPDATE_UNIT"): # UPDATE_UNIT num_of_element (see setstate unit/unit.py) + data
+                self.unit_list.append(temp)
             elif(command_receive == "REMOVE_UNIT"):
-                arguments_left = temp.split(" ")[1:]
+                """arguments_left = temp.split(" ")[1:]
                 unit_id = arguments_left[0]
                 for i in range(0, len(self.unit_list)):
                     unit_it = self.unit_list[i]
                     if(unit_it[7] == unit_id):
                         #remove this unit
                         self.unit_list.pop(i)
+                
                 print("unit list after remove", self.unit_list, flush=True) # replace sys.stdout.flush() 
+                """
+                self.unit_list.append(temp)
 
         
         #COMMANDS FROM QUEUE

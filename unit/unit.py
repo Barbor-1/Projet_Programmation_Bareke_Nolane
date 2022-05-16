@@ -4,7 +4,7 @@ from player import Player
 
 class Unit():
     def __init__(self, screen=0, allegiance=0, id=0): # 0 pour éviter le chargement des images dans le démon TCP 
-        self.pos_x = 0
+        self.pos_x = 0 #
         self.pos_y = 0
         self.allegiance = allegiance  # A qui appartient l'unité. +1 pour un joueur -1 pour l'autre => ça peut passer
         self.type = "a" # default type just for networking
