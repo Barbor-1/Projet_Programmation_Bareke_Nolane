@@ -30,13 +30,15 @@ def moveUnit(target, grid):
     newPosX = target.getPosX() + target.getAllegiance()
     if newPosX <= grid.getGridSize()-1 and newPosX >=  0:
         nextTarget = grid.getUnitAtGrid(target.getPosX()+target.getAllegiance(), target.getPosY())
+        if ((newPosX == grid.getGridSize()-1) or (newPosX == 0)):
+            ennemi = getPlayer(-target.getAllegiance())
+            target.hurtPlayer(ennemi)
+            grid.deleteUnitAtGrid(target.getPosX(), target.getPosY())
+            print("unit", target.getId(), "attacked enemy base")
         if nextTarget == 0:
             grid.moveUnitAtGrid(target.getPosX() +target.getAllegiance(), target.getPosY(), target)
-            if newPosX == grid.getGridSize()-1 and newPosX == 0:
-                ennemi = getPlayer(-target.getAllegiance())
-                target.hurtPlayer(ennemi)
-                grid.deleteUnitAtGrid(target.getPosX(), target.getPosY())
-                print("unit", target.getId(), "attacked enemy base")
+            print("new pos X", newPosX)
+
         else:
             if( target.attack(nextTarget)  == -1): # if target.attack return -1 => nextTarget is dead and should be removed
             #attack() vérifie déjà l'allegiance des 2 unités

@@ -147,7 +147,7 @@ if __name__ == "__main__":
                 if(clicked_once == True):
                     pos_to_place = int((pos[1]-60)/32)
                     if(pos_to_place < 0):
-                        clicked_once == False
+                        clicked_once = False
                     else:
                         print("put soldier at pos",pos_to_place )
                         temp = game.spawnUnit(main_screen.getScreen(), grid, joueur=player_one) #TODO changer joueur en fonction de la zone + changer le x

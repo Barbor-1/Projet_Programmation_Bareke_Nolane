@@ -8,7 +8,7 @@ import sys
 
 
 class demon(multiprocessing.Process):
-    def __init__(self, input_queue, output_queue, is_client=True, address="127.0.0.1", port="1234"):
+    def __init__(self, input_queue, output_queue, is_client=True, address="127.0.0.1", port="1234"): # change address
         super().__init__()
         self.port = port
         self.is_client = is_client
@@ -37,13 +37,14 @@ class demon(multiprocessing.Process):
                 try:
                     self.comm.startClient(5)  
                 except Exception as e:
-                    print("exception while trying to connect for the first time")
+                    #print("exception while trying to connect for the first time")
                     retry = True
             
             self.comm.startClient()
                     
 
         print("connected")
+        self.output_queue.put("CONNECTED")
         sys.stdout.flush()
         # TODO : see what do if client leaves ?
         while(running == True):
@@ -64,6 +65,7 @@ class demon(multiprocessing.Process):
                 sys.stdout.flush()
                 if e.args[0] != "timed out":
                     print("connexion reset, trying to reconnect")
+                    self.output_queue.put("DISCONNECTED")
                     self.comm.close() 
                     if(self.is_client):
                         try:
