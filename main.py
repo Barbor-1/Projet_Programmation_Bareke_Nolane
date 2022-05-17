@@ -208,11 +208,11 @@ if __name__ == "__main__":
                 # #sending units : TODO : les mettre a jour au lieu de les créer et les créer juste dans le cas où le joueur les crée
                 # for unit in unit_list:
                 #    input_queue.put("SEND_UNIT " + str(unit) + "\n")
-
+                main_screen.getScreen().fill((255, 255, 255))
                 button2.drawButton()  # IMPORTANT
                 toolbar_soldier.draw()
-                game.showHealth(main_screen.getScreen())
                 background.display_map()
+                game.showHealth(main_screen.getScreen())
 
                 game.showUnits(grid)
                 main_screen.update()
