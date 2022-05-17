@@ -10,8 +10,9 @@ from unit.unit import Unit
 from grid import Grid
 from  player import Player
 from toolbar import  Toolbar
-from pytmx.util_pygame import load_pygame # 2.7 mode !
 from textbox import Textbox
+from show_menu import ShowMenu
+from pytmx.util_pygame import load_pygame # 2.7 mode !
 import pytmx
 
 from demon_tcp import demon
@@ -31,7 +32,7 @@ test.daemon = True # important pour que le process se ferme après que le le scr
 if __name__ == "__main__":
     test.start() # start demon
     pygame.init()
-    screen = pygame.display.set_mode((800, 800), vsync=True )
+    screen = pygame.display.set_mode((800, 800))
     #pygame.display.set_caption("RTS GAME - v1")
 
     menu_screen = Screen("RTS GAME - v1-MENU", screen, 800, 800) #TODO : change screens names
@@ -39,27 +40,27 @@ if __name__ == "__main__":
     screen = menu_screen.getScreen()
 
     main_screen = Screen("RTS GAME - v1", screen, 640, 700)
-    screen2 = main_screen.getScreen()
     background = Background(main_screen.getScreen(), "sans_titre.tmx") #TODO : change path
 
     # Ecran 1
-    carte_menu = Map(screen,
-    os.path.join(os.getcwd(), "Test_carte.png"))  # IMPORTANTx. B-Currently the background is placeholder
-    #TO CHANGE CARTE MENU
-    carte_menu.display_map()
+    #carte_menu = Map(screen, os.path.join(os.getcwd(), "Test_carte.png"))  # IMPORTANTx. B-Currently the background is placeholder
+    #TODO CHANGE CARTE MENU
 
-    button1 = button.Button(30, 70, (255, 255, 255), (255, 0, 0), screen)
+    button1 = button.Button(30, 70, (255, 255, 255), (255, 0, 0), screen) # TO REMOVE WHEN MENU IS FINISHED
     button1.initButton("Next")
     button1.drawButton()
+
+    show_menu = ShowMenu(menu_screen.getScreen())
+    show_menu.draw()
 
     font = pygame.font.SysFont('Corbel', 64)
     text1 = font.render("MENU", True, (0, 0, 0))
     screen.blit(text1, text1.get_rect(topleft=(10, 10)))
 
-    textbox = Textbox(menu_screen.getScreen(), 100, 100, 100, 400, (25, 25, 25))
-    textbox.draw()
+    #textbox = Textbox(menu_screen.getScreen(), 100, 100, 100, 400, (25, 25, 25))
+    #textbox.draw()
 
-    button2 = button.Button(1, 1, (0, 0, 0), (235, 125, 56), screen2)
+    button2 = button.Button(1, 1, (0, 0, 0), (235, 125, 56), main_screen.getScreen())
     button2.initButton(
         "Go back")  # Initialise values for example text_rect that could crash when we click the screen in the while
     print(button2.text_rect.h, button2.text_rect.w)
@@ -68,6 +69,7 @@ if __name__ == "__main__":
 
     player_one = game.setPlayer(1)
     player_two = game.setPlayer(-1)
+
     grid = Grid(unit_size=32, size=640)
     unit1 = game.spawnUnit(main_screen.getScreen(), grid, player_one)
     game.placeUnit(unit1, 0, player_one, grid)
@@ -86,11 +88,11 @@ if __name__ == "__main__":
         events =  pygame.event.get()
         clock.tick()
         for event in events:
-            if (fliped == True): # UPDATE TEXTBOX
-                if(textbox.listen(event)):
-                    print(textbox.getText()) # DO SOMETHING ELSE, print only for testing purposes
-                menu_screen.update() # UPDATE SCREEN
-                pygame.display.flip()
+            #if (fliped == True): # UPDATE TEXTBOX
+            #    if(textbox.listen(event)):
+            #        print(textbox.getText()) # DO SOMETHING ELSE, print only for testing purposes
+            #    menu_screen.update() # UPDATE SCREEN
+            #    pygame.display.flip()
 
             if event.type == pygame.QUIT:
                 running = False
@@ -98,6 +100,7 @@ if __name__ == "__main__":
                 pos = pygame.mouse.get_pos()
 
                 if (button2.collide(pos) == 1 and fliped == False):  # MAIN SCREEN to MENU
+
                     mode = pygame.display.set_mode((800, 800), vsync=True ) # useless, only for testing purposes
                     menu_screen.screen = mode
                     # B-Still able to press button 1 even if fliped, flashes white when pressed
@@ -107,15 +110,12 @@ if __name__ == "__main__":
                     menu_screen.makeCurrent()  # do nothing, see later
                     main_screen.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
 
-                    carte_menu.display_map()
-
-                    # pygame.draw.rect(screen2, (75, 63,
-                    # 143), (300, 300, 200, 200))
-
-                    textbox.draw()
+                    #textbox.draw()
 
                     text1 = font.render("MENU", True, (0, 0, 0))
                     menu_screen.getScreen().blit(text1, text1.get_rect(topleft=(10, 10)))
+
+                    show_menu.draw()
 
                     button1.drawButton()
                     menu_screen.update()
@@ -132,11 +132,10 @@ if __name__ == "__main__":
                     main_screen.makeCurrent()  # do nothing, see later
                     menu_screen.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
                     screen = main_screen.getScreen()
-                   # carte_menu.display_map()
+                    # carte_menu.display_map()
                     button2.drawButton()
                     toolbar_soldier.draw()
 
-                    #screen.blit(text1, text1.get_rect(topleft=(10, 10)))
 
                     background.display_map()
                     main_screen.update()
@@ -163,6 +162,9 @@ if __name__ == "__main__":
                         last_pos = pos
                         clicked_once = True
                         print("clicked once")
+        if(fliped == True): # menu update
+
+            pygame.display.flip()
 
         if(fliped == False):
             exception = False
