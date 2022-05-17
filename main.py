@@ -46,6 +46,8 @@ if __name__ == "__main__":
     #carte_menu = Map(screen, os.path.join(os.getcwd(), "Test_carte.png"))  # IMPORTANTx. B-Currently the background is placeholder
     #TODO CHANGE CARTE MENU
 
+    menu_screen.getScreen().fill((80, 80, 80))
+
     button1 = button.Button(30, 70, (255, 255, 255), (255, 0, 0), screen) # TO REMOVE WHEN MENU IS FINISHED
     button1.initButton("Next")
     button1.drawButton()
@@ -103,6 +105,8 @@ if __name__ == "__main__":
 
                     mode = pygame.display.set_mode((800, 800), vsync=True ) # useless, only for testing purposes
                     menu_screen.screen = mode
+
+
                     # B-Still able to press button 1 even if fliped, flashes white when pressed
                     print("collided 1")
                     fliped = True
@@ -111,6 +115,7 @@ if __name__ == "__main__":
                     main_screen.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
 
                     #textbox.draw()
+                    menu_screen.getScreen().fill((80, 80, 80))
 
                     text1 = font.render("MENU", True, (0, 0, 0))
                     menu_screen.getScreen().blit(text1, text1.get_rect(topleft=(10, 10)))
