@@ -34,13 +34,13 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode((800, 800), vsync=True )
     #pygame.display.set_caption("RTS GAME - v1")
 
-    screen_object = Screen("RTS GAME - v1-MENU", screen, 800, 800) #TODO : change screens names
-    screen_object.makeCurrent()
-    screen = screen_object.getScreen()
+    menu_screen = Screen("RTS GAME - v1-MENU", screen, 800, 800) #TODO : change screens names
+    menu_screen.makeCurrent()
+    screen = menu_screen.getScreen()
 
-    change_screen = Screen("RTS GAME - v1", screen, 640, 700)
-    screen2 = change_screen.getScreen()
-    background = Background(change_screen.getScreen(), "sans_titre.tmx") #TODO : change path
+    main_screen = Screen("RTS GAME - v1", screen, 640, 700)
+    screen2 = main_screen.getScreen()
+    background = Background(main_screen.getScreen(), "sans_titre.tmx") #TODO : change path
 
     # Ecran 1
     carte_menu = Map(screen,
@@ -56,26 +56,26 @@ if __name__ == "__main__":
     text1 = font.render("MENU", True, (0, 0, 0))
     screen.blit(text1, text1.get_rect(topleft=(10, 10)))
 
-    textbox = Textbox(screen_object.getScreen(), 100, 100, 100, 400, (25, 25, 25))
+    textbox = Textbox(menu_screen.getScreen(), 100, 100, 100, 400, (25, 25, 25))
     textbox.draw()
 
     button2 = button.Button(1, 1, (0, 0, 0), (235, 125, 56), screen2)
     button2.initButton(
         "Go back")  # Initialise values for example text_rect that could crash when we click the screen in the while
     print(button2.text_rect.h, button2.text_rect.w)
-    screen_object.update()
+    menu_screen.update()
     pygame.display.flip()  # update display (IMPORTANT)
 
-    player_one = game.setPlayer(1, change_screen.getScreen())
-    player_two = game.setPlayer(-1, change_screen.getScreen())
+    player_one = game.setPlayer(1, main_screen.getScreen())
+    player_two = game.setPlayer(-1, main_screen.getScreen())
     grid = Grid(unit_size=32, size=640)
-    unit1 = game.spawnUnit(change_screen.getScreen(), grid, player_one)
+    unit1 = game.spawnUnit(main_screen.getScreen(), grid, player_one)
     game.placeUnit(unit1, 0, player_one, grid)
 
-    unit2 = game.spawnUnit(change_screen.getScreen(), grid, player_two)
+    unit2 = game.spawnUnit(main_screen.getScreen(), grid, player_two)
     game.placeUnit(unit2, 0, player_two, grid)
 
-    toolbar_soldier = Toolbar(change_screen.getScreen(), button2.text_rect.w + 10, 0, os.path.join(os.getcwd(), "Soldat.png")) #relative positions ! (DONE)
+    toolbar_soldier = Toolbar(main_screen.getScreen(), button2.text_rect.w + 10, 0, os.path.join(os.getcwd(), "Soldat.png")) #relative positions ! (DONE)
     clicked_once = False
     unit_list = [unit1, unit2]
 
@@ -89,7 +89,7 @@ if __name__ == "__main__":
             if (fliped == True): # UPDATE TEXTBOX
                 if(textbox.listen(event)):
                     print(textbox.getText()) # DO SOMETHING ELSE, print only for testing purposes
-                screen_object.update() # UPDATE SCREEN
+                menu_screen.update() # UPDATE SCREEN
                 pygame.display.flip()
 
             if event.type == pygame.QUIT:
@@ -99,13 +99,13 @@ if __name__ == "__main__":
 
                 if (button2.collide(pos) == 1 and fliped == False):  # MAIN SCREEN to MENU
                     mode = pygame.display.set_mode((800, 800), vsync=True ) # useless, only for testing purposes
-                    screen_object.screen = mode
+                    menu_screen.screen = mode
                     # B-Still able to press button 1 even if fliped, flashes white when pressed
                     print("collided 1")
                     fliped = True
 
-                    screen_object.makeCurrent()  # do nothing, see later
-                    change_screen.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
+                    menu_screen.makeCurrent()  # do nothing, see later
+                    main_screen.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
 
                     carte_menu.display_map()
 
@@ -115,23 +115,23 @@ if __name__ == "__main__":
                     textbox.draw()
 
                     text1 = font.render("MENU", True, (0, 0, 0))
-                    screen_object.getScreen().blit(text1, text1.get_rect(topleft=(10, 10)))
+                    menu_screen.getScreen().blit(text1, text1.get_rect(topleft=(10, 10)))
 
                     button1.drawButton()
-                    screen_object.update()
+                    menu_screen.update()
                     pygame.display.flip()
 
 
                 if (button1.collide(pos) == 1 and fliped == True):  # MENU TO MAIN SCREEN
                     mode = pygame.display.set_mode((640, 700), vsync=True ) # useless, only for testing purposes
-                    change_screen.screen = mode
+                    main_screen.screen = mode
                     # Menu Screen
                     # B-Still able to press button 2 even if fliped
                     print("collided 2")
                     fliped = False
-                    change_screen.makeCurrent()  # do nothing, see later
-                    screen_object.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
-                    screen = change_screen.getScreen()
+                    main_screen.makeCurrent()  # do nothing, see later
+                    menu_screen.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
+                    screen = main_screen.getScreen()
                    # carte_menu.display_map()
                     button2.drawButton()
                     toolbar_soldier.draw()
@@ -139,7 +139,7 @@ if __name__ == "__main__":
                     #screen.blit(text1, text1.get_rect(topleft=(10, 10)))
 
                     background.display_map()
-                    change_screen.update()
+                    main_screen.update()
                     pygame.display.flip()
                     start_ticks=0
                     counter = 0
@@ -150,7 +150,7 @@ if __name__ == "__main__":
                         clicked_once == False
                     else:
                         print("put soldier at pos",pos_to_place )
-                        temp = game.spawnUnit(change_screen.getScreen(), grid, joueur=player_one) #TODO changer joueur en fonction de la zone + changer le x
+                        temp = game.spawnUnit(main_screen.getScreen(), grid, joueur=player_one) #TODO changer joueur en fonction de la zone + changer le x
                         game.placeUnit(temp, pos_to_place, player_one, grid)
                         unit_list.append(temp)
                         data_to_send = "SET_UNIT " + str(temp) + "\n"
@@ -163,11 +163,6 @@ if __name__ == "__main__":
                         last_pos = pos
                         clicked_once = True
                         print("clicked once")
-
-
-                    #move image
-
-
 
         if(fliped == False):
             exception = False
@@ -189,7 +184,7 @@ if __name__ == "__main__":
                         arg1 = data_out.split(" ")[0]
                         if(arg1 == "SET_UNIT"):
                             print("got a new unit !")
-                            unit_to_create = game.spawnUnit(change_screen.getScreen(), grid, joueur=player_two)#TODO changer joueur en fonction de la zone
+                            unit_to_create = game.spawnUnit(main_screen.getScreen(), grid, joueur=player_two)#TODO changer joueur en fonction de la zone
                             unit_to_create.setstate(data_out.split(" ")[1:]) # charge le
                             unit_to_create.loadImage()  # update image
                             game.placeUnit(unit_to_create, unit_to_create.getPosY(), player_two, grid) # change player
@@ -216,7 +211,7 @@ if __name__ == "__main__":
                 background.display_map()
 
                 game.showUnits(grid)
-                change_screen.update()
+                main_screen.update()
                 pygame.display.flip()
                 for y in range(0, 20):
                     #prendre toute les unités d'une ligne
