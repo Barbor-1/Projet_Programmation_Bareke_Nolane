@@ -37,7 +37,7 @@ class demon(multiprocessing.Process):
                 try:
                     self.comm.startClient(5)  
                 except Exception as e:
-                    print("exception while trying to connect for the first time")
+                    #print("exception while trying to connect for the first time")
                     retry = True
             
             self.comm.startClient()

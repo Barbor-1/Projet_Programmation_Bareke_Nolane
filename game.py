@@ -7,8 +7,8 @@ from player import Player
 id = 0
 playerList = []
 
-def setPlayer(allegiance,screen):
-    joueur = Player(allegiance,screen)
+def setPlayer(allegiance):
+    joueur = Player(allegiance)
     playerList.append(joueur)
     return joueur
 
@@ -29,11 +29,12 @@ def moveUnit(target, grid):
     #Ordonne l'unité d'avancer d'une case dans la grille si elle en est capable
     newPosX = target.getPosX() + target.getAllegiance()
     if newPosX <= grid.getGridSize()-1 and newPosX >=  0:
-        nextTarget = grid.getUnitAtGrid(target.getPosX()+target.getAllegiance(), target.getPosY())
+        nextTarget = grid.getUnitAtGrid(newPosX, target.getPosY())
         if nextTarget == 0:
-            grid.moveUnitAtGrid(target.getPosX() +target.getAllegiance(), target.getPosY(), target)
+            grid.moveUnitAtGrid(newPosX, target.getPosY(), target)
             if newPosX == grid.getGridSize()-1 and newPosX == 0:
-                ennemi = getPlayer(-target.getAllegiance())
+                #TODO faire que sa fonctionne
+                ennemi = getPlayer(-int(target.getAllegiance()))
                 target.hurtPlayer(ennemi)
                 grid.deleteUnitAtGrid(target.getPosX(), target.getPosY())
                 print("unit", target.getId(), "attacked enemy base")
@@ -67,3 +68,12 @@ def takeUnitFromAline(grid, y):
         if(target != 0):
             ret.append(target)
     return ret
+
+def showHealth(screen):
+    font = pygame.font.SysFont('Corbel', 64)
+    player1= getPlayer(1)
+    player2= getPlayer(-1)
+    health= str(player1.getHealth())+" "+str(player2.getHealth())
+    print(health)
+    text1 = font.render(health, True, (0, 0, 0))
+    screen.blit(text1, text1.get_rect(center=(0, -300)))

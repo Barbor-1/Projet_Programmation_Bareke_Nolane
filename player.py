@@ -1,10 +1,10 @@
+from textbox import  Textbox
 
 class Player():
-    def __init__(self, allegiance, screen):
+    def __init__(self, allegiance):
         self.health = 200
         self.allegiance = allegiance
         self.money = 40
-        self.screen = screen
 
     def getHealth(self):
         return self.health
@@ -17,3 +17,4 @@ class Player():
 
     def hurt(self,atk):
         self.health -= atk
+#TODO Afficher PV et argent du joueur, screen doit être dans game ou dans joueur?

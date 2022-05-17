@@ -66,8 +66,8 @@ if __name__ == "__main__":
     menu_screen.update()
     pygame.display.flip()  # update display (IMPORTANT)
 
-    player_one = game.setPlayer(1, main_screen.getScreen())
-    player_two = game.setPlayer(-1, main_screen.getScreen())
+    player_one = game.setPlayer(1)
+    player_two = game.setPlayer(-1)
     grid = Grid(unit_size=32, size=640)
     unit1 = game.spawnUnit(main_screen.getScreen(), grid, player_one)
     game.placeUnit(unit1, 0, player_one, grid)
@@ -208,6 +208,7 @@ if __name__ == "__main__":
 
                 button2.drawButton() #IMPORTANT
                 toolbar_soldier.draw()
+                game.showHealth(main_screen.getScreen())
                 background.display_map()
 
                 game.showUnits(grid)
