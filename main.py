@@ -256,7 +256,7 @@ if __name__ == "__main__":
 
                     for i in unitList:
                         game.moveUnit(i, grid)  # TODO UPDATE UNIT HEALTH IN CASE OF DAMAGE AND REMOVE IT IF NECESSARY
-                        #if i.getAllegiance() == 1:
+                        if i.getAllegiance() == 1:
                             player_one.gain(2) # Fait gagner de l'argent pour chaque unité vivante de son coté (au total +38 ou +42 si il combat a la fin)
 
                 start_ticks = time.time()
