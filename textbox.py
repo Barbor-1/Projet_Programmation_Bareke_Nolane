@@ -14,18 +14,19 @@ class Textbox:
         self.rect.center = (self.x, self.y)
         self.borderWidth = 5
         self.active = False
-        self.font = pygame.font.Font(None, fontSize)
+        self.font = pygame.font.Font("CORBEL.TTF", fontSize)
         self.text = "a"
     def draw(self):
         text_surface = self.font.render(self.text, True, self.textColor)
-        self.screen.blit(text_surface, text_surface.get_rect(center=(self.x, self.y)))
         pygame.draw.rect(self.screen, self.color, self.rect)
         pygame.draw.rect(self.screen, self.borderColor, self.rect, width=self.borderWidth)
+        self.screen.blit(text_surface, text_surface.get_rect(center=(self.x, self.y)))
+
 
     
     def listen(self, event):
         if(event.type == pygame.MOUSEBUTTONDOWN):
-            print("pos", pygame.mouse.get_pos())
+            #print("pos", pygame.mouse.get_pos())
             if(self.rect.collidepoint(pygame.mouse.get_pos())):
                 self.active = not self.active
                 print("active ?", self.active)

@@ -21,6 +21,8 @@ class ShowMenu():
         self.client_text = self.font.render("CLIENT", True, (255, 0, 0))
         self.textbox_player = Textbox(self.screen, self.width / 2, self.height - 20, 40, 400, (0, 0, 0),
                                       (255, 0, 0))
+        self.textbox_IP = Textbox(self.screen, self.width / 3, 200, 40, self.server_text.get_rect().width, (0, 0, 0),
+                                  (255, 0, 0))
 
     def draw(self):
         self.screen.blit(self.client_text,
@@ -30,20 +32,29 @@ class ShowMenu():
         self.start_client.drawButton()
         self.start_server.drawButton()
         self.textbox_player.draw()
+        self.textbox_IP.draw()
 
-    def collide(self, pos, event):
-        if( self.textbox_player.listen(event) == True):
+    def collide(self, event):
+        if (self.textbox_player.listen(event) == True):
             return 3
-        if(self.start_client.collide(pos) == True):
-            return  2
-        if(self.start_server.collide(pos) == True):
-            return 1
-        return -1 # nothing
-
+        if(self.textbox_IP.listen(event) == True):
+            return 4
+        if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1):
+            print("clicked")
+            pos = pygame.mouse.get_pos()
+            if (self.start_client.collide(pos) == 1):
+                return 2
+            if (self.start_server.collide(pos) == 1):
+                return 1
+            return -1  # nothing
 
     # if return value == 1 => server has been selectionned
     # if return value == 2 => client has been selectionned
-    #if return value == 3 => player nmae is available
+    # if return value == 3 => player nmae is available
+    #if return value == 4 => IP has been entered
 
     def getPlayerText(self):
-        pass
+        return self.textbox_player.getText()
+
+    def getIpText(self):
+        return  self.textbox_IP.getText()
