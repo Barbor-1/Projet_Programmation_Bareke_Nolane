@@ -159,3 +159,4 @@ class demon(multiprocessing.Process):
                 self.input_queue.task_done()
             #print("cycle ended")
             sys.stdout.flush()
+

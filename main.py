@@ -55,7 +55,7 @@ if __name__ == "__main__":
     show_menu = ShowMenu(menu_screen.getScreen())
     show_menu.draw()
 
-    font = pygame.font.SysFont('Corbel', 64)
+    font = pygame.font.SysFont('CORBEL.TTF', 64)
     text1 = font.render("MENU", True, (0, 0, 0))
     screen.blit(text1, text1.get_rect(topleft=(10, 10)))
 
@@ -69,8 +69,8 @@ if __name__ == "__main__":
     menu_screen.update()
     pygame.display.flip()  # update display (IMPORTANT)
 
-    player_one = game.setPlayer(1)
-    player_two = game.setPlayer(-1)
+    player_one = game.setPlayer(1) # notre joueur
+    player_two = game.setPlayer(-1) # joueur ennemi
 
     grid = Grid(unit_size=32, size=640)
     unit1 = game.spawnUnit(main_screen.getScreen(), grid, player_one)
@@ -167,8 +167,11 @@ if __name__ == "__main__":
                         last_pos = pos
                         clicked_once = True
                         print("clicked once")
-        if(fliped == True): # menu update
+                res = show_menu.collide(pos)
+                if(res > 0):
+                    pass
 
+        if(fliped == True): # menu update
             pygame.display.flip()
 
         if(fliped == False):

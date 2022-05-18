@@ -10,16 +10,17 @@ class Textbox:
         self.color = color
         self.borderColor = borderColor
         self.textColor = textColor
-        self.rect = pygame.Rect(x, y, w, h, )
+        self.rect = pygame.Rect(x, y, w, h,)
+        self.rect.center = (self.x, self.y)
         self.borderWidth = 5
         self.active = False
         self.font = pygame.font.Font(None, fontSize)
         self.text = "a"
     def draw(self):
-        pygame.draw.rect(self.screen, self.color, self.rect)
-        pygame.draw.rect(self.screen, self.color, self.rect,width=self.borderWidth)
         text_surface = self.font.render(self.text, True, self.textColor)
-        self.screen.blit(text_surface, text_surface.get_rect(topleft=(self.x, self.y)))
+        self.screen.blit(text_surface, text_surface.get_rect(center=(self.x, self.y)))
+        pygame.draw.rect(self.screen, self.color, self.rect)
+        pygame.draw.rect(self.screen, self.borderColor, self.rect, width=self.borderWidth)
 
     
     def listen(self, event):

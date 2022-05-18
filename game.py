@@ -35,7 +35,7 @@ def moveUnit(target, grid):
         nextTarget = grid.getUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY())
         if nextTarget == 0:
             grid.moveUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY(), target)
-            print("new pos X", newPosX)
+            #print("new pos X", newPosX)
 
         else:
             if (target.attack(
@@ -85,12 +85,13 @@ def takeUnitFromAline(grid, y):
 
 
 def showHealth(screen):
-    font = pygame.font.SysFont('Corbel', 64)
+    font = pygame.font.SysFont('CORBEL.TTF', 64)
     player1 = getPlayer(1)
     player2 = getPlayer(-1)
     health = str(player1.getHealth()) + " " + str(player2.getHealth())
     #print(health)
     text1 = font.render(health, True, (0, 0, 0))
-    screen.blit(text1, text1.get_rect(topleft=(200, 10)))
+    #print("size, ", screen.get_size()[0]/2)
+    screen.blit(text1, text1.get_rect(center=(screen.get_size()[0]/2,60/2)))
     #TODO Faire que le texte ne s'écrase pas l'un par dessus l'autre (ajouté un fond d'écran sur la toolbar?)
     #TODO Affichage, faire une fonction qui affiche tout et gère la distance des textes
