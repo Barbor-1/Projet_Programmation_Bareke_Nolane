@@ -32,7 +32,6 @@ test.daemon = True  # important pour que le process se ferme après que le le sc
 if __name__ == "__main__":
     player_name = ""
     IP = ""
-    test.start()  # start demon
     pygame.init()
     screen = pygame.display.set_mode((800, 800))
     # pygame.display.set_caption("RTS GAME - v1")
@@ -181,15 +180,18 @@ if __name__ == "__main__":
 
                 if(res == 4):
                     IP = show_menu.getIpText()
+                    print("IP", IP)
 
-
-                if (res == 3):
-                    player_name = show_menu.getPlayerText()
-                    print("player name ", player_name)
                 if (res == 1):
                     print("server has bene selected")
+                    test.start()
+                    test.is_client = False
+
                 if (res == 2):
                     print("client has been selected")
+                    test.address = IP
+                    test.is_client = True
+                    test.start()
 
 
         if (fliped == False):
