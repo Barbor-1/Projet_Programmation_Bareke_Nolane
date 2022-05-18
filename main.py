@@ -161,12 +161,17 @@ if __name__ == "__main__":
                         input_queue.put(data_to_send)
                         #input_queue.join() # not waiting for command
                         clicked_once = False
+                        player_one.cost(30) #TODO avoir le coût lié a une valeur de toolbar par exemple
+                        print("money :", player_one.getMoney())
+
                 if(toolbar_soldier.collide(pos)):
                     print("collide solider")
                     if(clicked_once == False):
-                        last_pos = pos
-                        clicked_once = True
-                        print("clicked once")
+                        last_pos = pos # utiliser nulle part?
+                        if player_one.getMoney() >= 30:
+                            clicked_once = True
+                            print("clicked once")
+
         if(fliped == True): # menu update
 
             pygame.display.flip()
@@ -217,6 +222,7 @@ if __name__ == "__main__":
                 toolbar_soldier.draw()
                 background.display_map()
                 game.showHealth(main_screen.getScreen())
+                game.showWealth(main_screen.getScreen())
 
                 game.showUnits(grid)
                 main_screen.update()
