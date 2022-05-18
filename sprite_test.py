@@ -6,7 +6,7 @@ screen = pygame.display.set_mode((1920, 1080)) # useless, only for testing purpo
 #pygame.display.set_caption("RTS GAME - v1")
 
 
-image = pygame.image.load("Placeholder.png")
+image = pygame.image.load("Sprite/Placeholder.png")
 rect = image.get_rect()
 screen.blit(image, rect)
 while True:

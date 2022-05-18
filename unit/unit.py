@@ -14,10 +14,10 @@ class Unit():
         self.id = id
         if allegiance == 1:
             pass
-            self.image = pygame.image.load(os.path.join(os.getcwd(), "Soldat.png"))
+            self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Soldat.png"))
         elif allegiance == -1:
             pass
-            self.image = pygame.image.load(os.path.join(os.getcwd(), "SoldierB.png"))
+            self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/SoldierB.png"))
         else:
             pass # do nothing
         self.screen = screen
@@ -28,9 +28,9 @@ class Unit():
 
     def loadImage(self): # pour le chagement des unités a travers le réseau
         if self.allegiance == 1:
-            self.image = pygame.image.load(os.path.join(os.getcwd(), "Soldat.png"))
+            self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Soldat.png"))
         else :
-            self.image = pygame.image.load(os.path.join(os.getcwd(), "SoldierB.png"))
+            self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/SoldierB.png"))
         self.limits = pygame.display.get_surface().get_size()[0]
 
     def getPosX(self):

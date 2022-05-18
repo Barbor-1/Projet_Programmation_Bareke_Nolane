@@ -41,7 +41,7 @@ if __name__ == "__main__":
     screen = menu_screen.getScreen()
 
     main_screen = Screen("RTS GAME - v1", screen, 640, 700)
-    background = Background(main_screen.getScreen(), "sans_titre.tmx") #TODO : change path
+    background = Background(main_screen.getScreen(), "Sprite/sans_titre.tmx") #TODO : change path
 
     # Ecran 1
     #carte_menu = Map(screen, os.path.join(os.getcwd(), "Test_carte.png"))  # IMPORTANTx. B-Currently the background is placeholder
@@ -80,7 +80,8 @@ if __name__ == "__main__":
     unit2 = game.spawnUnit(main_screen.getScreen(), grid, player_two)
     game.placeUnit(unit2, 0, player_two, grid)
 
-    toolbar_soldier = Toolbar(main_screen.getScreen(), button2.text_rect.w + 10, 0, os.path.join(os.getcwd(), "Soldat.png")) #relative positions ! (DONE)
+    toolbar_soldier = Toolbar(main_screen.getScreen(), button2.text_rect.w + 10, 0, os.path.join(os.getcwd(),
+                                                                                                 "Sprite/Soldat.png")) #relative positions ! (DONE)
     clicked_once = False
     unit_list = [unit1, unit2]
 
@@ -175,9 +176,9 @@ if __name__ == "__main__":
                 res = show_menu.collide(pos)
                 if(res > 0):
                     pass
-                        last_pos = pos
-                        clicked_once = True
-                        print("clicked once")
+                    last_pos = pos
+                    clicked_once = True
+                    print("clicked once")
                 res = show_menu.collide(pos,event)
                 if(res == 3):
                     player_name = show_menu.getPlayerText()
