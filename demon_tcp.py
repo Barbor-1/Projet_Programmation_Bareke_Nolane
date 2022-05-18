@@ -20,7 +20,6 @@ class demon(multiprocessing.Process):
             # self.comm.startClient() # TODO : ERROR MANAGEMENT
         self.input_queue = input_queue
         self.output_queue = output_queue
-        self.unit_list = []
 
     def run(self):  # main loop to call with multiprocessing : only client do server later
         running = True
@@ -91,27 +90,15 @@ class demon(multiprocessing.Process):
 
                 #Unit_to_add = (arguments_left[0],  arguments_left[1], arguments_left[2] , arguments_left[3], arguments_left[4], arguments_left[5] ,arguments_left[6], arguments_left[7])
 
-                self.unit_list.append(temp)
                 self.output_queue.put(temp)
                 sys.stdout.flush()
                 
             elif(command_receive == "UPDATE_UNIT"): # UPDATE_UNIT num_of_element (see setstate unit/unit.py) + data
-                self.unit_list.append(temp)
                 self.output_queue.put(temp)
             elif(command_receive == "REMOVE_UNIT"):
-                """arguments_left = temp.split(" ")[1:] # see main.py
-                unit_id = arguments_left[0]
-                for i in range(0, len(self.unit_list)):
-                    unit_it = self.unit_list[i]
-                    if(unit_it[7] == unit_id):
-                        #remove this unit
-                        self.unit_list.pop(i)
-                
-                print("unit list after remove", self.unit_list, flush=True) # replace sys.stdout.flush() 
-                """
-                self.unit_list.append(temp)
                 self.output_queue.put(temp)
-
+            elif(command_receive == "UPDATE_PLAYER"):
+                self.output_queue.put(temp)
         
         #COMMANDS FROM QUEUE
 
@@ -156,7 +143,10 @@ class demon(multiprocessing.Process):
                 print("sending remove command", to_send)
                 sys.stdout.flush()
                 self.comm.send(to_send, is_byte=False)
-                self.input_queue.task_done()
+            if(first_arg == "UPDATE_PLAYER"):
+                self.comm.send(command, is_byte=False)
+
+
             #print("cycle ended")
             sys.stdout.flush()
 

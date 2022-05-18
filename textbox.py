@@ -16,6 +16,7 @@ class Textbox:
         self.active = False
         self.font = pygame.font.Font("CORBEL.TTF", fontSize)
         self.text = "a"
+        self.cursor = pygame.cursors.Cursor(pygame.SYSTEM_CURSOR_IBEAM)
     def draw(self):
         text_surface = self.font.render(self.text, True, self.textColor)
         pygame.draw.rect(self.screen, self.color, self.rect)
@@ -29,20 +30,25 @@ class Textbox:
             #print("pos", pygame.mouse.get_pos())
             if(self.rect.collidepoint(pygame.mouse.get_pos())):
                 self.active = not self.active
-                print("active ?", self.active)
+                #print("active ?", self.active)
             else:
                 self.active = False
             #change color of input box ?
-
+            if(self.active == True):
+                pygame.mouse.set_cursor(self.cursor)
+            if(self.active == False):
+                pygame.mouse.set_cursor(pygame.cursors.arrow)
         if(event.type == pygame.KEYDOWN and self.active == True):
             if event.key == pygame.K_RETURN:
-                        print(self.text + " return\n")
+                        #print(self.text + " return\n")
                         return True
             elif event.key == pygame.K_BACKSPACE:
                 self.text = self.text[:-1] # return all element except last one
             else:
                 self.text += event.unicode
-                print(self.text)
+                #print(self.text)
+
+
         self.draw()
             
     def getText(self):
