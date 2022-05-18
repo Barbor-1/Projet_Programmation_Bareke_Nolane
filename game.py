@@ -1,4 +1,5 @@
 import pygame
+import os
 from unit.unit import Unit
 from grid import Grid
 from player import Player
@@ -35,7 +36,7 @@ def moveUnit(target, grid):
         nextTarget = grid.getUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY())
         if nextTarget == 0:
             grid.moveUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY(), target)
-            #print("new pos X", newPosX)
+            # print("new pos X", newPosX)
 
         else:
             if (target.attack(
@@ -89,19 +90,24 @@ def showHealth(screen):
     player1 = getPlayer(1)
     player2 = getPlayer(-1)
     health = str(player1.getHealth()) + " " + str(player2.getHealth())
-    #print(health)
+    # print(health)
     text1 = font.render(health, True, (0, 0, 0))
-    #print("size, ", screen.get_size()[0]/2)
-    screen.blit(text1, text1.get_rect(center=(screen.get_size()[0]/2,60/2)))
-    #TODO Faire que le texte ne s'écrase pas l'un par dessus l'autre (ajouté un fond d'écran sur la toolbar?)
-    #TODO Affichage, faire une fonction qui affiche tout et gère la distance des textes
+    # print("size, ", screen.get_size()[0]/2)
+    screen.blit(text1, text1.get_rect(center=(screen.get_size()[0] / 2, 60 / 2)))
+    # TODO Faire que le texte ne s'écrase pas l'un par dessus l'autre (ajouté un fond d'écran sur la toolbar?)
+    # TODO Affichage, faire une fonction qui affiche tout et gère la distance des textes
 
-#Pas impossible de fusionner showHealth et showWealth
+
+# Pas impossible de fusionner showHealth et showWealth
 def showWealth(screen):
+
     font = pygame.font.SysFont('Corbel', 16)
     player1 = getPlayer(1)
-    player2 = getPlayer(-1)
-    health = str(player1.getMoney()) + " " + str(player2.getMoney())
-    #print(health)
+    health = str(player1.getMoney())
+    # print(health)
+
     text1 = font.render(health, True, (0, 0, 0))
-    screen.blit(text1, text1.get_rect(topleft=(300, 50)))
+    width = screen.get_size()[0]
+    moneyImage = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Money-1.png"))
+    screen.blit(text1, text1.get_rect(center=(width-width/4+15+text1.get_rect().width, 50)))
+    screen.blit(moneyImage, moneyImage.get_rect(center=(width-width/4+10, 30)))
