@@ -21,6 +21,7 @@ from unit.unit import Unit
 running = True
 fliped = True  # TRUE => menu
 id = 0
+cancel = 0 # Pour afficher une image quand on a pas assez d'argent
 
 # starting demon
 input_queue = JoinableQueue()  # Queue with task_done and join()
@@ -171,6 +172,8 @@ if __name__ == "__main__":
                         if (player_one.getMoney() >= 30):
                             clicked_once = True
                             print("clicked once")
+                        else :
+                            cancel = 1
             if (fliped == True):
                 res = show_menu.collide(event)
                 menu_screen.update()  # for textbox
@@ -234,9 +237,14 @@ if __name__ == "__main__":
                 main_screen.getScreen().fill((255, 255, 255))
                 button2.drawButton()  # IMPORTANT
                 toolbar_soldier.draw()
+                if cancel == 1:
+                    #Pas fait de la meilleur manière, devrait peut etre mis dans une fonction
+                    toolbar_soldier.cancel()
+                    cancel = 0
                 background.display_map()
                 game.showHealth(main_screen.getScreen())
                 game.showWealth(main_screen.getScreen())
+
 
                 game.showUnits(grid)
                 main_screen.update()
@@ -248,4 +256,7 @@ if __name__ == "__main__":
 
                     for i in unitList:
                         game.moveUnit(i, grid)  # TODO UPDATE UNIT HEALTH IN CASE OF DAMAGE AND REMOVE IT IF NECESSARY
+                        #if i.getAllegiance() == 1:
+                            player_one.gain(2) # Fait gagner de l'argent pour chaque unité vivante de son coté (au total +38 ou +42 si il combat a la fin)
+
                 start_ticks = time.time()
