@@ -29,4 +29,8 @@ class Toolbar():
     def collide(self, pos):
         return self.rect.collidepoint(pos)
 
+    def cancel(self):
+        self.image = pygame.image.load("Sprite/Cancel-1.png")
+        self.screen.blit(self.image, (self.x, self.y))
+        self.image = pygame.image.load(self.image_path)
     #todo move function
