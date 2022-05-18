@@ -95,3 +95,13 @@ def showHealth(screen):
     screen.blit(text1, text1.get_rect(center=(screen.get_size()[0]/2,60/2)))
     #TODO Faire que le texte ne s'écrase pas l'un par dessus l'autre (ajouté un fond d'écran sur la toolbar?)
     #TODO Affichage, faire une fonction qui affiche tout et gère la distance des textes
+
+#Pas impossible de fusionner showHealth et showWealth
+def showWealth(screen):
+    font = pygame.font.SysFont('Corbel', 16)
+    player1 = getPlayer(1)
+    player2 = getPlayer(-1)
+    health = str(player1.getMoney()) + " " + str(player2.getMoney())
+    #print(health)
+    text1 = font.render(health, True, (0, 0, 0))
+    screen.blit(text1, text1.get_rect(topleft=(300, 50)))
