@@ -14,12 +14,15 @@ class Toolbar():
         self.rect = self.image.get_rect()
         self.rect.move(self.x, self.y)
 
+        self.font = pygame.font.SysFont("CORBEL.TTF",12)
+        self.text = self.font.render("30", True , (0, 0, 0)) # render font
 
     def draw(self):
         self.rect = self.image.get_rect() # update rect
         self.rect.x= self.x
         self.rect.y = self.y
         self.screen.blit(self.image, (self.x, self.y))
+        self.screen.blit(self.text, (self.x, self.y+self.image.get_rect().height + 2))
         #pygame.draw.rect(self.screen, (255, 0, 0), self.rect)
 
 
