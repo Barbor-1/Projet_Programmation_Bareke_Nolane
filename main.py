@@ -30,6 +30,7 @@ test = demon(input_queue, output_queue, port="12345") # only client for now
 test.daemon = True # important pour que le process se ferme après que le le script principal s'est terminé !
 
 if __name__ == "__main__":
+    player_name = ""
     test.start() # start demon
     pygame.init()
     screen = pygame.display.set_mode((800, 800))
@@ -167,9 +168,15 @@ if __name__ == "__main__":
                         last_pos = pos
                         clicked_once = True
                         print("clicked once")
-                res = show_menu.collide(pos)
-                if(res > 0):
-                    pass
+                res = show_menu.collide(pos,event)
+                if(res == 3):
+                    player_name = show_menu.getPlayerText()
+                    print("player name ", player_name)
+                if(res == 1):
+                    print("server has bene selected")
+                if(res == 2):
+                    print("client has been selected")
+
 
         if(fliped == True): # menu update
             pygame.display.flip()

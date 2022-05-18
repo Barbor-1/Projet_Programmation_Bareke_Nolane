@@ -31,8 +31,8 @@ class ShowMenu():
         self.start_server.drawButton()
         self.textbox_player.draw()
 
-    def collide(self, pos):
-        if( self.textbox_player.listen() == True):
+    def collide(self, pos, event):
+        if( self.textbox_player.listen(event) == True):
             return 3
         if(self.start_client.collide(pos) == True):
             return  2
