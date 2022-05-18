@@ -41,7 +41,7 @@ if __name__ == "__main__":
     screen = menu_screen.getScreen()
 
     main_screen = Screen("RTS GAME - v1", screen, 640, 700)
-    background = Background(main_screen.getScreen(), "sans_titre.tmx")  # TODO : change path
+    background = Background(main_screen.getScreen(), "Sprite/sans_titre.tmx")  # TODO : change path
 
     # Ecran 1
     # carte_menu = Map(screen, os.path.join(os.getcwd(), "Test_carte.png"))  # IMPORTANTx. B-Currently the background is placeholder
@@ -81,7 +81,7 @@ if __name__ == "__main__":
     game.placeUnit(unit2, 0, player_two, grid)
 
     toolbar_soldier = Toolbar(main_screen.getScreen(), button2.text_rect.w + 10, 0,
-                              os.path.join(os.getcwd(), "Soldat.png"))  # relative positions ! (DONE)
+                              os.path.join(os.getcwd(), "Sprite/Soldat.png"))  # relative positions ! (DONE)
     clicked_once = False
     unit_list = [unit1, unit2]
 
@@ -164,11 +164,11 @@ if __name__ == "__main__":
                         player_one.cost(30)  # TODO avoir le coût lié a une valeur de toolbar par exemple
                         print("money :", player_one.getMoney())
 
-                if (toolbar_soldier.collide(pos) and fliped == True):
+                if (toolbar_soldier.collide(pos) and fliped == False):
                     print("collide solider")
                     if (clicked_once == False):
                         last_pos = pos  # utiliser nulle part?
-                        if player_one.getMoney() >= 30:
+                        if (player_one.getMoney() >= 30):
                             clicked_once = True
                             print("clicked once")
             if (fliped == True):
