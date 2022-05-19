@@ -3,7 +3,7 @@ import pygame
 import pytmx
 import time
 from multiprocessing import process, JoinableQueue
-from pytmx.util_pygame import load_pygame  # 2.7 mode !
+#from pytmx.util_pygame import load_pygame  # 2.7 mode !
 
 import button
 import game
@@ -56,7 +56,7 @@ if __name__ == "__main__":
     show_menu = ShowMenu(menu_screen.getScreen())
     show_menu.draw()
 
-    font = pygame.font.SysFont('CORBEL.TTF', 64)
+    font = pygame.font.SysFont('Sprite/CORBEL.TTF', 64)
     text1 = font.render("MENU", True, (0, 0, 0))
     screen.blit(text1, text1.get_rect(topleft=(10, 10)))
 

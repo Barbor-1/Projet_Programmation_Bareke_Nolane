@@ -1,5 +1,4 @@
 import pygame
-
 from pytmx.util_pygame import load_pygame # 2.7 mode !
 
 class Map:
