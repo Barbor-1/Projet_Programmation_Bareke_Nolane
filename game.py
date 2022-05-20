@@ -60,8 +60,7 @@ def moveUnit(target, grid, outputQueue):
                 print("unit", target.getId(), "attacked enemy base")
                 outputQueue.put("REMOVE_UNIT " + str(target.id) +"\n")
 
-                #TODO test if player has lost + update remote player
-                # Bug l'unité attaque avant la fin
+                #TODO test if player has lost
 
 
 def showUnits(grid):

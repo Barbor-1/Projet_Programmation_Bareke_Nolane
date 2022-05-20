@@ -3,7 +3,6 @@ import pygame
 import pytmx
 import time
 from multiprocessing import process, JoinableQueue
-#from pytmx.util_pygame import load_pygame  # 2.7 mode !
 
 import button
 import game
@@ -18,16 +17,17 @@ from textbox import Textbox
 from toolbar import Toolbar
 from unit.unit import Unit
 
+# from pytmx.util_pygame import load_pygame  # 2.7 mode !
+
 running = True
 fliped = True  # TRUE => menu
 switch_back = False
 id = 0
-cancel = 0 # Pour afficher une image quand on a pas assez d'argent
+cancel = 0  # Pour afficher une image quand on a pas assez d'argent
 is_client = False
 # starting demon
 input_queue = JoinableQueue()  # Queue with task_done and join()
 output_queue = JoinableQueue()
-
 
 if __name__ == "__main__":
     player_name = ""
@@ -84,7 +84,7 @@ if __name__ == "__main__":
     clock = pygame.time.Clock()
     # clock = time.time()
 
-    while (running  == True):
+    while (running == True):
         events = pygame.event.get()
         clock.tick()
         for event in events:
@@ -101,12 +101,12 @@ if __name__ == "__main__":
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # put it inside class with event as argument ?| event.button == 1 : left click
                 pos = pygame.mouse.get_pos()
 
-                if (button2.collide(pos) == 1 and fliped == False) or( fliped == False and switch_back == True):  # MAIN SCREEN to MENU
+                if (button2.collide(pos) == 1 and fliped == False) or (
+                        fliped == False and switch_back == True):  # MAIN SCREEN to MENU
                     test.terminate()
                     mode = pygame.display.set_mode((800, 800), vsync=True)  # useless, only for testing purposes
                     menu_screen.screen = mode
                     switch_back = False
-
 
                     # B-Still able to press button 1 even if fliped, flashes white when pressed
                     print("collided 1")
@@ -133,13 +133,16 @@ if __name__ == "__main__":
                     else:
                         print("put soldier at pos", pos_to_place)
                         temp = game.spawnUnit(main_screen.getScreen(), grid,
-                                              joueur=player_one)  # TODO changer joueur en fonction de la zone + changer le x
-                        game.placeUnit(temp, pos_to_place, player_one, grid)
+                                              joueur=player_one)
+                        if (grid.getUnitAtGrid(0, pos_to_place) == 0):
+                            game.placeUnit(temp, pos_to_place, player_one, grid)  # place une unité seulement si dans la case de l'unité il n'y a rien
+
                         unit_list.append(temp)
                         data_to_send = "SET_UNIT " + str(temp) + "\n"
-                        input_queue.put(data_to_send)
-                        # input_queue.join() # not waiting for command
+                        input_queue.put(data_to_send) # update network unit
+
                         clicked_once = False
+
                         player_one.cost(30)  # TODO avoir le coût lié a une valeur de toolbar par exemple
                         print("money :", player_one.getMoney())
 
@@ -150,14 +153,14 @@ if __name__ == "__main__":
                         if (player_one.getMoney() >= 30):
                             clicked_once = True
                             print("clicked once")
-                        else :
+                        else:
                             cancel = 1
             if (fliped == True):
                 res = show_menu.collide(event)
                 menu_screen.update()  # for textbox
                 pygame.display.flip()
 
-                if(res == 4):
+                if (res == 4):
                     IP = show_menu.getIpText()
                     print("IP", IP)
 
@@ -168,7 +171,7 @@ if __name__ == "__main__":
                     test.start()
 
                     wait_for_connect = output_queue.get()
-                    while(wait_for_connect !=  "CONNECTED"):
+                    while (wait_for_connect != "CONNECTED"):
                         print("waiting", wait_for_connect)
                         wait_for_connect = output_queue.get()
                     print("connected from client")
@@ -193,19 +196,15 @@ if __name__ == "__main__":
                     start_ticks = 0
                     counter = 0
 
-
-
-
-
-
                 if (res == 2):
                     print("client has been selected")
-                    test = demon(input_queue, output_queue, port="9999", is_client=True, address=IP)  # only client for now
+                    test = demon(input_queue, output_queue, port="9999", is_client=True,
+                                 address=IP)  # only client for now
                     test.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
                     test.start()
 
                     wait_for_connect = output_queue.get()
-                    while(wait_for_connect !=  "CONNECTED"):
+                    while (wait_for_connect != "CONNECTED"):
                         print("waiting", wait_for_connect)
                         wait_for_connect = output_queue.get()
                     print("connected from client")
@@ -233,7 +232,6 @@ if __name__ == "__main__":
 
                     start_ticks = 0
                     counter = 0
-
 
         if (fliped == False):
             exception = False
@@ -272,11 +270,11 @@ if __name__ == "__main__":
                         if (arg1 == "UPDATE_PLAYER"):  # TODO
                             print("got a player to update")
                             pass
-                        if(arg1 == "DISCONNECTED"):
+                        if (arg1 == "DISCONNECTED"):
                             output_queue.put("CLOSE")
                             switch_back = False
 
-                        if(arg1 == "UPDATE_PLAYER"):
+                        if (arg1 == "UPDATE_PLAYER"):
                             value = int(data_out.split(" ")[1])
                             player_one.hurt(value)
 
@@ -289,13 +287,12 @@ if __name__ == "__main__":
                 button2.drawButton()  # IMPORTANT
                 toolbar_soldier.draw()
                 if cancel == 1:
-                    #Pas fait de la meilleur manière, devrait peut etre mis dans une fonction
+                    # Pas fait de la meilleur manière, devrait peut etre mis dans une fonction
                     toolbar_soldier.cancel()
                     cancel = 0
                 background.display_map()
                 game.showHealth(main_screen.getScreen())
                 game.showWealth(main_screen.getScreen())
-
 
                 game.showUnits(grid)
                 main_screen.update()
@@ -306,9 +303,9 @@ if __name__ == "__main__":
                     unitList = game.takeUnitFromAline(grid, y)
 
                     for i in unitList:
-                        game.moveUnit(i, grid, output_queue)  # TODO UPDATE UNIT HEALTH IN CASE OF DAMAGE AND REMOVE IT IF NECESSARY
+                        game.moveUnit(i, grid,
+                                      output_queue)  # TODO UPDATE UNIT HEALTH IN CASE OF DAMAGE AND REMOVE IT IF NECESSARY
 
-                player_one.gain(2) # Fait gagner de l'argent
-
+                player_one.gain(2)  # Fait gagner de l'argent
 
                 start_ticks = time.time()
