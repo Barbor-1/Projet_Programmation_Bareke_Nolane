@@ -15,7 +15,7 @@ class Textbox:
         self.borderWidth = 5
         self.active = False
         self.font = pygame.font.Font("Sprite/CORBEL.TTF", fontSize)
-        self.text = "a"
+        self.text = ""
         self.cursor = pygame.cursors.Cursor(pygame.SYSTEM_CURSOR_IBEAM)
     def draw(self):
         text_surface = self.font.render(self.text, True, self.textColor)
