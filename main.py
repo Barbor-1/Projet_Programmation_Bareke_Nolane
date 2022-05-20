@@ -182,8 +182,8 @@ if __name__ == "__main__":
                     background.display_map()
                     main_screen.update()
                     pygame.display.flip()
-                    start_ticks = 0
-                    counter = 0
+                    start_ticks = 0 #reset tick counter
+                    counter = 0 # for network update delaying
 
                 if (res == 2): # client sélectionné
                     print("client has been selected")
