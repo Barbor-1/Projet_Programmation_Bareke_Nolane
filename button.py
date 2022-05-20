@@ -10,7 +10,7 @@ class Button:
         self.background_color = background_color
     def initButton(self, label, center=False):
         self.label = label
-        smallfont = pygame.font.SysFont("CORBEL.TTF",self.size) # can change it ?
+        smallfont = pygame.font.SysFont("Sprite/CORBEL.TTF",self.size) # can change it ?
         self.text = smallfont.render(self.label, True , self.color) # render font
         if(center == False):
             self.text_rect = self.text.get_rect(topleft=(self.x, self.y)) # get rectangle

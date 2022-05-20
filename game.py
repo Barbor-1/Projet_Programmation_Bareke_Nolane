@@ -90,7 +90,7 @@ def takeUnitFromAline(grid, y):
 
 
 def showHealth(screen):
-    font = pygame.font.SysFont('CORBEL.TTF', 64)
+    font = pygame.font.SysFont('Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/CORBEL.TTF', 64)
     player1 = getPlayer(1)
     player2 = getPlayer(-1)
     health = str(player1.getHealth()) + " " + str(player2.getHealth())

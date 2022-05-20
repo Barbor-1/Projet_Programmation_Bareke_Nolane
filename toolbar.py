@@ -14,7 +14,7 @@ class Toolbar():
         self.rect = self.image.get_rect()
         self.rect.move(self.x, self.y)
 
-        self.font = pygame.font.SysFont("CORBEL.TTF",12)
+        self.font = pygame.font.SysFont("Sprite/CORBEL.TTF",12)
         self.text = self.font.render("30", True , (0, 0, 0)) # render font
 
     def draw(self):
