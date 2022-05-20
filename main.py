@@ -26,86 +26,71 @@ id = 0
 cancel = 0  # Pour afficher une image quand on a pas assez d'argent
 is_client = False
 # starting demon
-input_queue = JoinableQueue()  # Queue with task_done and join()
-output_queue = JoinableQueue()
+input_queue = JoinableQueue()  # Queue main => démon
+output_queue = JoinableQueue() # Queue démon => main
 demon = "" # pour utiliser la variable demon partout
 if __name__ == "__main__":
-    player_name = ""
-    IP = ""
+    IP = "" # addresse IP pour le client
     pygame.init()
-    screen = pygame.display.set_mode((800, 800))
+    screen = pygame.display.set_mode((800, 800)) # menu => taille 800*800
     # pygame.display.set_caption("RTS GAME - v1")
 
-    menu_screen = Screen("RTS GAME - v1-MENU", screen, 800, 800)  # TODO : change screens names
-    menu_screen.makeCurrent()
-    screen = menu_screen.getScreen()
+    menu_screen = Screen("RTS GAME - v1-MENU", screen, 800, 800)  # crée la surface du menu
+    menu_screen.makeCurrent() # change la surface courante par celle du menu
+    screen = menu_screen.getScreen() # screen contient la surface qui sert a dessiner
 
-    main_screen = Screen("RTS GAME - v1", screen, 640, 700)
-    background = Background(main_screen.getScreen(), "Sprite/sans_titre.tmx")  # TODO : change path
+    main_screen = Screen("RTS GAME - v1", screen, 640, 700) # surface du jeu en lui même
+    background = Background(main_screen.getScreen(), "Sprite/sans_titre.tmx")  # charge la carte
 
-    # Ecran 1
-    # carte_menu = Map(screen, os.path.join(os.getcwd(), "Test_carte.png"))  # IMPORTANTx. B-Currently the background is placeholder
-    # TODO CHANGE CARTE MENU
 
-    menu_screen.getScreen().fill((80, 80, 80))
+    menu_screen.getScreen().fill((80, 80, 80)) # menu gris (fond)
 
-    show_menu = ShowMenu(menu_screen.getScreen())
-    show_menu.draw()
+    show_menu = ShowMenu(menu_screen.getScreen()) # crée le menu
+    show_menu.draw() # affiche le menu
 
-    font = pygame.font.SysFont('Sprite/CORBEL.TTF', 64)
-    text1 = font.render("MENU", True, (0, 0, 0))
-    screen.blit(text1, text1.get_rect(topleft=(10, 10)))
+    font = pygame.font.SysFont('Sprite/CORBEL.TTF', 64) # police
+    text1 = font.render("MENU", True, (0, 0, 0)) #TEXTE MENU
+    screen.blit(text1, text1.get_rect(topleft=(10, 10))) # affiche le  texte
 
-    # textbox = Textbox(menu_screen.getScreen(), 100, 100, 100, 400, (25, 25, 25))
-    # textbox.draw()
 
-    button2 = button.Button(1, 1, (0, 0, 0), (235, 125, 56), main_screen.getScreen())
-    button2.initButton(
-        "Go back")  # Initialise values for example text_rect that could crash when we click the screen in the while
-    print(button2.text_rect.h, button2.text_rect.w)
-    menu_screen.update()
+    button2 = button.Button(1, 1, (0, 0, 0), (235, 125, 56), main_screen.getScreen()) # bouton
+    button2.initButton( # initialise le bouton
+        "Go back")
+    #print(button2.text_rect.h, button2.text_rect.w) #DEBUG
+    menu_screen.update() # met a jour la surface du menu
     pygame.display.flip()  # update display (IMPORTANT)
 
     player_one = game.setPlayer(1)  # notre joueur
     player_two = game.setPlayer(-1)  # joueur ennemi
 
-    grid = Grid(unit_size=32, size=640)
-    unit1 = game.spawnUnit(main_screen.getScreen(), grid, player_one)
-    game.placeUnit(unit1, 0, player_one, grid)
+    grid = Grid(unit_size=32, size=640) # grille des unités
 
-    unit2 = game.spawnUnit(main_screen.getScreen(), grid, player_two)
-    game.placeUnit(unit2, 0, player_two, grid)
 
     toolbar_soldier = Toolbar(main_screen.getScreen(), button2.text_rect.w + 10, 0,
                               os.path.join(os.getcwd(), "Sprite/Soldat.png"))  # relative positions ! (DONE)
     clicked_once = False
-    unit_list = [unit1, unit2]
 
-    clock = pygame.time.Clock()
+    clock = pygame.time.Clock() #pour nombre FPS
     # clock = time.time()
 
     while (running == True):
-        events = pygame.event.get()
-        clock.tick()
+        events = pygame.event.get() # get event list
+        clock.tick() # met a jour le nombre de fps
         for event in events:
-            # if (fliped == True): # UPDATE TEXTBOX
-            #    if(textbox.listen(event)):
-            #        print(textbox.getText()) # DO SOMETHING ELSE, print only for testing purposes
-            #    menu_screen.update() # UPDATE SCREEN
-            #    pygame.display.flip()
 
-            if event.type == pygame.QUIT:
-                input_queue.put("CLOSE") # quitte la connexion
-                print("closing")
+
+            if event.type == pygame.QUIT: # on quitte
+                input_queue.put("CLOSE") # ferme la connexion
+                print("closing") #DEBUG
                 demon.terminate() # terminer le processus demon_tcp
                 quit() # quitte
 
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # put it inside class with event as argument ?| event.button == 1 : left click
-                pos = pygame.mouse.get_pos()
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1: #click gauche
+                pos = pygame.mouse.get_pos() #position de la souris
 
                 if (button2.collide(pos) == 1 and fliped == False) or (fliped == False and switch_back == True):  # MAIN SCREEN to MENU
-                    mode = pygame.display.set_mode((800, 800), vsync=True)  # useless, only for testing purposes
-                    menu_screen.screen = mode
+                    mode = pygame.display.set_mode((800, 800))  # met a jout la taille de l'écran
+                    menu_screen.screen = mode #met a jour la surface
 
                     # B-Still able to press button 1 even if fliped, flashes white when pressed
                     print("collided 1")
@@ -137,7 +122,6 @@ if __name__ == "__main__":
                         if (grid.getUnitAtGrid(0, pos_to_place) == 0):
                             game.placeUnit(temp, pos_to_place, player_one, grid)  # place une unité seulement si dans la case de l'unité il n'y a rien
 
-                        unit_list.append(temp)
                         data_to_send = "SET_UNIT " + str(temp) + "\n"
                         input_queue.put(data_to_send) # update network unit
 
@@ -207,10 +191,12 @@ if __name__ == "__main__":
                     while (wait_for_connect != "CONNECTED"):
                         print("waiting", wait_for_connect)
                         wait_for_connect = output_queue.get()
+                        pygame.display.flip() # pour évite de freeze le jeu
+
                     print("connected from client")
 
-                    mode = pygame.display.set_mode((640, 700), vsync=True)  # useless, only for testing purposes
-                    main_screen.screen = mode
+                    mode = pygame.display.set_mode((640, 700), vsync=True)  #met a jour la taille de l'écran
+                    main_screen.screen = mode # met a jour la surface
                     # Menu Screen
                     # B-Still able to press button 2 even if fliped
 
@@ -236,10 +222,10 @@ if __name__ == "__main__":
         if (fliped == False):
             exception = False
             # print("time" , time.time() - start_ticks, "fps ", clock.get_fps())
-            if ((time.time() - start_ticks) > 0.5):  # TODO DEGAGER MULTIPROCESS => TROP LENT ?
+            if ((time.time() - start_ticks) > 0.5):  # les ticks de mise a jour se font tout les 0.5 secondes MIN
                 # print("event")
                 # get unit from server
-                if (counter == 1):  # TO UPDATE
+                if (counter == 1):  # pour faire que la mise a jour réseau se fasse tout les x ticks de physique (ici 1 mise a jour réseau / tick)
                     try:
                         data_out = output_queue.get(False)  # not blocking
                     except Exception as e:
@@ -250,18 +236,18 @@ if __name__ == "__main__":
                         print("got update from server")
 
                         print("data treated :", data_out)
-                        arg1 = data_out.split(" ")[0]
+                        arg1 = data_out.split(" ")[0] # premier argument de la commande
                         if (arg1 == "SET_UNIT"):
                             print("got a new unit !")
                             unit_to_create = game.spawnUnit(main_screen.getScreen(), grid,
-                                                            joueur=player_two)  # TODO changer joueur en fonction de la zone
-                            unit_to_create.setstate(data_out.split(" ")[1:])  # charge l'état du joueur
+                                                            joueur=player_two)  # crée l'unité
+                            unit_to_create.setstate(data_out.split(" ")[1:])  # charge l'état de l'unité sauf l'ALLEGIANCE CAR CELLE CI EST TOUJOURS -1 => ennemie
                             unit_to_create.loadImage()  # update image
-                            game.placeUnit(unit_to_create, unit_to_create.getPosY(), player_two, grid)  # change player
+                            game.placeUnit(unit_to_create, unit_to_create.getPosY(), player_two, grid)  # place l'unit"
 
                         if (arg1 == "REMOVE_UNIT"):
                             print("got a new unit to remove")
-                            unit_list = network_utils.remove_unit(unit_list, data_out.split(" ")[1])
+                            unit_list = network_utils.remove_unit(grid, data_out.split(" ")[1]) # to fix
 
                         if (arg1 == "UPDATE_UNIT"):  # TODO
                             print("got a new unit to update")
@@ -270,11 +256,9 @@ if __name__ == "__main__":
                         if (arg1 == "UPDATE_PLAYER"):  # TODO
                             print("got a player to update")
                             pass
+
                         if (arg1 == "DISCONNECTED"):
-                            print("disconnected, going back to menu")
-                            output_queue.put("CLOSE")
-                            demon.terminate()
-                            switch_back = True
+                            pass # see later
 
                         if (arg1 == "UPDATE_PLAYER"):
                             value = int(data_out.split(" ")[1])
@@ -285,10 +269,10 @@ if __name__ == "__main__":
                 # #sending units : TODO : les mettre a jour au lieu de les créer et les créer juste dans le cas où le joueur les crée
                 # for unit in unit_list:
                 #    input_queue.put("SEND_UNIT " + str(unit) + "\n")
-                main_screen.getScreen().fill((255, 255, 255))
-                button2.drawButton()  # IMPORTANT
-                toolbar_soldier.draw()
-                if cancel == 1:
+                main_screen.getScreen().fill((255, 255, 255)) # vide l'écran
+                button2.drawButton()  # IMPORTANT # affiche le bouton retour
+                toolbar_soldier.draw() # affiche le boutton pour placer une unité (ou plusieurs see later)
+                if cancel == 1: # pas asser d'argent => petite annimation (marche pas ?)
                     # Pas fait de la meilleur manière, devrait peut etre mis dans une fonction
                     toolbar_soldier.cancel()
                     cancel = 0

@@ -65,7 +65,7 @@ class Demon(multiprocessing.Process):
                 if e.args[0] != "timed out":
                     print("connexion reset, trying to reconnect")
                     self.output_queue.put("DISCONNECTED")
-                    self.comm.close() 
+                    self.comm.close(False)
                     if(self.is_client):
                         try:
                             self.comm.startClient()

@@ -46,9 +46,9 @@ class server():
                 raise Exception("no data left, connexion dead ? ")
         return str
 
-    def close(self):
+    def close(self, shutdown=True):
         self.client.close()
-        if (shutdown):
+        if (shutdown == True):
             self.socket.shutdown(socket.SHUT_RDWR)
     def shutdown(self):
         self.client.close()
