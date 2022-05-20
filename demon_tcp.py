@@ -36,7 +36,7 @@ class Demon(multiprocessing.Process):
                 try:
                     self.comm.startClient(5)  
                 except Exception as e:
-                    #print("exception while trying to connect for the first time")
+                    print("exception while trying to connect for the first time", e)
                     retry = True
             
             self.comm.startClient()
@@ -63,7 +63,7 @@ class Demon(multiprocessing.Process):
                 #print("exception :", e)
                 sys.stdout.flush()
                 if e.args[0] != "timed out":
-                    print("connexion reset, trying to reconnect")
+                    print("connexion reset, trying to reconnect", e)
                     self.output_queue.put("DISCONNECTED")
                     self.comm.close(False)
                     if(self.is_client):

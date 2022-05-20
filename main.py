@@ -105,67 +105,67 @@ if __name__ == "__main__":
                     main_screen.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
 
                     # textbox.draw()
-                    menu_screen.getScreen().fill((80, 80, 80))
+                    menu_screen.getScreen().fill((80, 80, 80)) # écran tout gris
 
-                    text1 = font.render("MENU", True, (0, 0, 0))
+                    text1 = font.render("MENU", True, (0, 0, 0)) # texte du menu
                     menu_screen.getScreen().blit(text1, text1.get_rect(topleft=(10, 10)))
 
-                    show_menu.draw()
+                    show_menu.draw() # affiche le menu
 
-                    menu_screen.update()
+                    menu_screen.update() # met a jour l'écran
                     pygame.display.flip()
 
                 if (clicked_once == True):
-                    pos_to_place = int((pos[1] - 60) / 32)
-                    if (pos_to_place < 0):
-                        clicked_once = False
+                    pos_to_place = int((pos[1] - 60) / 32) #position de la future unité => 1 case fait 32*32 + le terrain de jeu commence qu'a 60 pixels
+                    if (pos_to_place < 0): # si au dessus du terrain de jeu
+                        clicked_once = False #reset flag
                     else:
                         print("put soldier at pos", pos_to_place)
                         temp = game.spawnUnit(main_screen.getScreen(), grid,
-                                              joueur=player_one)
+                                              joueur=player_one) # spawn l'unité
                         if (grid.getUnitAtGrid(0, pos_to_place) == 0):
                             game.placeUnit(temp, pos_to_place, player_one, grid)  # place une unité seulement si dans la case de l'unité il n'y a rien
 
                         data_to_send = "SET_UNIT " + str(temp) + "\n"
                         input_queue.put(data_to_send) # update network unit
 
-                        clicked_once = False
+                        clicked_once = False # reset flag
 
                         player_one.cost(30)  # TODO avoir le coût lié a une valeur de toolbar par exemple
-                        print("money :", player_one.getMoney())
+                        #enlève 30 d'argent au joueur
+                        print("money :", player_one.getMoney()) #debug
 
-                if (toolbar_soldier.collide(pos) and fliped == False):
+                if (toolbar_soldier.collide(pos) and fliped == False): #mode jeu + boutton cliqué
                     print("collide solider")
-                    if (clicked_once == False):
-                        last_pos = pos  # utiliser nulle part?
-                        if (player_one.getMoney() >= 30):
+                    if (clicked_once == False): # premier clik
+                        if (player_one.getMoney() >= 30): #si assez d'argent
                             clicked_once = True
                             print("clicked once")
                         else:
-                            cancel = 1
-            if (fliped == True):
-                res = show_menu.collide(event)
-                menu_screen.update()  # for textbox
-                pygame.display.flip()
+                            cancel = 1 #on cancel l'action (animation)
+            if (fliped == True): # si on est en mode menu
+                res = show_menu.collide(event) # test des colision
+                menu_screen.update()  # for textbox update
+                pygame.display.flip() 
 
-                if (res == 4):
+                if (res == 4): # on a entré l'addresse IP
                     IP = show_menu.getIpText()
                     print("IP", IP)
 
-                if (res == 1):
+                if (res == 1): #le serveur a été sélectionné
                     print("server has bene selected")
-                    demon = Demon(input_queue, output_queue, port="9999", is_client=False)  # only client for now
+                    demon = Demon(input_queue, output_queue, port="9999", is_client=False)  #init demon
                     demon.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
-                    demon.start()
+                    demon.start() 
 
-                    wait_for_connect = output_queue.get()
+                    wait_for_connect = output_queue.get() # attend que le démon se connecte 
                     while (wait_for_connect != "CONNECTED"):
                         print("waiting", wait_for_connect)
                         wait_for_connect = output_queue.get()
-                        pygame.display.flip()
+                        pygame.display.flip() # update display in order to avoid freeze
                     print("connected from client")
 
-                    mode = pygame.display.set_mode((640, 700), vsync=True)  # useless, only for testing purposes
+                    mode = pygame.display.set_mode((640, 700), vsync=True)  # switch screen into menu mode (put inside function ? idk)
                     main_screen.screen = mode
                     # Menu Screen
                     # B-Still able to press button 2 even if fliped
@@ -185,13 +185,14 @@ if __name__ == "__main__":
                     start_ticks = 0
                     counter = 0
 
-                if (res == 2):
+                if (res == 2): # client sélectionné
                     print("client has been selected")
-                    demon = Demon(input_queue, output_queue, port="9999", is_client=True, address=IP)  # only client for now
+                    IP = show_menu.getIpText() # si pas entrée => update addresse IP
+                    demon = Demon(input_queue, output_queue, port="9999", is_client=True, address=IP)  # même chose que le serveur sauf qui'il faut précisé l'addresse IP
                     demon.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
                     demon.start()
 
-                    wait_for_connect = output_queue.get()
+                    wait_for_connect = output_queue.get() # attends que le client se connecte
                     while (wait_for_connect != "CONNECTED"):
                         print("waiting", wait_for_connect)
                         wait_for_connect = output_queue.get()
@@ -204,7 +205,7 @@ if __name__ == "__main__":
                     # Menu Screen
                     # B-Still able to press button 2 even if fliped
 
-                    print("switched to main screen")
+                    print("switched to main screen") #change pour l'écran de jeu
                     fliped = False
 
                     main_screen.makeCurrent()  # do nothing, see later
@@ -223,15 +224,15 @@ if __name__ == "__main__":
                     start_ticks = 0
                     counter = 0
 
-        if (fliped == False):
-            exception = False
+        if (fliped == False): # mode jeu
+            exception = False #flag exception
             # print("time" , time.time() - start_ticks, "fps ", clock.get_fps())
             if ((time.time() - start_ticks) > 0.5):  # les ticks de mise a jour se font tout les 0.5 secondes MIN
                 # print("event")
                 # get unit from server
                 if (counter == 1):  # pour faire que la mise a jour réseau se fasse tout les x ticks de physique (ici 1 mise a jour réseau / tick)
                     try:
-                        data_out = output_queue.get(False)  # not blocking
+                        data_out = output_queue.get(False)  # not blocking => reçoit les mises a jour du serveur
                     except Exception as e:
                         exception = True
                         # print("Exception while getting output from server ", e, flush=True)
@@ -247,7 +248,7 @@ if __name__ == "__main__":
                                                             joueur=player_two)  # crée l'unité
                             unit_to_create.setstate(data_out.split(" ")[1:])  # charge l'état de l'unité sauf l'ALLEGIANCE CAR CELLE CI EST TOUJOURS -1 => ennemie
                             unit_to_create.loadImage()  # update image
-                            game.placeUnit(unit_to_create, unit_to_create.getPosY(), player_two, grid)  # place l'unit"
+                            game.placeUnit(unit_to_create, unit_to_create.getPosY(), player_two, grid)  # place l'unité
 
                         if (arg1 == "REMOVE_UNIT"):
                             print("got a new unit to remove")
@@ -257,14 +258,10 @@ if __name__ == "__main__":
                             print("got a new unit to update")
                             pass
 
-                        if (arg1 == "UPDATE_PLAYER"):  # TODO
-                            print("got a player to update")
-                            pass
-
                         if (arg1 == "DISCONNECTED"):
-                            pass # see later
+                            pass # see later for return button
 
-                        if (arg1 == "UPDATE_PLAYER"):
+                        if (arg1 == "UPDATE_PLAYER"): # met a jour le joueur => vie du joueur
                             value = int(data_out.split(" ")[1])
                             player_one.hurt(value)
 

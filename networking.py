@@ -9,7 +9,7 @@ class server():
     def startServer(self):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = ''
-        #self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # ? dont no
+        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # ? dont no
         self.socket.bind((self.host, int(self.port)))
         self.socket.listen(1)
 
