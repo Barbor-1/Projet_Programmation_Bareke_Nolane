@@ -161,7 +161,7 @@ if __name__ == "__main__":
 
                 if (res == 1):
                     print("server has bene selected")
-                    test = demon(input_queue, output_queue, port="12345", is_client=False)  # only client for now
+                    test = demon(input_queue, output_queue, port="9999", is_client=False)  # only client for now
                     test.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
                     test.start()
 
@@ -198,7 +198,7 @@ if __name__ == "__main__":
 
                 if (res == 2):
                     print("client has been selected")
-                    test = demon(input_queue, output_queue, port="12345", is_client=True, address=IP)  # only client for now
+                    test = demon(input_queue, output_queue, port="9999", is_client=True, address=IP)  # only client for now
                     test.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
                     test.start()
 
