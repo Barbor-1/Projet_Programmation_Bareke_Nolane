@@ -48,13 +48,14 @@ def moveUnit(target, grid, outputQueue):
             if (target.getPosX() == grid.getGridSize() - 1):
                 ennemi = getPlayer(-1)
                 target.hurtPlayer(ennemi)
+                outputQueue.put("UPDATE_PLAYER " + str( target.getAttack()) + "\n")
                 grid.deleteUnitAtGrid(target.getPosX(), target.getPosY())
                 outputQueue.put("REMOVE_UNIT " + str(target.id) +"\n")
                 print("unit", target.getId(), "attacked enemy base")
         if target.getAllegiance() == -1:
-            if (target.getPosX() == 0):
+            if (target.getPosX() == 0): # unité ennemi : le joueur sera mis a jour a distance !
                 ennemi = getPlayer(1)
-                target.hurtPlayer(ennemi)
+                #target.hurtPlayer(ennemi)
                 grid.deleteUnitAtGrid(target.getPosX(), target.getPosY())
                 print("unit", target.getId(), "attacked enemy base")
                 outputQueue.put("REMOVE_UNIT " + str(target.id) +"\n")

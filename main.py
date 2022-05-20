@@ -276,6 +276,10 @@ if __name__ == "__main__":
                             output_queue.put("CLOSE")
                             switch_back = False
 
+                        if(arg1 == "UPDATE_PLAYER"):
+                            value = int(data_out.split(" ")[1])
+                            player_one.hurt(value)
+
                 counter = counter + 1
 
                 # #sending units : TODO : les mettre a jour au lieu de les créer et les créer juste dans le cas où le joueur les crée
