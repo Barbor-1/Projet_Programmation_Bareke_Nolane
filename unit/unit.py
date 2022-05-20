@@ -64,6 +64,7 @@ class Unit():
                 return -1
 
     def hurtPlayer(self, joueur):
+        #TODO utiliser la meme logique que attack pour attaquer le joueur de l'equipe ennemi (retourner 1 si attaque sur joueur reussi)
         joueur.hurt(self.atk)
         self.health = 0
 
@@ -89,5 +90,14 @@ class Unit():
     def getAttack(self):
         return  self.atk
 
-
-
+    def changeSprite(self,valeur):
+        #Pour l'animation d'attaque et possiblement celle de deplacement
+        if valeur == 1:
+            self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Soldat.png"))
+        if valeur == -1:
+            self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/SoldierB.png"))
+        # on peut differencier l'allegiance en appelant avec 2*allegiance
+        if valeur == 2:
+            self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Soldat-slash.png"))
+        if valeur == -2:
+            self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/SoldatB-slash.png"))
