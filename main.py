@@ -20,9 +20,10 @@ from unit.unit import Unit
 
 running = True
 fliped = True  # TRUE => menu
+switch_back = False
 id = 0
 cancel = 0 # Pour afficher une image quand on a pas assez d'argent
-
+is_client = False
 # starting demon
 input_queue = JoinableQueue()  # Queue with task_done and join()
 output_queue = JoinableQueue()
@@ -98,10 +99,12 @@ if __name__ == "__main__":
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # put it inside class with event as argument ?| event.button == 1 : left click
                 pos = pygame.mouse.get_pos()
 
-                if (button2.collide(pos) == 1 and fliped == False):  # MAIN SCREEN to MENU
+                if (button2.collide(pos) == 1 and fliped == False) or( fliped == False and switch_back == True):  # MAIN SCREEN to MENU
                     test.terminate()
                     mode = pygame.display.set_mode((800, 800), vsync=True)  # useless, only for testing purposes
                     menu_screen.screen = mode
+                    switch_back = False
+
 
                     # B-Still able to press button 1 even if fliped, flashes white when pressed
                     print("collided 1")
@@ -267,6 +270,10 @@ if __name__ == "__main__":
                         if (arg1 == "UPDATE_PLAYER"):  # TODO
                             print("got a player to update")
                             pass
+                        if(arg1 == "DISCONNECTED"):
+                            output_queue.put("CLOSE")
+                            switch_back = False
+
                 counter = counter + 1
 
                 # #sending units : TODO : les mettre a jour au lieu de les créer et les créer juste dans le cas où le joueur les crée

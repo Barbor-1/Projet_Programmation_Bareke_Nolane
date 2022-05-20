@@ -99,6 +99,9 @@ class demon(multiprocessing.Process):
                 self.output_queue.put(temp)
             elif(command_receive == "UPDATE_PLAYER"):
                 self.output_queue.put(temp)
+            elif(command_receive == "CLOSE"):
+                self.comm.close()
+                print("closed connexion")
         
         #COMMANDS FROM QUEUE
 
