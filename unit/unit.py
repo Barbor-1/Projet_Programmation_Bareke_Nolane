@@ -12,6 +12,7 @@ class Unit():
         self.atk = 5  # Valeur de puissance d'attaque
         self.armor = 2  # Valeur de défense, pas sur qu'on va la garder
         self.id = id
+        self.is_remote = False # si True : unité de l'autre client
         if allegiance == 1:
             pass
             self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Soldat.png"))

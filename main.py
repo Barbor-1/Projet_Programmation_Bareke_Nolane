@@ -26,8 +26,7 @@ cancel = 0 # Pour afficher une image quand on a pas assez d'argent
 # starting demon
 input_queue = JoinableQueue()  # Queue with task_done and join()
 output_queue = JoinableQueue()
-test = demon(input_queue, output_queue, port="12345")  # only client for now
-test.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
+
 
 if __name__ == "__main__":
     player_name = ""
@@ -48,10 +47,6 @@ if __name__ == "__main__":
     # TODO CHANGE CARTE MENU
 
     menu_screen.getScreen().fill((80, 80, 80))
-
-    button1 = button.Button(30, 70, (255, 255, 255), (255, 0, 0), screen)  # TO REMOVE WHEN MENU IS FINISHED
-    button1.initButton("Next")
-    button1.drawButton()
 
     show_menu = ShowMenu(menu_screen.getScreen())
     show_menu.draw()
@@ -104,7 +99,7 @@ if __name__ == "__main__":
                 pos = pygame.mouse.get_pos()
 
                 if (button2.collide(pos) == 1 and fliped == False):  # MAIN SCREEN to MENU
-
+                    test.terminate()
                     mode = pygame.display.set_mode((800, 800), vsync=True)  # useless, only for testing purposes
                     menu_screen.screen = mode
 
@@ -123,29 +118,8 @@ if __name__ == "__main__":
 
                     show_menu.draw()
 
-                    button1.drawButton()
                     menu_screen.update()
                     pygame.display.flip()
-
-                if (button1.collide(pos) == 1 and fliped == True):  # MENU TO MAIN SCREEN
-                    mode = pygame.display.set_mode((640, 700), vsync=True)  # useless, only for testing purposes
-                    main_screen.screen = mode
-                    # Menu Screen
-                    # B-Still able to press button 2 even if fliped
-                    print("collided 2")
-                    fliped = False
-                    main_screen.makeCurrent()  # do nothing, see later
-                    menu_screen.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
-                    screen = main_screen.getScreen()
-                    # carte_menu.display_map()
-                    button2.drawButton()
-                    toolbar_soldier.draw()
-
-                    background.display_map()
-                    main_screen.update()
-                    pygame.display.flip()
-                    start_ticks = 0
-                    counter = 0
 
                 if (clicked_once == True):
                     pos_to_place = int((pos[1] - 60) / 32)
@@ -184,14 +158,76 @@ if __name__ == "__main__":
 
                 if (res == 1):
                     print("server has bene selected")
+                    test = demon(input_queue, output_queue, port="12345", is_client=False)  # only client for now
+                    test.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
                     test.start()
-                    test.is_client = False
+
+                    wait_for_connect = output_queue.get()
+                    while(wait_for_connect !=  "CONNECTED"):
+                        print("waiting", wait_for_connect)
+                        wait_for_connect = output_queue.get()
+                    print("connected from client")
+
+                    mode = pygame.display.set_mode((640, 700), vsync=True)  # useless, only for testing purposes
+                    main_screen.screen = mode
+                    # Menu Screen
+                    # B-Still able to press button 2 even if fliped
+
+                    print("switched to main screen")
+                    fliped = False
+                    main_screen.makeCurrent()  # do nothing, see later
+                    menu_screen.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
+                    screen = main_screen.getScreen()
+                    # carte_menu.display_map()
+                    button2.drawButton()
+                    toolbar_soldier.draw()
+
+                    background.display_map()
+                    main_screen.update()
+                    pygame.display.flip()
+                    start_ticks = 0
+                    counter = 0
+
+
+
+
+
 
                 if (res == 2):
                     print("client has been selected")
-                    test.address = IP
-                    test.is_client = True
+                    test = demon(input_queue, output_queue, port="12345", is_client=True, address=IP)  # only client for now
+                    test.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
                     test.start()
+
+                    wait_for_connect = output_queue.get()
+                    while(wait_for_connect !=  "CONNECTED"):
+                        print("waiting", wait_for_connect)
+                        wait_for_connect = output_queue.get()
+                    print("connected from client")
+
+                    mode = pygame.display.set_mode((640, 700), vsync=True)  # useless, only for testing purposes
+                    main_screen.screen = mode
+                    # Menu Screen
+                    # B-Still able to press button 2 even if fliped
+
+                    print("switched to ma""in screen")
+                    fliped = False
+
+                    main_screen.makeCurrent()  # do nothing, see later
+                    menu_screen.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
+
+                    screen = main_screen.getScreen()
+
+                    # carte_menu.display_map()
+                    button2.drawButton()
+                    toolbar_soldier.draw()
+                    background.display_map()
+
+                    main_screen.update()
+                    pygame.display.flip()
+
+                    start_ticks = 0
+                    counter = 0
 
 
         if (fliped == False):
@@ -257,7 +293,7 @@ if __name__ == "__main__":
                     unitList = game.takeUnitFromAline(grid, y)
 
                     for i in unitList:
-                        game.moveUnit(i, grid)  # TODO UPDATE UNIT HEALTH IN CASE OF DAMAGE AND REMOVE IT IF NECESSARY
+                        game.moveUnit(i, grid, output_queue)  # TODO UPDATE UNIT HEALTH IN CASE OF DAMAGE AND REMOVE IT IF NECESSARY
 
                 player_one.gain(2) # Fait gagner de l'argent
 

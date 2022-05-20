@@ -29,7 +29,7 @@ def placeUnit(target, y, player, grid):
         grid.setUnitAtGrid(grid.getGridSize() - 1, y, target)
 
 
-def moveUnit(target, grid):
+def moveUnit(target, grid, outputQueue):
     # Ordonne l'unité d'avancer d'une case dans la grille si elle en est capable
     newPosX = target.getPosX() + target.getAllegiance()
     if newPosX <= grid.getGridSize() - 1 and newPosX >= 0:
@@ -49,6 +49,7 @@ def moveUnit(target, grid):
                 ennemi = getPlayer(-1)
                 target.hurtPlayer(ennemi)
                 grid.deleteUnitAtGrid(target.getPosX(), target.getPosY())
+                outputQueue.put("REMOVE_UNIT " + str(target.id) +"\n")
                 print("unit", target.getId(), "attacked enemy base")
         if target.getAllegiance() == -1:
             if (target.getPosX() == 0):
@@ -56,6 +57,9 @@ def moveUnit(target, grid):
                 target.hurtPlayer(ennemi)
                 grid.deleteUnitAtGrid(target.getPosX(), target.getPosY())
                 print("unit", target.getId(), "attacked enemy base")
+                outputQueue.put("REMOVE_UNIT " + str(target.id) +"\n")
+
+                #TODO test if player has lost + update remote player
                 # Bug l'unité attaque avant la fin
 
 
