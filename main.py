@@ -7,7 +7,7 @@ from multiprocessing import process, JoinableQueue
 import button
 import game
 import network_utils
-from demon_tcp import demon
+from demon_tcp import Demon
 from grid import Grid
 from map_gen import Map, Background
 from player import Player
@@ -28,7 +28,7 @@ is_client = False
 # starting demon
 input_queue = JoinableQueue()  # Queue with task_done and join()
 output_queue = JoinableQueue()
-
+demon = "" # pour utiliser la variable demon partout
 if __name__ == "__main__":
     player_name = ""
     IP = ""
@@ -95,22 +95,22 @@ if __name__ == "__main__":
             #    pygame.display.flip()
 
             if event.type == pygame.QUIT:
-                output_queue.put("CLOSE")
+                input_queue.put("CLOSE") # quitte la connexion
                 print("closing")
-                exit()
+                demon.terminate() # terminer le processus demon_tcp
+                quit() # quitte
 
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # put it inside class with event as argument ?| event.button == 1 : left click
                 pos = pygame.mouse.get_pos()
 
-                if (button2.collide(pos) == 1 and fliped == False) or (
-                        fliped == False and switch_back == True):  # MAIN SCREEN to MENU
+                if (button2.collide(pos) == 1 and fliped == False) or (fliped == False and switch_back == True):  # MAIN SCREEN to MENU
                     mode = pygame.display.set_mode((800, 800), vsync=True)  # useless, only for testing purposes
                     menu_screen.screen = mode
-                    switch_back = False
 
                     # B-Still able to press button 1 even if fliped, flashes white when pressed
                     print("collided 1")
-                    fliped = True
+                    fliped = True #resetting flags for menu / main screen switching
+                    switch_back = False # reset flag for force going back to menu
 
                     menu_screen.makeCurrent()  # do nothing, see later
                     main_screen.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
@@ -166,7 +166,7 @@ if __name__ == "__main__":
 
                 if (res == 1):
                     print("server has bene selected")
-                    demon = demon(input_queue, output_queue, port="9999", is_client=False)  # only client for now
+                    demon = Demon(input_queue, output_queue, port="9999", is_client=False)  # only client for now
                     demon.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
                     demon.start()
 
@@ -174,6 +174,7 @@ if __name__ == "__main__":
                     while (wait_for_connect != "CONNECTED"):
                         print("waiting", wait_for_connect)
                         wait_for_connect = output_queue.get()
+                        pygame.display.flip()
                     print("connected from client")
 
                     mode = pygame.display.set_mode((640, 700), vsync=True)  # useless, only for testing purposes
@@ -198,8 +199,7 @@ if __name__ == "__main__":
 
                 if (res == 2):
                     print("client has been selected")
-                    demon = demon(input_queue, output_queue, port="9999", is_client=True,
-                                 address=IP)  # only client for now
+                    demon = Demon(input_queue, output_queue, port="9999", is_client=True, address=IP)  # only client for now
                     demon.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
                     demon.start()
 
@@ -214,7 +214,7 @@ if __name__ == "__main__":
                     # Menu Screen
                     # B-Still able to press button 2 even if fliped
 
-                    print("switched to ma""in screen")
+                    print("switched to main screen")
                     fliped = False
 
                     main_screen.makeCurrent()  # do nothing, see later
@@ -271,8 +271,10 @@ if __name__ == "__main__":
                             print("got a player to update")
                             pass
                         if (arg1 == "DISCONNECTED"):
+                            print("disconnected, going back to menu")
                             output_queue.put("CLOSE")
-                            switch_back = False
+                            demon.terminate()
+                            switch_back = True
 
                         if (arg1 == "UPDATE_PLAYER"):
                             value = int(data_out.split(" ")[1])
@@ -290,22 +292,22 @@ if __name__ == "__main__":
                     # Pas fait de la meilleur manière, devrait peut etre mis dans une fonction
                     toolbar_soldier.cancel()
                     cancel = 0
-                background.display_map()
-                game.showHealth(main_screen.getScreen())
-                game.showWealth(main_screen.getScreen())
+                background.display_map() # met a jout la carte
+                game.showHealth(main_screen.getScreen()) # met a jour la vie des joueurs
+                game.showWealth(main_screen.getScreen()) # met a jout l'argent du joueur
 
-                game.showUnits(grid)
+                game.showUnits(grid) # affiche les unités
                 main_screen.update()
                 pygame.display.flip()
                 for y in range(0, 20):
                     # prendre toute les unités d'une ligne
 
-                    unitList = game.takeUnitFromAline(grid, y)
+                    unitList = game.takeUnitFromAline(grid, y) # déplace les unités d'une ligne pour éviter de déplacer plusieur fois une unité
 
-                    for i in unitList:
+                    for i in unitList: # pour chaque unité de la ligne, la déplacer
                         game.moveUnit(i, grid,
-                                      input_queue)  # TODO UPDATE UNIT HEALTH IN CASE OF DAMAGE AND REMOVE IT IF NECESSARY
+                                      input_queue)
 
                 player_one.gain(2)  # Fait gagner de l'argent
 
-                start_ticks = time.time()
+                start_ticks = time.time() # met a jour le temps de dernière éxécution de ce code
