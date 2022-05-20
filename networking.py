@@ -48,6 +48,8 @@ class server():
 
     def close(self):
         self.client.close()
+        if (shutdown):
+            self.socket.shutdown(socket.SHUT_RDWR)
     def shutdown(self):
         self.client.close()
         self.socket.shutdown(socket.SHUT_RDWR)
