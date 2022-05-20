@@ -28,7 +28,7 @@ is_client = False
 # starting demon
 input_queue = JoinableQueue()  # Queue main => démon
 output_queue = JoinableQueue() # Queue démon => main
-demon = "" # our utiliser la variable demon partout
+demon = "" # pour utiliser la variable demon partout
 if __name__ == "__main__":
     IP = "" # addresse IP pour le client
     pygame.init()
@@ -182,8 +182,7 @@ if __name__ == "__main__":
                     counter = 0
 
                 if (res == 2):
-                    IP = show_menu.getIpText()
-                    print("client has been selected", IP)
+                    print("client has been selected")
                     demon = Demon(input_queue, output_queue, port="9999", is_client=True, address=IP)  # only client for now
                     demon.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
                     demon.start()
@@ -254,10 +253,12 @@ if __name__ == "__main__":
                             print("got a new unit to update")
                             pass
 
+                        if (arg1 == "UPDATE_PLAYER"):  # TODO
+                            print("got a player to update")
+                            pass
+
                         if (arg1 == "DISCONNECTED"):
-                            input_queue.put("CLOSE")
-                            demon.terminate()
-                            switch_back = True
+                            pass # see later
 
                         if (arg1 == "UPDATE_PLAYER"):
                             value = int(data_out.split(" ")[1])

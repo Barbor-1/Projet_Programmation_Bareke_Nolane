@@ -36,7 +36,7 @@ class Demon(multiprocessing.Process):
                 try:
                     self.comm.startClient(5)  
                 except Exception as e:
-                    #print("exception while trying to connect for the first time", e)
+                    #print("exception while trying to connect for the first time")
                     retry = True
             
             self.comm.startClient()
@@ -63,7 +63,7 @@ class Demon(multiprocessing.Process):
                 #print("exception :", e)
                 sys.stdout.flush()
                 if e.args[0] != "timed out":
-                    print("connexion reset, trying to reconnect", e)
+                    print("connexion reset, trying to reconnect")
                     self.output_queue.put("DISCONNECTED")
                     self.comm.close(False)
                     if(self.is_client):
@@ -78,13 +78,11 @@ class Demon(multiprocessing.Process):
                             pass
                     
             sys.stdout.flush()
-
+            #print("received commands (or not) from network")
+            sys.stdout.flush()
             command_receive = temp.split(" ")[0]
-            if(command_receive != ""):
-                print("received command", temp)
 
             # PAS DE GET UNIT ENTRE SERVEUR ET CLIENT :
-
             if(command_receive == "SET_UNIT"):
                 
                 arguments_left = temp.split(" ")[1:]
@@ -97,13 +95,10 @@ class Demon(multiprocessing.Process):
                 
             elif(command_receive == "UPDATE_UNIT"): # UPDATE_UNIT num_of_element (see setstate unit/unit.py) + data
                 self.output_queue.put(temp)
-
             elif(command_receive == "REMOVE_UNIT"):
                 self.output_queue.put(temp)
-
             elif(command_receive == "UPDATE_PLAYER"):
                 self.output_queue.put(temp)
-
             elif(command_receive == "CLOSE"):
                 self.comm.close()
                 print("closed connexion")
@@ -131,9 +126,9 @@ class Demon(multiprocessing.Process):
                     string2 = string2 + i
                     string2 = string2 + " "
                 string = "SET_UNIT " + string2 + "\n"
-                print("sending ", string)
+                print("sending ", string, " ", string2)
                 sys.stdout.flush()
-                self.comm.send(string)
+                self.comm.send(string, is_byte=False)
 
             # UPDATE UNIT
             if(first_arg == "UPDATE_UNIT"):
@@ -150,10 +145,9 @@ class Demon(multiprocessing.Process):
                 to_send += "\n"
                 print("sending remove command", to_send)
                 sys.stdout.flush()
-                self.comm.send(to_send)
-
+                self.comm.send(to_send, is_byte=False)
             if(first_arg == "UPDATE_PLAYER"):
-                self.comm.send(command)
+                self.comm.send(command, is_byte=False)
 
 
             #print("cycle ended")

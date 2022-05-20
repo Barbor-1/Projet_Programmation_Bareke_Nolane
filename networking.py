@@ -9,15 +9,22 @@ class server():
     def startServer(self):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = ''
+        #self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # ? dont no
         self.socket.bind((self.host, int(self.port)))
         self.socket.listen(1)
 
 
-    def send(self, data):
-        self.client.send(data.encode())
+    def send(self, data, is_byte=False):
+        if (is_byte == True):
+            self.client.send(data)
+        else:
+            self.client.send(data.encode())
 
-    def receive(self, limit): # byte = True : no encoding
-         return (self.client.recv(limit).decode())
+    def receive(self, limit, is_byte=False): # byte = True : no encoding
+        if(is_byte == True):
+            return self.client.recv(limit)
+        else:
+            return (self.client.recv(limit)).decode()
 
 
     def accept(self, timeout= 0.1):
@@ -35,7 +42,8 @@ class server():
             str = str + chr
             chr = self.receive(1)
             if(chr == ''):
-                return ""
+                print("empty")
+                raise Exception("no data left, connexion dead ? ")
         return str
 
     def close(self, shutdown=True):
@@ -61,17 +69,27 @@ class client():
         #self.socket.setblocking(False)
         #self.file = self.socket.makefile(mode='rw')
 
-    def send(self, data,):
-        self.socket.send(data.encode())
+    def send(self, data, is_byte=False):
+        if (is_byte == True):
+            self.socket.send(data)
+        else:
+            self.socket.send(data.encode())
 
     def readline(self):
         str = ""
-        chr = self.receive(1)
+        try:
+            chr = self.receive(1)
+        except Exception as e:
+            raise e
         while(chr != '\n'):
             str = str + chr
-            chr = self.receive(1)
+            try:
+                chr = self.receive(1)
+            except Exception as e:
+                raise e
             if(chr == ''):
-                return ""
+                print("empty")
+                raise Exception("no data left, connexion dead ? ")
         return str
         
 
@@ -81,6 +99,9 @@ class client():
         self.socket.close()
 
     def receive(self, limit, is_byte=False): # byte = True : no encoding
-        return (self.socket.recv(limit).decode())
+        if(is_byte == True):
+            return (self.socket.recv(limit))
+        else:
+            return (self.socket.recv(limit)).decode()
 
 # TODO : SCAN ?
