@@ -35,6 +35,7 @@ def moveUnit(target, grid, inputQueue):
     if newPosX <= grid.getGridSize() - 1 and newPosX >= 0:
         nextTarget = grid.getUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY())
         if nextTarget == 0:
+            target.changeSprite(target.getAllegiance())
             grid.moveUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY(), target)
             # print("new pos X", newPosX)
 

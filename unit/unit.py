@@ -60,12 +60,14 @@ class Unit():
     def attack(self, target):
         if target.getAllegiance() != self.allegiance:
             target.hurt(self.atk)  # Prendre en compte pour avoir un eventuel système de power-up en attaque
+            self.changeSprite(2*self.allegiance)
             if(target.health < 0):
                 return -1
 
     def hurtPlayer(self, joueur):
         #TODO utiliser la meme logique que attack pour attaquer le joueur de l'equipe ennemi (retourner 1 si attaque sur joueur reussi)
         joueur.hurt(self.atk)
+        self.changeSprite(2*self.allegiance)
         self.health = 0
 
     def __str__(self): # use __getstate__
