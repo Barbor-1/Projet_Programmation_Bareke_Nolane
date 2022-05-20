@@ -78,7 +78,7 @@ class Unit():
     def setstate(self, i):
         self.pos_x = int(i[0])
         self.pos_y = int(i[1])
-        self.allegiance = int(i[2])
+        #self.allegiance = int(i[2])
         self.type = i[3]
         self.health = int(i[4])
         self.atk = int(i[5])

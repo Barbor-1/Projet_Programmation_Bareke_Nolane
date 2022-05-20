@@ -252,7 +252,7 @@ if __name__ == "__main__":
                             print("got a new unit !")
                             unit_to_create = game.spawnUnit(main_screen.getScreen(), grid,
                                                             joueur=player_two)  # TODO changer joueur en fonction de la zone
-                            unit_to_create.setstate(data_out.split(" ")[1:])  # charge le
+                            unit_to_create.setstate(data_out.split(" ")[1:])  # charge l'état du joueur
                             unit_to_create.loadImage()  # update image
                             game.placeUnit(unit_to_create, unit_to_create.getPosY(), player_two, grid)  # change player
 
