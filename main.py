@@ -96,14 +96,14 @@ if __name__ == "__main__":
 
             if event.type == pygame.QUIT:
                 output_queue.put("CLOSE")
-                running = False
+                print("closing")
+                exit()
 
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # put it inside class with event as argument ?| event.button == 1 : left click
                 pos = pygame.mouse.get_pos()
 
                 if (button2.collide(pos) == 1 and fliped == False) or (
                         fliped == False and switch_back == True):  # MAIN SCREEN to MENU
-                    test.terminate()
                     mode = pygame.display.set_mode((800, 800), vsync=True)  # useless, only for testing purposes
                     menu_screen.screen = mode
                     switch_back = False
@@ -166,9 +166,9 @@ if __name__ == "__main__":
 
                 if (res == 1):
                     print("server has bene selected")
-                    test = demon(input_queue, output_queue, port="9999", is_client=False)  # only client for now
-                    test.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
-                    test.start()
+                    demon = demon(input_queue, output_queue, port="9999", is_client=False)  # only client for now
+                    demon.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
+                    demon.start()
 
                     wait_for_connect = output_queue.get()
                     while (wait_for_connect != "CONNECTED"):
@@ -198,10 +198,10 @@ if __name__ == "__main__":
 
                 if (res == 2):
                     print("client has been selected")
-                    test = demon(input_queue, output_queue, port="9999", is_client=True,
+                    demon = demon(input_queue, output_queue, port="9999", is_client=True,
                                  address=IP)  # only client for now
-                    test.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
-                    test.start()
+                    demon.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
+                    demon.start()
 
                     wait_for_connect = output_queue.get()
                     while (wait_for_connect != "CONNECTED"):
@@ -304,7 +304,7 @@ if __name__ == "__main__":
 
                     for i in unitList:
                         game.moveUnit(i, grid,
-                                      output_queue)  # TODO UPDATE UNIT HEALTH IN CASE OF DAMAGE AND REMOVE IT IF NECESSARY
+                                      input_queue)  # TODO UPDATE UNIT HEALTH IN CASE OF DAMAGE AND REMOVE IT IF NECESSARY
 
                 player_one.gain(2)  # Fait gagner de l'argent
 
