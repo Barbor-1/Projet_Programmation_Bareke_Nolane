@@ -84,7 +84,7 @@ if __name__ == "__main__":
     clock = pygame.time.Clock()
     # clock = time.time()
 
-    while running:
+    while (running  == True):
         events = pygame.event.get()
         clock.tick()
         for event in events:
@@ -95,7 +95,9 @@ if __name__ == "__main__":
             #    pygame.display.flip()
 
             if event.type == pygame.QUIT:
+                output_queue.put("CLOSE")
                 running = False
+
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # put it inside class with event as argument ?| event.button == 1 : left click
                 pos = pygame.mouse.get_pos()
 
