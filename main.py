@@ -3,6 +3,7 @@ import pygame
 import pytmx
 import time
 from multiprocessing import process, JoinableQueue
+import multiprocessing
 
 import button
 import game
@@ -81,8 +82,11 @@ if __name__ == "__main__":
 
             if event.type == pygame.QUIT: # on quitte
                 input_queue.put("CLOSE") # ferme la connexion
+                input_queue.put("KILL") # tue le process demon_tcp par lui même
                 print("closing") #DEBUG
-                demon.terminate() # terminer le processus demon_tcp
+                for prc in multiprocessing.active_children(): # tue tous les process enfants dans le cas où demon_tcp ne répond pas
+                    prc.terminate()
+                pygame.quit() # quitting pygame
                 quit() # quitte
 
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1: #click gauche

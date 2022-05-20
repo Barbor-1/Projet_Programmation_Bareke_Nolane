@@ -148,8 +148,10 @@ class Demon(multiprocessing.Process):
                 self.comm.send(to_send, is_byte=False)
             if(first_arg == "UPDATE_PLAYER"):
                 self.comm.send(command, is_byte=False)
-
-
+            if(first_arg == "KILL"):
+                print("suicide !")
+                self.comm.close(shutdown=True)
+                return # quit itselt
             #print("cycle ended")
             sys.stdout.flush()
 

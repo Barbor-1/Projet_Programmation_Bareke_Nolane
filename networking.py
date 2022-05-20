@@ -43,7 +43,7 @@ class server():
             chr = self.receive(1)
             if(chr == ''):
                 print("empty")
-                raise Exception("no data left, connexion dead ? ")
+                raise Exception("empty")
         return str
 
     def close(self, shutdown=True):
@@ -89,7 +89,7 @@ class client():
                 raise e
             if(chr == ''):
                 print("empty")
-                raise Exception("no data left, connexion dead ? ")
+                raise Exception("empty")
         return str
         
 
