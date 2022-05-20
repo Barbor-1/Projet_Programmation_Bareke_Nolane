@@ -1,5 +1,5 @@
 import multiprocessing
-from demon_tcp import demon
+from demon_tcp import Demon
 from multiprocessing import process, JoinableQueue
 from multiprocessing import Manager
 import pygame
@@ -8,7 +8,7 @@ import time
 #from unit.unit import Unit
 input_queue = JoinableQueue() # Queue with task_done and join()
 output_queue = JoinableQueue()
-test = demon(input_queue, output_queue, port="12345")
+test = Demon(input_queue, output_queue, port="9999")
 test.daemon = True # important pour que le process se ferme après que le le script principal s'est terminé !
 if __name__ == "__main__":
     test.start() # start demon

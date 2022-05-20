@@ -1,12 +1,12 @@
 import multiprocessing
 import random
 
-from demon_tcp import demon
+from demon_tcp import Demon
 from multiprocessing import process, JoinableQueue
 import time
 input_queue = JoinableQueue() # Queue with task_done and join()
 output_queue = JoinableQueue()
-test = demon(input_queue, output_queue, port="12345", is_client=False)
+test = Demon(input_queue, output_queue, port="9999", is_client=False)
 test.daemon = True
 id = 0
 rand = random.Random()

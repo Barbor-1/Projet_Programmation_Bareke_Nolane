@@ -6,6 +6,4 @@ def remove_unit(grid, id):
             if(unit != 0):
                 if(unit.id == id):
                     grid.deleteUnitAtGrid(i, j)
-                    return unit_list
-            return unit_list
 

@@ -45,6 +45,7 @@ def moveUnit(target, grid, inputQueue):
                 # attack() vérifie déjà l'allegiance des 2 unités
                 grid.deleteUnitAtGrid(nextTarget.getPosX(), nextTarget.getPosY())
                 print("unit", nextTarget.getId(), "fell in combat")
+
         if target.getAllegiance() == 1: # moi attaque l'ennemi
             if (target.getPosX() == grid.getGridSize() - 1):
                 ennemi = getPlayer(-1)
@@ -54,6 +55,7 @@ def moveUnit(target, grid, inputQueue):
                 inputQueue.put("REMOVE_UNIT " + str(target.id) +"\n")
                 print("unit", target.getId(), "attacked enemy base")
         if target.getAllegiance() == -1: #l'ennemi m'attaque
+            
             if (target.getPosX() == 0): # unité ennemi : le joueur sera mis a jour a distance !
                 ennemi = getPlayer(1)
                 #target.hurtPlayer(ennemi)
