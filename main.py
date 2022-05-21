@@ -254,7 +254,7 @@ if __name__ == "__main__":
                             print("got a new unit to remove")
                             unit_list = network_utils.remove_unit(grid, data_out.split(" ")[1]) # to fix
 
-                        if (arg1 == "UPDATE_UNIT"):  # TODO
+                        if (arg1 == "UPDATE_UNIT"):  # TODO or not TODO ?
                             print("got a new unit to update")
                             pass
 
