@@ -92,9 +92,7 @@ if __name__ == "__main__":
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1: #click gauche
                 pos = pygame.mouse.get_pos() #position de la souris
 
-                if (button2.collide(pos) == 1 and fliped == False): #or (fliped == False and switch_back == True):  # MAIN SCREEN to MENU
-                    #TODO : close connexion
-
+                if (button2.collide(pos) == 1 and fliped == False) or (fliped == False and switch_back == True):  # MAIN SCREEN to MENU
                     mode = pygame.display.set_mode((800, 800))  # met a jout la taille de l'écran
                     menu_screen.screen = mode #met a jour la surface
 
@@ -184,8 +182,8 @@ if __name__ == "__main__":
                     background.display_map()
                     main_screen.update()
                     pygame.display.flip()
-                    start_ticks = 0
-                    counter = 0
+                    start_ticks = 0 #reset tick counter
+                    counter = 0 # for network update delaying
 
                 if (res == 2): # client sélectionné
                     print("client has been selected")
@@ -258,13 +256,10 @@ if __name__ == "__main__":
 
                         if (arg1 == "UPDATE_UNIT"):  # TODO
                             print("got a new unit to update")
-                            unit_id = data_out.split(" ")[1]
-                            if(data_out.split(" ")[2] == '0'): # on bouge seulement l'unité sur x (pour l'instant seulement ceci est implémentée, peut être vie) + data non utilisé pour le moment
-                                movement = data_out.split(" ")[3]
-                                network_utils.move_unit(grid, unit_id, input_queue) # movement not utilized now |input_queue is for game.moveUnit
+                            pass
 
                         if (arg1 == "DISCONNECTED"):
-                            pass # see later for return button or disconnect  and freeze game
+                            pass # see later for return button
 
                         if (arg1 == "UPDATE_PLAYER"): # met a jour le joueur => vie du joueur
                             value = int(data_out.split(" ")[1])
@@ -295,7 +290,8 @@ if __name__ == "__main__":
                     unitList = game.takeUnitFromAline(grid, y) # déplace les unités d'une ligne pour éviter de déplacer plusieur fois une unité
 
                     for i in unitList: # pour chaque unité de la ligne, la déplacer
-                        game.moveUnit(i, grid, input_queue)
+                        game.moveUnit(i, grid,
+                                      input_queue)
 
                 player_one.gain(2)  # Fait gagner de l'argent
 

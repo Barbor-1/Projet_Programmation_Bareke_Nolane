@@ -93,15 +93,12 @@ class Demon(multiprocessing.Process):
                 self.output_queue.put(temp)
                 sys.stdout.flush()
                 
-            elif(command_receive == "UPDATE_UNIT"): # UPDATE_UNIT id num_of_element (see setstate unit/unit.py) + data
+            elif(command_receive == "UPDATE_UNIT"): # UPDATE_UNIT num_of_element (see setstate unit/unit.py) + data
                 self.output_queue.put(temp)
-
             elif(command_receive == "REMOVE_UNIT"):
                 self.output_queue.put(temp)
-
             elif(command_receive == "UPDATE_PLAYER"):
                 self.output_queue.put(temp)
-
             elif(command_receive == "CLOSE"):
                 self.comm.close()
                 print("closed connexion")
@@ -135,8 +132,7 @@ class Demon(multiprocessing.Process):
 
             # UPDATE UNIT
             if(first_arg == "UPDATE_UNIT"):
-                print("got an update unit", command)
-                self.comm.send(command)
+                pass
 
             # REMOVE UNIT
             if(first_arg == "REMOVE_UNIT"): # REMOVE_UNIT unit_id
@@ -150,10 +146,8 @@ class Demon(multiprocessing.Process):
                 print("sending remove command", to_send)
                 sys.stdout.flush()
                 self.comm.send(to_send, is_byte=False)
-
             if(first_arg == "UPDATE_PLAYER"):
                 self.comm.send(command, is_byte=False)
-
             if(first_arg == "KILL"):
                 print("suicide !")
                 self.comm.close(shutdown=True)

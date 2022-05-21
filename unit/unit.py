@@ -79,7 +79,7 @@ class Unit():
     def __getstate__(self): # add screen later and update limits # dont use it maybe ? 
         return (self.pos_x, self.pos_y, self.allegiance,  self.type, self.health, self.atk,self.armor,self.id)
 
-    def setstate(self, i): #chargement de l'état de l'unité 
+    def setstate(self, i):
         self.pos_x = int(i[0])
         self.pos_y = int(i[1])
         #self.allegiance = int(i[2]) # fix : no override of unit allegiance => because unit allegiance of network unit is always -1
@@ -88,7 +88,6 @@ class Unit():
         self.atk = int(i[5])
         self.armor = int(i[6])
         self.id = int(i[7])
-        self.is_remote = True # unité à ne pas déplacer !
 
     def getAttack(self):
         return  self.atk
