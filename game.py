@@ -29,37 +29,50 @@ def placeUnit(target, y, player, grid):
         grid.setUnitAtGrid(grid.getGridSize() - 1, y, target)
 
 
-def moveUnit(target, grid, inputQueue):
+def moveUnit(target, grid, inputQueue, overrideRemove = False):
     # Ordonne l'unité d'avancer d'une case dans la grille si elle en est capable
     newPosX = target.getPosX() + target.getAllegiance()
     if newPosX <= grid.getGridSize() - 1 and newPosX >= 0:
         nextTarget = grid.getUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY())
+
         if nextTarget == 0:
-            target.changeSprite(target.getAllegiance())
-            grid.moveUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY(), target)
-            # print("new pos X", newPosX)
+            if(target.is_remote == False or overrideRemove == True):
+                target.changeSprite(target.getAllegiance())
+                grid.moveUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY(), target)
+                # print("new pos X", newPosX)
+                print("updating unit")
+                inputQueue.put("UPDATE_UNIT " + str(target.id) + " 0 " + str(target.getAllegiance()) + "\n")
 
         else:
-            if (target.attack(
+            if (target.attack( #todo : remote update of unit damage as for base damage ?
                     nextTarget) == -1):  # if target.attack return -1 => nextTarget is dead and should be removed
                 # attack() vérifie déjà l'allegiance des 2 unités
+
                 grid.deleteUnitAtGrid(nextTarget.getPosX(), nextTarget.getPosY())
                 print("unit", nextTarget.getId(), "fell in combat")
                 inputQueue.put("REMOVE_UNIT " + str(target.id) +"\n")
+
         if target.getAllegiance() == 1: # moi attaque l'ennemi
             if (target.getPosX() == grid.getGridSize() - 1):
                 ennemi = getPlayer(-1)
                 target.hurtPlayer(ennemi)
+
                 inputQueue.put("UPDATE_PLAYER " + str( target.getAttack()) + "\n")
                 grid.deleteUnitAtGrid(target.getPosX(), target.getPosY())
+
                 inputQueue.put("REMOVE_UNIT " + str(target.id) +"\n")
                 print("unit", target.getId(), "attacked enemy base")
+
         if target.getAllegiance() == -1: #l'ennemi m'attaque
             if (target.getPosX() == 0): # unité ennemi : le joueur sera mis a jour a distance !
                 ennemi = getPlayer(1)
+
                 #target.hurtPlayer(ennemi)
+
                 grid.deleteUnitAtGrid(target.getPosX(), target.getPosY())
+
                 print("unit", target.getId(), "attacked enemy base")
+
                 inputQueue.put("REMOVE_UNIT " + str(target.id) +"\n")
 
                 #TODO test if player has lost
