@@ -153,6 +153,7 @@ if __name__ == "__main__":
                     print("IP", IP)
 
                 if (res == 1): #le serveur a été sélectionné
+                    is_client = False # flag for unit update
                     print("server has bene selected")
                     demon = Demon(input_queue, output_queue, port="9999", is_client=False)  #init demon
                     demon.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
@@ -186,6 +187,7 @@ if __name__ == "__main__":
                     counter = 0 # for network update delaying
 
                 if (res == 2): # client sélectionné
+                    is_client = True # flag for unit update
                     print("client has been selected")
                     IP = show_menu.getIpText() # si pas entrée => update addresse IP
                     demon = Demon(input_queue, output_queue, port="9999", is_client=True, address=IP)  # même chose que le serveur sauf qui'il faut précisé l'addresse IP
@@ -227,7 +229,7 @@ if __name__ == "__main__":
         if (fliped == False): # mode jeu
             exception = False #flag exception
             # print("time" , time.time() - start_ticks, "fps ", clock.get_fps())
-            if ((time.time() - start_ticks) > 0.5):  # les ticks de mise a jour se font tout les 0.5 secondes MIN
+            if ((time.time() - start_ticks) > 0.5) or (is_client == True):  # les ticks de mise a jour se font tout les 0.5 secondes MIN ou si on est un client => pas de ticks car pas de mise a jour de la "physique"
                 # print("event")
                 # get unit from server
                 if (counter == 1):  # pour faire que la mise a jour réseau se fasse tout les x ticks de physique (ici 1 mise a jour réseau / tick)
@@ -256,14 +258,19 @@ if __name__ == "__main__":
 
                         if (arg1 == "UPDATE_UNIT"):  # TODO or not TODO ?
                             print("got a new unit to update")
-                            pass
+                            unit_id = data_out.split(" ")[1]
+                            movement = data_out.split(" ")[3]
+                            if(data_out.split(" ")[2] == "0"): # we are only able to update the x position
+                                network_utils.move_unit(grid, int(unit_id), int(movement))
 
                         if (arg1 == "DISCONNECTED"):
                             pass # see later for return button
 
                         if (arg1 == "UPDATE_PLAYER"): # met a jour le joueur => vie du joueur
-                            value = int(data_out.split(" ")[1])
-                            player_one.hurt(value)
+                            value = int(data_out.split(" ")[2])
+                            player_id = int(data_out.split(" ")[1])
+                            player_ret = game.getPlayer(player_id)
+                            player_ret.hurt(value)
 
                 counter = counter + 1
 
@@ -284,15 +291,22 @@ if __name__ == "__main__":
                 game.showUnits(grid) # affiche les unités
                 main_screen.update()
                 pygame.display.flip()
-                for y in range(0, 20):
-                    # prendre toute les unités d'une ligne
+                if(is_client == False): #seul le serveur met a jour les unités (et tout le reste)
+                   # print("moving unit from server")
+                    for y in range(0, 20):
+                        # prendre toute les unités d'une ligne
 
-                    unitList = game.takeUnitFromAline(grid, y) # déplace les unités d'une ligne pour éviter de déplacer plusieur fois une unité
+                        unitList = game.takeUnitFromAline(grid, y) # déplace les unités d'une ligne pour éviter de déplacer plusieur fois une unité
 
-                    for i in unitList: # pour chaque unité de la ligne, la déplacer
-                        game.moveUnit(i, grid,
-                                      input_queue)
-
-                player_one.gain(2)  # Fait gagner de l'argent
-
-                start_ticks = time.time() # met a jour le temps de dernière éxécution de ce code
+                        for i in unitList: # pour chaque unité de la ligne, la déplacer
+                            game.moveUnit(i, grid,
+                                        input_queue)
+                if(is_client == True):
+                    if((time.time() - start_ticks) > 0.5): # we need to take ticks for money update for the client in order for him not to gain infinite sum of money
+                        player_one.gain(2)  # Fait gagner de l'argent
+                        print("money event")
+                        start_ticks = time.time() # update "fake ticks" for client 
+                else:                           
+                    player_one.gain(2)  # Fait gagner de l'argent
+                if(is_client == False):
+                    start_ticks = time.time() # met a jour le temps de dernière éxécution de ce code dans le server

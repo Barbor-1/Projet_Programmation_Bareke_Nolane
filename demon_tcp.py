@@ -83,7 +83,7 @@ class Demon(multiprocessing.Process):
             command_receive = temp.split(" ")[0]
 
             # PAS DE GET UNIT ENTRE SERVEUR ET CLIENT :
-            if(command_receive == "SET_UNIT"):
+            if(command_receive == "SET_UNIT"): #SET_UNIT UNIT_STATE
                 
                 arguments_left = temp.split(" ")[1:]
                 print("got a SET_UNIT", temp)
@@ -93,12 +93,15 @@ class Demon(multiprocessing.Process):
                 self.output_queue.put(temp)
                 sys.stdout.flush()
                 
-            elif(command_receive == "UPDATE_UNIT"): # UPDATE_UNIT num_of_element (see setstate unit/unit.py) + data
+            elif(command_receive == "UPDATE_UNIT"): # UPDATE_UNIT id num_of_element (see setstate unit/unit.py) + data
                 self.output_queue.put(temp)
-            elif(command_receive == "REMOVE_UNIT"):
+
+            elif(command_receive == "REMOVE_UNIT"): # REMOVE_UNIT id
                 self.output_queue.put(temp)
-            elif(command_receive == "UPDATE_PLAYER"):
+
+            elif(command_receive == "UPDATE_PLAYER"): #UPDATE_PLAYER id data
                 self.output_queue.put(temp)
+
             elif(command_receive == "CLOSE"):
                 self.comm.close()
                 print("closed connexion")
@@ -132,7 +135,7 @@ class Demon(multiprocessing.Process):
 
             # UPDATE UNIT
             if(first_arg == "UPDATE_UNIT"):
-                pass
+                self.comm.send(command)
 
             # REMOVE UNIT
             if(first_arg == "REMOVE_UNIT"): # REMOVE_UNIT unit_id

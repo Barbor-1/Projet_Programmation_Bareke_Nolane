@@ -29,7 +29,7 @@ def placeUnit(target, y, player, grid):
         grid.setUnitAtGrid(grid.getGridSize() - 1, y, target)
 
 
-def moveUnit(target, grid, inputQueue):
+def moveUnit(target, grid, inputQueue): #SEULEMENT POUR LE SERVEUR
     # Ordonne l'unité d'avancer d'une case dans la grille si elle en est capable
     newPosX = target.getPosX() + target.getAllegiance()
     if newPosX <= grid.getGridSize() - 1 and newPosX >= 0:
@@ -37,6 +37,7 @@ def moveUnit(target, grid, inputQueue):
         if nextTarget == 0:
             target.changeSprite(target.getAllegiance())
             grid.moveUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY(), target)
+            inputQueue.put("UPDATE_UNIT " + str(target.id) +" 0 " + "1" + "\n")
             # print("new pos X", newPosX)
 
         else:
@@ -50,17 +51,18 @@ def moveUnit(target, grid, inputQueue):
             if (target.getPosX() == grid.getGridSize() - 1):
                 ennemi = getPlayer(-1)
                 target.hurtPlayer(ennemi)
-                inputQueue.put("UPDATE_PLAYER " + str( target.getAttack()) + "\n")
+                inputQueue.put("UPDATE_PLAYER" + " 1 " + str(target.getAttack()) + "\n") #see from server perspective
                 grid.deleteUnitAtGrid(target.getPosX(), target.getPosY())
-                inputQueue.put("REMOVE_UNIT " + str(target.id) +"\n")
+                inputQueue.put("REMOVE_UNIT " + str(target.id) +"\n") # see for sync of units
                 print("unit", target.getId(), "attacked enemy base")
         if target.getAllegiance() == -1: #l'ennemi m'attaque
-            if (target.getPosX() == 0): # unité ennemi : le joueur sera mis a jour a distance !
+            if (target.getPosX() == 0): # unité ennemi : dans la base
                 ennemi = getPlayer(1)
-                #target.hurtPlayer(ennemi)
+                target.hurtPlayer(ennemi)
                 grid.deleteUnitAtGrid(target.getPosX(), target.getPosY())
                 print("unit", target.getId(), "attacked enemy base")
                 inputQueue.put("REMOVE_UNIT " + str(target.id) +"\n")
+                inputQueue.put("UPDATE_PLAYER" + " -1 " + str( target.getAttack()) + "\n") #see from server perspective
 
                 #TODO test if player has lost
 
