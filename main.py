@@ -34,6 +34,7 @@ if __name__ == "__main__":
     IP = "" # addresse IP pour le client
     pygame.init()
     screen = pygame.display.set_mode((800, 800)) # menu => taille 800*800
+    pygame.mouse.set_cursor(pygame.cursors.arrow) # for constitency issue with textbox : in order always have the same cursor 
     # pygame.display.set_caption("RTS GAME - v1")
 
     menu_screen = Screen("RTS GAME - v1-MENU", screen, 800, 800)  # crée la surface du menu
@@ -271,12 +272,17 @@ if __name__ == "__main__":
                             player_id = int(data_out.split(" ")[1])
                             player_ret = game.getPlayer(player_id)
                             player_ret.hurt(value)
+                        
+                        if(arg1 == "ATTACKED" and is_client == True):
+                            #trigged animation
+                            unit_id = data_out.split(" ")[1]
+                            network_utils.animate_unit(grid, unit_id)
+
 
                 counter = counter + 1
 
-                # #sending units : TODO : les mettre a jour au lieu de les créer et les créer juste dans le cas où le joueur les crée
-                # for unit in unit_list:
-                #    input_queue.put("SEND_UNIT " + str(unit) + "\n")
+              
+
                 main_screen.getScreen().fill((255, 255, 255)) # vide l'écran
                 button2.drawButton()  # IMPORTANT # affiche le bouton retour
                 toolbar_soldier.draw() # affiche le boutton pour placer une unité (ou plusieurs see later)
@@ -284,6 +290,7 @@ if __name__ == "__main__":
                     # Pas fait de la meilleur manière, devrait peut etre mis dans une fonction
                     toolbar_soldier.cancel()
                     cancel = 0
+                
                 background.display_map() # met a jout la carte
                 game.showHealth(main_screen.getScreen()) # met a jour la vie des joueurs
                 game.showWealth(main_screen.getScreen()) # met a jout l'argent du joueur
@@ -301,11 +308,13 @@ if __name__ == "__main__":
                         for i in unitList: # pour chaque unité de la ligne, la déplacer
                             game.moveUnit(i, grid,
                                         input_queue)
+                            
                 if(is_client == True):
                     if((time.time() - start_ticks) > 0.5): # we need to take ticks for money update for the client in order for him not to gain infinite sum of money
                         player_one.gain(2)  # Fait gagner de l'argent
-                        print("money event")
+                        #print("money event")
                         start_ticks = time.time() # update "fake ticks" for client 
+
                 else:                           
                     player_one.gain(2)  # Fait gagner de l'argent
                 if(is_client == False):

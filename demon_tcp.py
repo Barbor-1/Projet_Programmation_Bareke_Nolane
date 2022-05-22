@@ -93,18 +93,21 @@ class Demon(multiprocessing.Process):
                 self.output_queue.put(temp)
                 sys.stdout.flush()
                 
-            elif(command_receive == "UPDATE_UNIT"): # UPDATE_UNIT id num_of_element (see setstate unit/unit.py) + data
+            elif(command_receive == "UPDATE_UNIT"): # UPDATE_UNIT unit_id num_of_element (see setstate unit/unit.py) + data
                 self.output_queue.put(temp)
 
-            elif(command_receive == "REMOVE_UNIT"): # REMOVE_UNIT id
+            elif(command_receive == "REMOVE_UNIT"): # REMOVE_UNIT unit_id
                 self.output_queue.put(temp)
 
-            elif(command_receive == "UPDATE_PLAYER"): #UPDATE_PLAYER id data
+            elif(command_receive == "UPDATE_PLAYER"): #UPDATE_PLAYER unit_id data
                 self.output_queue.put(temp)
 
-            elif(command_receive == "CLOSE"):
+            elif(command_receive == "CLOSE"): #CLOSE
                 self.comm.close()
                 print("closed connexion")
+            
+            elif(command_receive == "ATTACKED"): #ATTACKED unit_id
+                self.output_queue.put(temp)
         
         #COMMANDS FROM QUEUE
 
@@ -149,12 +152,18 @@ class Demon(multiprocessing.Process):
                 print("sending remove command", to_send)
                 sys.stdout.flush()
                 self.comm.send(to_send, is_byte=False)
-            if(first_arg == "UPDATE_PLAYER"):
+
+            if(first_arg == "UPDATE_PLAYER"): 
                 self.comm.send(command, is_byte=False)
+
             if(first_arg == "KILL"):
                 print("suicide !")
                 self.comm.close(shutdown=True)
                 return # quit itselt
+            
+            if(first_arg == "ATTACKED"): # unit attacked => for animations
+                print("UNIT ATTACKED")
+                self.comm.send(command, is_byte=False)
             #print("cycle ended")
             sys.stdout.flush()
 

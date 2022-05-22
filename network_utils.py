@@ -17,3 +17,10 @@ def move_unit(grid, id, movement):
                     grid.moveUnitAtGrid(unit.getPosX()+movement*unit.getAllegiance(), unit.getPosY(), unit)
                     print("moved unit")#it's the right unit
                     return
+def animate_unit(grid, id):
+    for i in range(0, grid.getGridSize()):
+        for j in range(0, grid.getGridSize()):
+            unit = grid.getUnitAtGrid(i, j)
+            if(unit != 0): 
+                if(unit.id == int(id)): #scan for the right unit
+                    unit.changeSprite(2*unit.getAllegiance())

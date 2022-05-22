@@ -1,6 +1,5 @@
 import socket
 
-
 class server():
     def __init__(self, port="2001"):  # default value to change
         self.port = port

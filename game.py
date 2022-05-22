@@ -41,8 +41,8 @@ def moveUnit(target, grid, inputQueue): #SEULEMENT POUR LE SERVEUR
             # print("new pos X", newPosX)
 
         else:
-            if (target.attack(
-                    nextTarget) == -1):  # if target.attack return -1 => nextTarget is dead and should be removed
+            inputQueue.put("ATTACKED " + str(target.getId()) +"\n") # trigger annimation
+            if (target.attack( nextTarget) == -1):  # if target.attack return -1 => nextTarget is dead and should be removed
                 # attack() vérifie déjà l'allegiance des 2 unités
                 grid.deleteUnitAtGrid(nextTarget.getPosX(), nextTarget.getPosY())
                 print("unit", nextTarget.getId(), "fell in combat")

@@ -79,7 +79,7 @@ class Unit():
     def __getstate__(self): # add screen later and update limits # dont use it maybe ? 
         return (self.pos_x, self.pos_y, self.allegiance,  self.type, self.health, self.atk,self.armor,self.id)
 
-    def setstate(self, i):
+    def setstate(self, i): # for network unit update
         self.pos_x = int(i[0])
         self.pos_y = int(i[1])
         #self.allegiance = int(i[2]) # fix : no override of unit allegiance => because unit allegiance of network unit is always -1
@@ -92,7 +92,7 @@ class Unit():
     def getAttack(self):
         return  self.atk
 
-    def changeSprite(self,valeur):
+    def changeSprite(self,valeur): #TODO : change unit attack sprite back
         #Pour l'animation d'attaque et possiblement celle de deplacement
         if valeur == 1:
             self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Soldat.png"))
