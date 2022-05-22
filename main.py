@@ -253,27 +253,27 @@ if __name__ == "__main__":
                             unit_to_create.loadImage()  # update image
                             game.placeUnit(unit_to_create, unit_to_create.getPosY(), player_two, grid)  # place l'unité
 
-                        if (arg1 == "REMOVE_UNIT"):
+                        elif (arg1 == "REMOVE_UNIT"): #REMOVE UNIT
                             print("got a new unit to remove")
-                            unit_list = network_utils.remove_unit(grid, data_out.split(" ")[1]) # to fix
+                            unit_list = network_utils.remove_unit(grid, data_out.split(" ")[1]) 
 
-                        if (arg1 == "UPDATE_UNIT"):  # TODO or not TODO ?
+                        elif (arg1 == "UPDATE_UNIT"): 
                             print("got a new unit to update")
                             unit_id = data_out.split(" ")[1]
                             movement = data_out.split(" ")[3]
                             if(data_out.split(" ")[2] == "0"): # we are only able to update the x position
                                 network_utils.move_unit(grid, int(unit_id), int(movement))
 
-                        if (arg1 == "DISCONNECTED"):
+                        elif (arg1 == "DISCONNECTED"):
                             pass # see later for return button
 
-                        if (arg1 == "UPDATE_PLAYER"): # met a jour le joueur => vie du joueur
+                        elif (arg1 == "UPDATE_PLAYER"): # met a jour le joueur => vie du joueur
                             value = int(data_out.split(" ")[2])
                             player_id = int(data_out.split(" ")[1])
                             player_ret = game.getPlayer(player_id)
                             player_ret.hurt(value)
                         
-                        if(arg1 == "ATTACKED" and is_client == True):
+                        elif(arg1 == "ATTACKED" and is_client == True):
                             #trigged animation
                             unit_id = data_out.split(" ")[1]
                             network_utils.animate_unit(grid, unit_id)
