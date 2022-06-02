@@ -95,6 +95,14 @@ if __name__ == "__main__":
                 pos = pygame.mouse.get_pos() #position de la souris
 
                 if (button2.collide(pos) == 1 and fliped == False) or (fliped == False and switch_back == True):  # MAIN SCREEN to MENU
+
+                    input_queue.put("CLOSE") # ferme la connexion
+                    input_queue.put("KILL") # tue le process demon_tcp par lui même
+                    print("closing") #DEBUG
+                    print("active children", multiprocessing.active_children())
+                    for prc in multiprocessing.active_children(): # tue tous les process enfants dans le cas où demon_tcp ne répond pas
+                        prc.terminate()
+
                     mode = pygame.display.set_mode((800, 800))  # met a jout la taille de l'écran
                     menu_screen.screen = mode #met a jour la surface
 
