@@ -87,7 +87,8 @@ if __name__ == "__main__":
                 print("closing") #DEBUG
                 print("active children", multiprocessing.active_children())
                 for prc in multiprocessing.active_children(): # tue tous les process enfants dans le cas où demon_tcp ne répond pas
-                    prc.terminate()
+                    prc.kill()
+                print("after killling", multiprocessing.active_children())
                 pygame.quit() # quitting pygame
                 quit() # quitte
 
@@ -101,7 +102,8 @@ if __name__ == "__main__":
                     print("closing") #DEBUG
                     print("active children", multiprocessing.active_children())
                     for prc in multiprocessing.active_children(): # tue tous les process enfants dans le cas où demon_tcp ne répond pas
-                        prc.terminate()
+                        prc.kill()
+                    print("after killling", multiprocessing.active_children())
 
                     mode = pygame.display.set_mode((800, 800))  # met a jout la taille de l'écran
                     menu_screen.screen = mode #met a jour la surface
