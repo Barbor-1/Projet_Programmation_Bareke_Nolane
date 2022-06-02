@@ -35,12 +35,12 @@ def moveUnit(target, grid, inputQueue): #SEULEMENT POUR LE SERVEUR
     if newPosX <= grid.getGridSize() - 1 and newPosX >= 0:
         nextTarget = grid.getUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY())
         if nextTarget == 0:
-            target.changeSprite(target.getAllegiance())
+            target.changeSprite(target.getAllegiance()) # Change le sprite en position de base
             grid.moveUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY(), target)
             inputQueue.put("UPDATE_UNIT " + str(target.id) +" 0 " + "1" + "\n")
             # print("new pos X", newPosX)
 
-        else:
+        else: # Si la prochaine case contient une unité
             inputQueue.put("ATTACKED " + str(target.getId()) +"\n") # trigger annimation
             if (target.attack( nextTarget) == -1):  # if target.attack return -1 => nextTarget is dead and should be removed
                 # attack() vérifie déjà l'allegiance des 2 unités
@@ -48,7 +48,7 @@ def moveUnit(target, grid, inputQueue): #SEULEMENT POUR LE SERVEUR
                 print("unit", nextTarget.getId(), "fell in combat")
                 inputQueue.put("REMOVE_UNIT " + str(target.id) +"\n")
         if target.getAllegiance() == 1: # moi attaque l'ennemi
-            if (target.getPosX() == grid.getGridSize() - 1):
+            if (target.getPosX() == grid.getGridSize() - 1): # unité a la dernière position de l'ecran
                 ennemi = getPlayer(-1)
                 target.hurtPlayer(ennemi)
                 inputQueue.put("UPDATE_PLAYER" + " 1 " + str(target.getAttack()) + "\n") #see from server perspective
@@ -56,7 +56,7 @@ def moveUnit(target, grid, inputQueue): #SEULEMENT POUR LE SERVEUR
                 inputQueue.put("REMOVE_UNIT " + str(target.id) +"\n") # see for sync of units
                 print("unit", target.getId(), "attacked enemy base")
         if target.getAllegiance() == -1: #l'ennemi m'attaque
-            if (target.getPosX() == 0): # unité ennemi : dans la base
+            if (target.getPosX() == 0): # unité ennemi : dans la première position de l'écran
                 ennemi = getPlayer(1)
                 target.hurtPlayer(ennemi)
                 grid.deleteUnitAtGrid(target.getPosX(), target.getPosY())

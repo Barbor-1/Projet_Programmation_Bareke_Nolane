@@ -282,7 +282,7 @@ if __name__ == "__main__":
                 counter = counter + 1
 
               
-
+                # Partie affichage Interface
                 main_screen.getScreen().fill((255, 255, 255)) # vide l'écran
                 button2.drawButton()  # IMPORTANT # affiche le bouton retour
                 toolbar_soldier.draw() # affiche le boutton pour placer une unité (ou plusieurs see later)
@@ -308,14 +308,11 @@ if __name__ == "__main__":
                         for i in unitList: # pour chaque unité de la ligne, la déplacer
                             game.moveUnit(i, grid,
                                         input_queue)
+                    player_one.gain(2)  # Fait gagner de l'argent
+                    start_ticks = time.time()  # met a jour le temps de dernière éxécution de ce code dans le server
                             
                 if(is_client == True):
                     if((time.time() - start_ticks) > 0.5): # we need to take ticks for money update for the client in order for him not to gain infinite sum of money
                         player_one.gain(2)  # Fait gagner de l'argent
                         #print("money event")
-                        start_ticks = time.time() # update "fake ticks" for client 
-
-                else:                           
-                    player_one.gain(2)  # Fait gagner de l'argent
-                if(is_client == False):
-                    start_ticks = time.time() # met a jour le temps de dernière éxécution de ce code dans le server
+                        start_ticks = time.time() # update "fake ticks" for client

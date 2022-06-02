@@ -60,7 +60,7 @@ class Unit():
     def attack(self, target):
         if target.getAllegiance() != self.allegiance:
             target.hurt(self.atk)  # Prendre en compte pour avoir un eventuel système de power-up en attaque
-            self.changeSprite(2*self.allegiance)
+            self.changeSprite(2*self.allegiance) # Equipe le sprite en position d'attaque
             if(target.health < 0):
                 return -1
 
@@ -93,12 +93,13 @@ class Unit():
         return  self.atk
 
     def changeSprite(self,valeur): #TODO : change unit attack sprite back
-        #Pour l'animation d'attaque et possiblement celle de deplacement
+        # Donne le sprite de base aux unités selon leur camps
         if valeur == 1:
             self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Soldat.png"))
         if valeur == -1:
             self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/SoldierB.png"))
         # on peut differencier l'allegiance en appelant avec 2*allegiance
+        # Donne le sprite en position d'attaque
         if valeur == 2:
             self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Soldat-slash.png"))
         if valeur == -2:
