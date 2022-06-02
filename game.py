@@ -46,7 +46,7 @@ def moveUnit(target, grid, inputQueue): #SEULEMENT POUR LE SERVEUR
                 # attack() vérifie déjà l'allegiance des 2 unités
                 grid.deleteUnitAtGrid(nextTarget.getPosX(), nextTarget.getPosY())
                 print("unit", nextTarget.getId(), "fell in combat")
-                inputQueue.put("REMOVE_UNIT " + str(target.id) +"\n")
+                inputQueue.put("REMOVE_UNIT " + str(nextTarget.getId()) +"\n")
         if target.getAllegiance() == 1: # moi attaque l'ennemi
             if (target.getPosX() == grid.getGridSize() - 1):
                 ennemi = getPlayer(-1)

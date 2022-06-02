@@ -85,6 +85,7 @@ if __name__ == "__main__":
                 input_queue.put("CLOSE") # ferme la connexion
                 input_queue.put("KILL") # tue le process demon_tcp par lui même
                 print("closing") #DEBUG
+                print("active children", multiprocessing.active_children())
                 for prc in multiprocessing.active_children(): # tue tous les process enfants dans le cas où demon_tcp ne répond pas
                     prc.terminate()
                 pygame.quit() # quitting pygame
