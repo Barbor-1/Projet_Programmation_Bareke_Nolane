@@ -1,4 +1,5 @@
 import os
+import random
 import pygame
 from player import Player
 
@@ -51,10 +52,10 @@ class Unit():
             pass
 
         else:
-            self.pos_x += 1 * self.allegiance*speed # TO DO : vérifier si on est pas en dehors de la grid
+            self.pos_x += 1 * self.allegiance*speed  # TO DO : vérifier si on est pas en dehors de la grid
 
     def hurt(self, atk):
-        self.health -= atk - self.armor
+        self.health -= atk - random.randint(0, self.armor)  # Dégat infliger reduit par un nombre aléatoire inférieure ou égale à la valeur d'armure
 
 
     def attack(self, target):
