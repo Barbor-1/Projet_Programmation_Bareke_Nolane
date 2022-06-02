@@ -1,4 +1,4 @@
-import os
+import os, signal
 import pygame
 import pytmx
 import time
@@ -87,7 +87,10 @@ if __name__ == "__main__":
                 print("closing") #DEBUG
                 print("active children", multiprocessing.active_children())
                 for prc in multiprocessing.active_children(): # tue tous les process enfants dans le cas où demon_tcp ne répond pas
-                    prc.kill()
+                    prc.join(5)
+                    if(prc.exitcode == None): #process was not killed
+                        print("killing process", prc.pid )
+                        os.kill(prc.pid, signal.SIGKILL)
                 print("after killling", multiprocessing.active_children())
                 pygame.quit() # quitting pygame
                 quit() # quitte
@@ -102,7 +105,10 @@ if __name__ == "__main__":
                     print("closing") #DEBUG
                     print("active children", multiprocessing.active_children())
                     for prc in multiprocessing.active_children(): # tue tous les process enfants dans le cas où demon_tcp ne répond pas
-                        prc.kill()
+                        prc.join(5)
+                        if(prc.exitcode == None): #process was not killed
+                            print("killing process", prc.pid)
+                            os.kill(prc.pid, signal.SIGKILL)
                     print("after killling", multiprocessing.active_children())
 
                     mode = pygame.display.set_mode((800, 800))  # met a jout la taille de l'écran
@@ -167,7 +173,7 @@ if __name__ == "__main__":
                 if (res == 1): #le serveur a été sélectionné
                     is_client = False # flag for unit update
                     print("server has bene selected")
-                    demon = Demon(input_queue, output_queue, port="9999", is_client=False)  #init demon
+                    demon = Demon(input_queue, output_queue, port="9994", is_client=False)  #init demon
                     demon.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
                     demon.start() 
 
@@ -202,7 +208,7 @@ if __name__ == "__main__":
                     is_client = True # flag for unit update
                     print("client has been selected")
                     IP = show_menu.getIpText() # si pas entrée => update addresse IP
-                    demon = Demon(input_queue, output_queue, port="9999", is_client=True, address=IP)  # même chose que le serveur sauf qui'il faut précisé l'addresse IP
+                    demon = Demon(input_queue, output_queue, port="9994", is_client=True, address=IP)  # même chose que le serveur sauf qui'il faut précisé l'addresse IP
                     demon.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
                     demon.start()
 
