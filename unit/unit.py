@@ -1,20 +1,22 @@
 import os
-import random
 import pygame
+import random
+
 from player import Player
+
 
 class Unit():
     def __init__(self, screen=0, allegiance=0, id=0): # 0 pour éviter le chargement des images dans le démon TCP 
-        self.pos_x = 0
+        self.pos_x = 0 #
         self.pos_y = 0
         self.allegiance = allegiance  # A qui appartient l'unité. +1 pour un joueur -1 pour l'autre => ça peut passer
         self.type = "a" # default type just for networking
         self.health = 10
-        self.atk = 500  # Valeur de puissance d'attaque
+        self.atk =  10 # Valeur de puissance d'attaque TO CHANGE ONLY FOR TESTING
         self.armor = 2  # Valeur de défense, pas sur qu'on va la garder
         self.id = id
         self.is_remote = False # si True : unité de l'autre client
-        if allegiance == 1: # On garde une image d'unité pour les soldats de notre camp et une pour celle ennemies
+        if allegiance == 1: #for different  unit design
             pass
             self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Soldat.png"))
         elif allegiance == -1:
@@ -65,12 +67,10 @@ class Unit():
             if(target.health < 0):
                 return -1
 
-    def hurtPlayer(self, joueur):
-        #Lance la fonction de prise de dégat du joueur
+    def hurtPlayer(self, joueur): # attack playey base
+        #TODO utiliser la meme logique que attack pour attaquer le joueur de l'equipe ennemi (retourner 1 si attaque sur joueur reussi)
         joueur.hurt(self.atk)
-        #Donne l'animation d'attaque a l'unité
         self.changeSprite(2*self.allegiance)
-        #Tue l'unité: elle disparait en attaquant le joueur
         self.health = 0
 
     def __str__(self): # use __getstate__
@@ -79,7 +79,7 @@ class Unit():
     def show(self, offset):
         self.screen.blit(self.image, (self.pos_x * self.image.get_height(), self.pos_y * self.image.get_width() + offset))
 
-    def __getstate__(self): # add screen later and update limits # dont use it maybe ? 
+    def __getstate__(self): # get unit state
         return (self.pos_x, self.pos_y, self.allegiance,  self.type, self.health, self.atk,self.armor,self.id)
 
     def setstate(self, i): # for network unit update
@@ -95,7 +95,7 @@ class Unit():
     def getAttack(self):
         return  self.atk
 
-    def changeSprite(self,valeur):
+    def changeSprite(self,valeur): #TODO : change unit attack sprite back # change unit sprite for animation
         # Donne le sprite de base aux unités selon leur camps
         if valeur == 1:
             self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Soldat.png"))

@@ -22,7 +22,7 @@ from unit.unit import Unit
 # from pytmx.util_pygame import load_pygame  # 2.7 mode !
 
 running = True
-fliped = True  # TRUE => menu
+fliped = True  # TRUE => menu, FALSE => game
 id = 0
 cancel = 0  # Pour afficher une image quand on a pas assez d'argent
 is_client = False
@@ -102,7 +102,7 @@ if __name__ == "__main__":
                     input_queue.put("CLOSE")  # ferme la connexion
                     input_queue.put("KILL")  # tue le process demon_tcp par lui même
                     print("closing")  # DEBUG
-                    print("active children", multiprocessing.active_children())
+                    print("active children", multiprocessing.active_children())  # DEBUG
                     for prc in multiprocessing.active_children():  # tue tous les process enfants dans le cas où demon_tcp ne répond pas
                         prc.join(5)
                         if (prc.exitcode == None):  # process was not killed
@@ -133,7 +133,8 @@ if __name__ == "__main__":
                     pygame.display.flip()
 
                 if (clicked_once == True):
-                    pos_to_place = int((pos[1] - 60) / 32)  # position de la future unité => 1 case fait 32*32 + le terrain de jeu commence qu'a 60 pixels
+                    pos_to_place = int((pos[
+                                            1] - 60) / 32)  # position de la future unité => 1 case fait 32*32 + le terrain de jeu commence qu'a 60 pixels
                     if (pos_to_place < 0):  # si au dessus du terrain de jeu
                         clicked_once = False  # reset flag
                     else:
@@ -238,11 +239,11 @@ if __name__ == "__main__":
                     screen = main_screen.getScreen()
 
                     # carte_menu.display_map()
-                    button2.drawButton()
+                    button2.drawButton()  # back button
                     toolbar_soldier.draw()
                     background.display_map()
 
-                    main_screen.update()
+                    main_screen.update()  # UPDATE SCREEN
                     pygame.display.flip()
 
                     start_ticks = 0
@@ -255,7 +256,8 @@ if __name__ == "__main__":
                     is_client == True):  # les ticks de mise a jour se font tout les 0.5 secondes MIN ou si on est un client => pas de ticks car pas de mise a jour de la "physique"
                 # print("event")
                 # get unit from server
-                if (counter == 1):  # pour faire que la mise a jour réseau se fasse tout les x ticks de physique (ici 1 mise a jour réseau / tick)
+                if (
+                        counter == 1):  # pour faire que la mise a jour réseau se fasse tout les x ticks de physique (ici 1 mise a jour réseau / tick)
                     try:
                         data_out = output_queue.get(False)  # not blocking => reçoit les mises a jour du serveur
                     except Exception as e:
@@ -300,11 +302,11 @@ if __name__ == "__main__":
                             # trigged animation
                             unit_id = data_out.split(" ")[1]
                             network_utils.animate_unit(grid, unit_id)
-                        elif (arg1 == "LOST"):
+                        elif (arg1 == "LOST"): # i lost => trigger return to menu
                             player_id = int(data_out.split(" ")[1])
                             print("player ", player_id, " has died")
 
-                            if (player_id == player_two.getAllegiance()):
+                            if (player_id == player_two.getAllegiance()): #DEBUG
                                 print("ennemi died")
                             elif (player_id == player_one.getAllegiance()):
                                 print("i died")
@@ -336,8 +338,9 @@ if __name__ == "__main__":
                         unitList = game.takeUnitFromAline(grid,
                                                           y)  # déplace les unités d'une ligne pour éviter de déplacer plusieur fois une unité
 
-                        for i in unitList:  # pour chaque unité de la ligne, la déplacer
-                            ret = game.moveUnit(i, grid, input_queue)
+                        for i in range(0, len(unitList)):  # pour chaque unité de la ligne, la déplacer
+                            ret = game.moveUnit(unitList[i], grid, input_queue)
+
                             if (ret == -2):
                                 print("ennemy died")
                                 # send end screen to ennemy
@@ -350,11 +353,12 @@ if __name__ == "__main__":
                                 # launch end screen
                                 pygame.event.post(back_menu_event)  # send back to menu
 
+
                     player_one.gain(2)  # Fait gagner de l'argent
                     start_ticks = time.time()  # met a jour le temps de dernière éxécution de ce code dans le server
 
                 if (is_client == True):
-                    if((time.time() - start_ticks) > 0.5):  # we need to take ticks for money update for the client in order for him not to gain infinite sum of money
+                    if ((time.time() - start_ticks) > 0.5):  # we need to take ticks for money update for the client in order for him not to gain infinite sum of money
                         player_one.gain(2)  # Fait gagner de l'argent
                         # print("money event")
                         start_ticks = time.time()  # update "fake ticks" for client

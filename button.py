@@ -12,7 +12,7 @@ class Button:
         self.label = label
         smallfont = pygame.font.SysFont("Sprite/CORBEL.TTF",self.size) # can change it ?
         self.text = smallfont.render(self.label, True , self.color) # render font
-        if(center == False):
+        if(center == False): # for button centering
             self.text_rect = self.text.get_rect(topleft=(self.x, self.y)) # get rectangle
         else:
             self.text_rect = self.text.get_rect(center=(self.x, self.y)) # get rectangle

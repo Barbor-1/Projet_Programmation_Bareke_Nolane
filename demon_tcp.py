@@ -1,10 +1,10 @@
+import multiprocessing
+import sys
 from ast import arg
 from queue import Empty, Queue
 from traceback import print_tb
-from networking import client, server
-import multiprocessing
-import sys
 
+from networking import client, server
 
 
 class Demon(multiprocessing.Process):
