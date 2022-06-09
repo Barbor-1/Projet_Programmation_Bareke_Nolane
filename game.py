@@ -55,25 +55,33 @@ def moveUnit(target, grid, inputQueue): #SEULEMENT POUR LE SERVEUR
                 grid.deleteUnitAtGrid(target.getPosX(), target.getPosY())
                 inputQueue.put("REMOVE_UNIT " + str(target.id) +"\n") # see for sync of units
                 print("unit", target.getId(), "attacked enemy base")
+                if(ennemi.getHealth() <= 0):
+                    print("ennemy has died")
+                    inputQueue.put("LOST " + str(-1*ennemi.getAllegiance()) + "\n")# *-1 car ennemi => ami pour le client
+                    return -2 # ennemy has died => launch end screen
         if target.getAllegiance() == -1: #l'ennemi m'attaque
             if (target.getPosX() == 0): # unité ennemi : dans la première position de l'écran
-                ennemi = getPlayer(1)
-                target.hurtPlayer(ennemi)
-                grid.deleteUnitAtGrid(target.getPosX(), target.getPosY())
+                ennemi = getPlayer(1) # get my player
+                target.hurtPlayer(ennemi) # damage it
+                grid.deleteUnitAtGrid(target.getPosX(), target.getPosY()) # #delete unit
                 print("unit", target.getId(), "attacked enemy base")
-                inputQueue.put("REMOVE_UNIT " + str(target.id) +"\n")
-                inputQueue.put("UPDATE_PLAYER" + " -1 " + str( target.getAttack()) + "\n") #see from server perspective
+                inputQueue.put("REMOVE_UNIT " + str(target.id) +"\n") # send to remote player
+                inputQueue.put("UPDATE_PLAYER" + " -1 " + str( target.getAttack()) + "\n") #send to remote player
+                print("health ", ennemi.getHealth())
+                if(ennemi.getHealth() <= 0):
+                    inputQueue.put("LOST " + str(-1*ennemi.getAllegiance()) + "\n") # *-1 car ennemi => ami pour le client
+                    return -3 # i died
 
                 #TODO test if player has lost
 
 
-def showUnits(grid):
+def showUnits(grid): #show unit => put unit on screen
     size = grid.getGridSize()
     for i in range(0, size):
         for j in range(0, size):
             target = grid.getUnitAtGrid(i, j)
             if (target != 0):
-                target.show(60)
+                target.show(60) #put this unit on screen : 60 a cause de la  barre
 
 
 def spawnUnit(screen, grid, joueur):
@@ -93,7 +101,7 @@ def takeUnitFromAline(grid, y):
     return ret
 
 
-def showHealth(screen):
+def showHealth(screen): # show health
     font = pygame.font.SysFont('Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/CORBEL.TTF', 64)
     player1 = getPlayer(1)
     player2 = getPlayer(-1)
@@ -119,3 +127,8 @@ def showWealth(screen):
     moneyImage = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Money-1.png"))
     screen.blit(text1, text1.get_rect(center=(width-width/4+15+text1.get_rect().width, 50)))
     screen.blit(moneyImage, moneyImage.get_rect(center=(width-width/4+10, 30)))
+
+def resetPlayer():
+    for player in playerList:
+        player.money = 0
+        player.health = 200
