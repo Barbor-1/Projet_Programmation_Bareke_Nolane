@@ -30,6 +30,8 @@ is_client = False
 input_queue = JoinableQueue()  # Queue main => démon
 output_queue = JoinableQueue()  # Queue démon => main
 demon = ""  # pour utiliser la variable demon partout
+defaut_port = "9699"
+
 back_menu_event = Event1 = pygame.event.Event(pygame.USEREVENT, attr1='Event1')
 if __name__ == "__main__":
     IP = ""  # addresse IP pour le client
@@ -174,7 +176,7 @@ if __name__ == "__main__":
                 if (res == 1):  # le serveur a été sélectionné
                     is_client = False  # flag for unit update
                     print("server has bene selected")
-                    demon = Demon(input_queue, output_queue, port="9995", is_client=False)  # init demon
+                    demon = Demon(input_queue, output_queue, port=defaut_port, is_client=False)  # init demon
                     demon.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
                     demon.start()
 
@@ -212,7 +214,7 @@ if __name__ == "__main__":
                     is_client = True  # flag for unit update
                     print("client has been selected")
                     IP = show_menu.getIpText()  # si pas entrée => update addresse IP
-                    demon = Demon(input_queue, output_queue, port="9995", is_client=True,
+                    demon = Demon(input_queue, output_queue, port=defaut_port, is_client=True,
                                   address=IP)  # même chose que le serveur sauf qui'il faut précisé l'addresse IP
                     demon.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
                     demon.start()

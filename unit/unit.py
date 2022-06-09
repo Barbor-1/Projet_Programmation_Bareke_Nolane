@@ -37,45 +37,45 @@ class Unit():
             self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/SoldierB.png"))
         self.limits = pygame.display.get_surface().get_size()[0]
 
-    def getPosX(self):
+    def getPosX(self): # Donne la position en x
         return self.pos_x
 
-    def getPosY(self):
+    def getPosY(self): # Donne la position en y
         return self.pos_y
 
-    def getAllegiance(self):
+    def getAllegiance(self): # Indique a quel camp l'unité appartient
         return self.allegiance
 
-    def getId(self):
+    def getId(self): # Donne l'identifiant
         return self.id
 
-    def move(self, speed):
+    def move(self, speed): # Fait déplacer l'unité d'une certaine quantité speed vers la base ennemie
         if( abs(self.pos_x) > self.limits):
             pass
 
         else:
             self.pos_x += 1 * self.allegiance*speed  # TO DO : vérifier si on est pas en dehors de la grid
 
-    def hurt(self, atk):
+    def hurt(self, atk): # Appeler quand l'unité prend des dégats
         self.health -= atk - random.randint(0, self.armor)  # Dégat infliger reduit par un nombre aléatoire inférieure ou égale à la valeur d'armure
 
 
-    def attack(self, target):
-        if target.getAllegiance() != self.allegiance:
-            target.hurt(self.atk)  # Prendre en compte pour avoir un eventuel système de power-up en attaque
+    def attack(self, target): # Appeler quand l'unité inflige des dégats
+        if target.getAllegiance() != self.allegiance: # Verifie si la cible est ennemie
+            target.hurt(self.atk)
             self.changeSprite(2*self.allegiance) # Equipe le sprite en position d'attaque
-            if(target.health < 0):
+            if(target.health < 0): # Si la cible meurt
                 return -1
 
-    def hurtPlayer(self, joueur): # attack player base
+    def hurtPlayer(self, joueur): # Attaque la base ennemie
         joueur.hurt(self.atk)
-        self.changeSprite(2*self.allegiance)
-        self.health = 0
+        self.changeSprite(2*self.allegiance) # Animation d'attaque
+        self.health = 0 # L'unité s'autodétruit en infligeant des dégats
 
     def __str__(self): # use __getstate__
         return str(self.pos_x) + " " +  str(self.pos_y) + " " + str(self.allegiance) + " " +  self.type + " "  + str(self.health)+ " " + str(self.atk)  + " " + str(self.armor) + " " + str(self.id)
 
-    def show(self, offset):
+    def show(self, offset): # Affiche l'unité
         self.screen.blit(self.image, (self.pos_x * self.image.get_height(), self.pos_y * self.image.get_width() + offset))
 
     def __getstate__(self): # get unit state
@@ -91,10 +91,10 @@ class Unit():
         self.armor = int(i[6])
         self.id = int(i[7])
 
-    def getAttack(self):
+    def getAttack(self): # Donne la valeur d'attaque
         return  self.atk
 
-    def changeSprite(self,valeur):
+    def changeSprite(self,valeur): # Change l'image de l'unité
         # Donne le sprite de base aux unités selon leur camps
         if valeur == 1:
             self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Soldat.png"))

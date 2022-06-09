@@ -30,6 +30,7 @@ class Toolbar():
         return self.rect.collidepoint(pos)
 
     def cancel(self):
+        #Affiche un symbole stop quand on n'a pas assez de ressource et que l'on clique, le symbole disparait au prochain cycle d'affichage
         self.image = pygame.image.load("Sprite/Cancel-1.png")
         self.screen.blit(self.image, (self.x, self.y))
         self.image = pygame.image.load(self.image_path)

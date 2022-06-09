@@ -10,7 +10,7 @@ id = 0
 playerList = []
 
 
-def setPlayer(allegiance):
+def setPlayer(allegiance): # Ajoute le joueur a la liste de joueur
     joueur = Player(allegiance)
     playerList.append(joueur)
     return joueur
@@ -100,7 +100,7 @@ def spawnUnit(screen, grid, joueur):  # create unit
     return target  # De cette manière l'instance serait créer dans game mais utilisable dans main
 
 
-def takeUnitFromAline(grid, y):  # take all units from a line toherwise some units might go too fast
+def takeUnitFromAline(grid, y):  # take all units from a line otherwise some units might go too fast
     ret = []
     for x in range(0, grid.getGridSize()):
         target = grid.getUnitAtGrid(x, y)
@@ -109,7 +109,7 @@ def takeUnitFromAline(grid, y):  # take all units from a line toherwise some uni
     return ret
 
 
-def showHealth(screen):  # show health
+def showHealth(screen):  # Affiche la santé des joueurs
     font = pygame.font.SysFont('Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/CORBEL.TTF', 64)
     player1 = getPlayer(1)
     player2 = getPlayer(-1)
@@ -123,8 +123,7 @@ def showHealth(screen):  # show health
 
 
 # Pas impossible de fusionner showHealth et showWealth
-def showWealth(screen):
-    # show money (gold bars on screen)
+def showWealth(screen): # Affiche les ressources du joueur
     font = pygame.font.SysFont('Corbel', 16)
     player1 = getPlayer(1)
     health = str(player1.getMoney())

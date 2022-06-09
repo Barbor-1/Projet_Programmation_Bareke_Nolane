@@ -6,21 +6,20 @@ class Player():
         self.allegiance = allegiance
         self.money = 80
 
-    def getHealth(self):
+    def getHealth(self): # Affiche la santé du joueur
         return self.health
 
-    def getMoney(self):
+    def getMoney(self): # Affiche les ressources du joueur
         return self.money
 
-    def cost(self,valeur):
+    def cost(self,valeur): # Réduit les ressources du joueur
         self.money -= valeur
 
-    def gain(self,valeur):
+    def gain(self,valeur): # Augmente les ressources du joueur
         self.money += valeur
 
-    def getAllegiance(self):
+    def getAllegiance(self): # Donne le camp du joueur
         return self.allegiance
 
-    def hurt(self,atk):
+    def hurt(self,atk): # Appeler quand le joueur subit des dégats
         self.health -= atk
-#TODO Afficher PV et argent du joueur, screen doit être dans game ou dans joueur?
