@@ -15,19 +15,23 @@ def move_unit(grid, id, movement):  # move unit for client
             unit = grid.getUnitAtGrid(i, j)
             if (unit != 0):  # if grid is a unit (0 = empty)
                 if (unit.id == int(id)):  # scan for the right unit
-                    if(movement % 1 == 0.5):
-                        movement -= 0.5
+                    if (movement % 1 == 0.5):
+
+                        movement -= 0.5  # so that movement = 1
                         print("unit is in water")
-                        unit.changeSprite(3*unit.getAllegiance()) # water sprite
-                        new_pos_x = unit.getPosX()+0.5*unit.getAllegiance() # new pos x with half movement in water
-                        if(unit.half_walk == True): # we can move, we were aleady stoped last time we moved
+                        unit.changeSprite(3 * unit.getAllegiance())  # water sprite
+                        new_pos_x = unit.getPosX() + 0.5 * unit.getAllegiance()  # new pos x with half movement in water
+
+                        if (unit.half_walk == True):  # we can move, we were aleady stoped last time we moved
                             grid.moveUnitAtGrid(unit.getPosX() + 1 * unit.getAllegiance(), unit.getPosY(), unit)
-                            target.half_walk = False # reset the flag
+                            unit.half_walk = False  # reset the flag
                         print("moved unit")  # it's the right unit
+                        unit.half_walk = True
 
                     else:
-                        unit.changeSprite(unit.getAllegiance()) # reset sprite
-                        grid.moveUnitAtGrid(unit.getPosX() + int(movement) * unit.getAllegiance(), unit.getPosY(), unit)
+                        unit.changeSprite(unit.getAllegiance())  # reset sprite
+                        grid.moveUnitAtGrid(unit.getPosX() + int(movement) * unit.getAllegiance(), unit.getPosY(),
+                                            unit)  # move unit
                         print("moved unit")  # it's the right unit
                     return
 

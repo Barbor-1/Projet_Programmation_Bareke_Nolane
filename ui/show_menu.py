@@ -1,7 +1,7 @@
 import pygame
 
-from button import Button
-from textbox import Textbox
+from ui.button import Button
+from ui.textbox import Textbox
 import socket
 #socket.gethostbyname(socket.gethostname()))
 

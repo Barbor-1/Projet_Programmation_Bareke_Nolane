@@ -1,16 +1,17 @@
 import os
 import pygame
 
-from grid import Grid
-from player import Player
+from ui.grid import Grid
+from ui.map_gen import Background
+from unit.player import Player
 from unit.unit import Unit
-from map_gen import  Background
+
 # Liste de fonctions pour main
 id = 0
 playerList = []
 
 
-def setPlayer(allegiance): # Ajoute le joueur a la liste de joueur
+def setPlayer(allegiance):  # Ajoute le joueur a la liste de joueur
     joueur = Player(allegiance)
     playerList.append(joueur)
     return joueur
@@ -34,20 +35,19 @@ def moveUnit(target, grid, inputQueue, background):  # SEULEMENT POUR LE SERVEUR
     # Ordonne l'unité d'avancer d'une case dans la grille si elle en est capable
     newPosX = target.getPosX() + target.getAllegiance()
     to_move = 1
+
     if newPosX <= grid.getGridSize() - 1 and newPosX >= 0:
         nextTarget = grid.getUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY())
         if nextTarget == 0:
-            if(background.is_water(target.getPosX(), target.getPosY()) == True):
+            if (background.is_water(target.getPosX(), target.getPosY()) == True):
                 print("on water")
-                target.changeSprite(3*target.getAllegiance())  # Change le sprite en position de base
-                #inputQueue.put("UPDATE_UNIT " + str(target.id) + " 0 " + "0.5" + "\n") # 0.5 => sprite = sprite-water
+                target.changeSprite(3 * target.getAllegiance())  # Change le sprite en position de base
+                # inputQueue.put("UPDATE_UNIT " + str(target.id) + " 0 " + "0.5" + "\n") # 0.5 => sprite = sprite-water
                 to_move += 0.5
-                if(target.half_walk == True):
+                if (target.half_walk == True):
                     grid.moveUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY(), target)
                     target.half_walk = False
                 target.half_walk = True
-
-
 
             else:
                 target.changeSprite(target.getAllegiance())  # Change le sprite en position de base
@@ -57,11 +57,14 @@ def moveUnit(target, grid, inputQueue, background):  # SEULEMENT POUR LE SERVEUR
 
         else:  # Si la prochaine case contient une unité
             inputQueue.put("ATTACKED " + str(target.getId()) + "\n")  # trigger annimation
-            if (target.attack(nextTarget) == -1):  # if target.attack return -1 => nextTarget is dead and should be removed
+            if (target.attack(
+                    nextTarget) == -1):  # if target.attack return -1 => nextTarget is dead and should be removed
                 # attack() vérifie déjà l'allegiance des 2 unités
                 grid.deleteUnitAtGrid(nextTarget.getPosX(), nextTarget.getPosY())
                 print("unit", nextTarget.getId(), "fell in combat")
                 inputQueue.put("REMOVE_UNIT " + str(nextTarget.getId()) + "\n")
+
+
         if target.getAllegiance() == 1:  # moi attaque l'ennemi
             if (target.getPosX() == grid.getGridSize() - 1):  # unité a la dernière position de l'ecran
                 ennemi = getPlayer(-1)
@@ -75,6 +78,8 @@ def moveUnit(target, grid, inputQueue, background):  # SEULEMENT POUR LE SERVEUR
                     inputQueue.put(
                         "LOST " + str(-1 * ennemi.getAllegiance()) + "\n")  # *-1 car ennemi => ami pour le client
                     return -2  # ennemy has died => launch end screen
+
+
         if target.getAllegiance() == -1:  # l'ennemi m'attaque
             if (target.getPosX() == 0):  # unité ennemi : dans la première position de l'écran
                 ennemi = getPlayer(1)  # get my player
@@ -132,7 +137,7 @@ def showHealth(screen):  # Affiche la santé des joueurs
 
 
 # Pas impossible de fusionner showHealth et showWealth
-def showWealth(screen): # Affiche les ressources du joueur
+def showWealth(screen):  # Affiche les ressources du joueur
     font = pygame.font.SysFont('Corbel', 16)
     player1 = getPlayer(1)
     health = str(player1.getMoney())

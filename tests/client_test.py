@@ -1,7 +1,7 @@
 from pydoc import cli
 from numpy import byte
 import pygame
-from networking import client
+from networking.networking import client
 import pickle
 import time
 from unit.unit import Unit
