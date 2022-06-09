@@ -106,3 +106,8 @@ class Unit():
             self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Soldat-slash.png"))
         if valeur == -2:
             self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/SoldatB-slash.png"))
+        if(valeur == 3):
+            self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Soldat_water.png"))
+        if(valeur == -3):
+            self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/SoldatB_water.png"))
+

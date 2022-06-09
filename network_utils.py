@@ -15,9 +15,14 @@ def move_unit(grid, id, movement):  # move unit for client
             unit = grid.getUnitAtGrid(i, j)
             if (unit != 0):  # if grid is a unit (0 = empty)
                 if (unit.id == int(id)):  # scan for the right unit
-                    unit.changeSprite(unit.getAllegiance())
-                    grid.moveUnitAtGrid(unit.getPosX() + movement * unit.getAllegiance(), unit.getPosY(), unit)
-                    print("moved unit")  # it's the right unit
+                    if(movement % 1 == 0.5):
+                        print("unit is in water")
+                        unit.changeSprite(3*unit.getAllegiance()) # water sprite
+
+                    else:
+                        unit.changeSprite(unit.getAllegiance()) # reset sprite
+                        grid.moveUnitAtGrid(unit.getPosX() + movement * unit.getAllegiance(), unit.getPosY(), unit)
+                        print("moved unit")  # it's the right unit
                     return
 
 

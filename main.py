@@ -287,7 +287,7 @@ if __name__ == "__main__":
                             unit_id = data_out.split(" ")[1]
                             movement = data_out.split(" ")[3]
                             if (data_out.split(" ")[2] == "0"):  # we are only able to update the x position
-                                network_utils.move_unit(grid, int(unit_id), int(movement))  # move unit
+                                network_utils.move_unit(grid, int(unit_id), float(movement))  # move unit
 
                         elif (arg1 == "DISCONNECTED"):
                             pass  # see later for return button
@@ -339,7 +339,7 @@ if __name__ == "__main__":
                                                           y)  # déplace les unités d'une ligne pour éviter de déplacer plusieur fois une unité
 
                         for i in range(0, len(unitList)):  # pour chaque unité de la ligne, la déplacer
-                            ret = game.moveUnit(unitList[i], grid, input_queue)
+                            ret = game.moveUnit(unitList[i], grid, input_queue, background)
 
                             if (ret == -2):
                                 print("ennemy died")
