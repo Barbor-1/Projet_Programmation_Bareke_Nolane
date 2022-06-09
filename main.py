@@ -304,17 +304,17 @@ if __name__ == "__main__":
                             # trigged animation
                             unit_id = data_out.split(" ")[1]
                             network_utils.animate_unit(grid, unit_id)
-                        elif (arg1 == "LOST"): # i lost => trigger return to menu
+                        elif (arg1 == "LOST"):  # i lost => trigger return to menu
                             player_id = int(data_out.split(" ")[1])
                             print("player ", player_id, " has died")
 
-                            if (player_id == player_two.getAllegiance()): #DEBUG
+                            if (player_id == player_two.getAllegiance()):  # DEBUG
                                 print("ennemi died")
                             elif (player_id == player_one.getAllegiance()):
                                 print("i died")
                             pygame.event.post(back_menu_event)  # send back to menu
 
-                counter = counter + 1
+                counter = counter + 1  # for slowing down network pull rate
 
                 # Partie affichage Interface
                 main_screen.getScreen().fill((255, 255, 255))  # vide l'écran
@@ -356,12 +356,12 @@ if __name__ == "__main__":
                                 # launch end screen
                                 pygame.event.post(back_menu_event)  # send back to menu
 
-
                     player_one.gain(2)  # Fait gagner de l'argent
                     start_ticks = time.time()  # met a jour le temps de dernière éxécution de ce code dans le server
 
                 if (is_client == True):
-                    if ((time.time() - start_ticks) > 0.5):  # we need to take ticks for money update for the client in order for him not to gain infinite sum of money
+                    if ((
+                            time.time() - start_ticks) > 0.5):  # we need to take ticks for money update for the client in order for him not to gain infinite sum of money
                         player_one.gain(2)  # Fait gagner de l'argent
                         # print("money event")
                         start_ticks = time.time()  # update "fake ticks" for client
