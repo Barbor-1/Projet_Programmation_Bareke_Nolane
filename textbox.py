@@ -25,7 +25,7 @@ class Textbox:
 
 
     
-    def listen(self, event):
+    def listen(self, event): # listen for events => clicked event ....
         if(event.type == pygame.MOUSEBUTTONDOWN):
             #print("pos", pygame.mouse.get_pos())
             if(self.rect.collidepoint(pygame.mouse.get_pos())):
@@ -35,9 +35,9 @@ class Textbox:
                 self.active = False
             #change color of input box ?
             if(self.active == True):
-                pygame.mouse.set_cursor(self.cursor)
+                pygame.mouse.set_cursor(self.cursor) # changing cursor to I
             if(self.active == False):
-                pygame.mouse.set_cursor(pygame.cursors.arrow)
+                pygame.mouse.set_cursor(pygame.cursors.arrow) # changing cursor to default
         if(event.type == pygame.KEYDOWN and self.active == True):
             if event.key == pygame.K_RETURN:
                         #print(self.text + " return\n")

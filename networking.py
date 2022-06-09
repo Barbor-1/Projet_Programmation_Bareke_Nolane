@@ -8,12 +8,12 @@ class server():
     def startServer(self):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = ''
-        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # ? dont no
+        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # idk why ?
         self.socket.bind((self.host, int(self.port)))
-        self.socket.listen(1)
+        self.socket.listen(1) #one for onyl one client
 
 
-    def send(self, data, is_byte=False):
+    def send(self, data, is_byte=False): #byte = True : no encoding
         if (is_byte == True):
             self.client.send(data)
         else:
@@ -26,7 +26,7 @@ class server():
             return (self.client.recv(limit)).decode()
 
 
-    def accept(self, timeout= 0.1):
+    def accept(self, timeout= 0.1): # timeout important
         self.client, self.addr = self.socket.accept()
         self.client.settimeout(timeout)
         #self.file = self.client.makefile()
@@ -34,14 +34,14 @@ class server():
     def clientAddr(self):
         return self.addr
 
-    def readline(self):
+    def readline(self): # read a line from buffer
         str = ""
         chr = self.receive(1)
         while(chr != '\n'):
             str = str + chr
             chr = self.receive(1)
             if(chr == ''):
-                print("empty")
+                print("empty") # to remove ?
                 raise Exception("empty")
         return str
 
@@ -74,7 +74,7 @@ class client():
         else:
             self.socket.send(data.encode())
 
-    def readline(self):
+    def readline(self): # read line from buffer
         str = ""
         try:
             chr = self.receive(1)
@@ -92,7 +92,7 @@ class client():
         return str
         
 
-    def close(self, shutdown=True):
+    def close(self, shutdown=True): #close
         if (shutdown):
             self.socket.shutdown(socket.SHUT_RDWR)
         self.socket.close()

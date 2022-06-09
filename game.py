@@ -15,13 +15,13 @@ def setPlayer(allegiance):
     return joueur
 
 
-def getPlayer(allegiance):
+def getPlayer(allegiance): # get player with allegiance
     for joueur in playerList:
         if joueur.getAllegiance() == allegiance:
             return joueur
 
 
-def placeUnit(target, y, player, grid):
+def placeUnit(target, y, player, grid): # put unit on grid
     # Place une unité dans la grille, dans le cas où on en creer une nouvelle
     if player.allegiance == 1:
         grid.setUnitAtGrid(0, y, target)
@@ -29,7 +29,7 @@ def placeUnit(target, y, player, grid):
         grid.setUnitAtGrid(grid.getGridSize() - 1, y, target)
 
 
-def moveUnit(target, grid, inputQueue): #SEULEMENT POUR LE SERVEUR
+def moveUnit(target, grid, inputQueue): #SEULEMENT POUR LE SERVEUR : moving units
     # Ordonne l'unité d'avancer d'une case dans la grille si elle en est capable
     newPosX = target.getPosX() + target.getAllegiance()
     if newPosX <= grid.getGridSize() - 1 and newPosX >= 0:
@@ -84,7 +84,7 @@ def showUnits(grid): #show unit => put unit on screen
                 target.show(60) #put this unit on screen : 60 a cause de la  barre
 
 
-def spawnUnit(screen, grid, joueur):
+def spawnUnit(screen, grid, joueur): #create unit
     global id
     target = Unit(screen, joueur.getAllegiance(), id)
     id = id + 1
@@ -92,7 +92,7 @@ def spawnUnit(screen, grid, joueur):
     return target  # De cette manière l'instance serait créer dans game mais utilisable dans main
 
 
-def takeUnitFromAline(grid, y):
+def takeUnitFromAline(grid, y): #take all units from a line toherwise some units might go too fast
     ret = []
     for x in range(0, grid.getGridSize()):
         target = grid.getUnitAtGrid(x, y)
@@ -116,7 +116,7 @@ def showHealth(screen): # show health
 
 # Pas impossible de fusionner showHealth et showWealth
 def showWealth(screen):
-
+    #show money (gold bars on screen)
     font = pygame.font.SysFont('Corbel', 16)
     player1 = getPlayer(1)
     health = str(player1.getMoney())
@@ -128,7 +128,7 @@ def showWealth(screen):
     screen.blit(text1, text1.get_rect(center=(width-width/4+15+text1.get_rect().width, 50)))
     screen.blit(moneyImage, moneyImage.get_rect(center=(width-width/4+10, 30)))
 
-def resetPlayer():
+def resetPlayer(): # reseting players
     for player in playerList:
         player.money = 0
         player.health = 200
