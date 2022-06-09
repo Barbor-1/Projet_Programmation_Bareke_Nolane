@@ -42,7 +42,7 @@ if __name__ == "__main__":
     screen = menu_screen.getScreen() # screen contient la surface qui sert a dessiner
 
     main_screen = Screen("RTS GAME - v1", screen, 640, 700) # surface du jeu en lui même
-    background = Background(main_screen.getScreen(), "Sprite/sans_titre.tmx")  # charge la carte
+    background = Background(main_screen.getScreen(), "Sprite/Fond_ecran.tmx")  # charge la carte
 
 
     menu_screen.getScreen().fill((80, 80, 80)) # menu gris (fond)
