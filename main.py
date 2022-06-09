@@ -6,17 +6,17 @@ import signal
 import time
 from multiprocessing import process, JoinableQueue
 
-import button
+from ui import button
 import game
-import network_utils
-from demon_tcp import Demon
-from grid import Grid
-from map_gen import Map, Background
-from player import Player
-from screen import Screen
-from show_menu import ShowMenu
-from textbox import Textbox
-from toolbar import Toolbar
+from networking import network_utils
+from networking.demon_tcp import Demon
+from ui.grid import Grid
+from ui.map_gen import Map, Background
+from unit.player import Player
+from ui.screen import Screen
+from ui.show_menu import ShowMenu
+from ui.textbox import Textbox
+from ui.toolbar import Toolbar
 from unit.unit import Unit
 
 # from pytmx.util_pygame import load_pygame  # 2.7 mode !

@@ -3,8 +3,8 @@ from pydoc import cli
 import re
 from socket import timeout
 import netifaces
-from networking import client
-from ip_utils import IP
+from networking.networking import client
+from networking.ip_utils import IP
 import time
 
 def netmask_ip(netmask, ip_address): #TODO reformat with IP class 

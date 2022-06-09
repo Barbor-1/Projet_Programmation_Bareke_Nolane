@@ -1,5 +1,5 @@
 from socket import socket
-from networking import server
+from networking.networking import server
 import pickle
 from unit.unit import Unit
 server = server(port="12345")

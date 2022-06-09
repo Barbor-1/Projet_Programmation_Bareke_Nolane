@@ -1,9 +1,9 @@
 import os
 import pygame
 
-from grid import Grid
-from map_gen import Background
-from player import Player
+from ui.grid import Grid
+from ui.map_gen import Background
+from unit.player import Player
 from unit.unit import Unit
 
 # Liste de fonctions pour main

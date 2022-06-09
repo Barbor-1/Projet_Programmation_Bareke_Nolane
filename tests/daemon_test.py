@@ -1,5 +1,5 @@
 import multiprocessing
-from demon_tcp import Demon
+from networking.demon_tcp import Demon
 from multiprocessing import process, JoinableQueue
 from multiprocessing import Manager
 import pygame

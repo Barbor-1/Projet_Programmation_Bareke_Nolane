@@ -2,7 +2,7 @@ import os
 import pygame
 import random
 
-from player import Player
+from unit.player import Player
 
 
 class Unit():

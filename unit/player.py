@@ -1,4 +1,4 @@
-from textbox import  Textbox
+from ui.textbox import  Textbox
 
 class Player():
     def __init__(self, allegiance):
