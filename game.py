@@ -127,3 +127,8 @@ def showWealth(screen):
     moneyImage = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Money-1.png"))
     screen.blit(text1, text1.get_rect(center=(width-width/4+15+text1.get_rect().width, 50)))
     screen.blit(moneyImage, moneyImage.get_rect(center=(width-width/4+10, 30)))
+
+def resetPlayer():
+    for player in playerList:
+        player.money = 0
+        player.health = 200

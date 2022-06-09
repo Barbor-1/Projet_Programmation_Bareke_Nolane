@@ -133,8 +133,7 @@ if __name__ == "__main__":
                     pygame.display.flip()
 
                 if (clicked_once == True):
-                    pos_to_place = int((pos[
-                                            1] - 60) / 32)  # position de la future unité => 1 case fait 32*32 + le terrain de jeu commence qu'a 60 pixels
+                    pos_to_place = int((pos[1] - 60) / 32)  # position de la future unité => 1 case fait 32*32 + le terrain de jeu commence qu'a 60 pixels
                     if (pos_to_place < 0):  # si au dessus du terrain de jeu
                         clicked_once = False  # reset flag
                     else:
@@ -184,9 +183,7 @@ if __name__ == "__main__":
                         wait_for_connect = output_queue.get()
                         pygame.display.flip()  # update display in order to avoid freeze
                     print("connected from client")
-
-                   game.resetPlayer()
-
+                    game.resetPlayer()
 
                     print("health", player_one.getHealth(), player_two.getHealth())
                     mode = pygame.display.set_mode((640, 700),
@@ -210,6 +207,7 @@ if __name__ == "__main__":
                     counter = 0  # for network update delaying
 
                 if (res == 2):  # client sélectionné
+                    game.resetPlayer()
                     is_client = True  # flag for unit update
                     print("client has been selected")
                     IP = show_menu.getIpText()  # si pas entrée => update addresse IP
@@ -257,8 +255,7 @@ if __name__ == "__main__":
                     is_client == True):  # les ticks de mise a jour se font tout les 0.5 secondes MIN ou si on est un client => pas de ticks car pas de mise a jour de la "physique"
                 # print("event")
                 # get unit from server
-                if (
-                        counter == 1):  # pour faire que la mise a jour réseau se fasse tout les x ticks de physique (ici 1 mise a jour réseau / tick)
+                if (counter == 1):  # pour faire que la mise a jour réseau se fasse tout les x ticks de physique (ici 1 mise a jour réseau / tick)
                     try:
                         data_out = output_queue.get(False)  # not blocking => reçoit les mises a jour du serveur
                     except Exception as e:
