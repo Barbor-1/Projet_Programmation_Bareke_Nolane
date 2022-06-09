@@ -67,8 +67,7 @@ class Unit():
             if(target.health < 0):
                 return -1
 
-    def hurtPlayer(self, joueur): # attack playey base
-        #TODO utiliser la meme logique que attack pour attaquer le joueur de l'equipe ennemi (retourner 1 si attaque sur joueur reussi)
+    def hurtPlayer(self, joueur): # attack player base
         joueur.hurt(self.atk)
         self.changeSprite(2*self.allegiance)
         self.health = 0
@@ -95,7 +94,7 @@ class Unit():
     def getAttack(self):
         return  self.atk
 
-    def changeSprite(self,valeur): #TODO : change unit attack sprite back # change unit sprite for animation
+    def changeSprite(self,valeur):
         # Donne le sprite de base aux unités selon leur camps
         if valeur == 1:
             self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Soldat.png"))
