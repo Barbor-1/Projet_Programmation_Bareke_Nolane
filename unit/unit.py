@@ -1,7 +1,9 @@
 import os
-import random
 import pygame
+import random
+
 from player import Player
+
 
 class Unit():
     def __init__(self, screen=0, allegiance=0, id=0): # 0 pour éviter le chargement des images dans le démon TCP 
