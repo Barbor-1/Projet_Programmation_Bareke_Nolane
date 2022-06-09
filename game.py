@@ -33,17 +33,26 @@ def placeUnit(target, y, player, grid):  # put unit on grid
 def moveUnit(target, grid, inputQueue, background):  # SEULEMENT POUR LE SERVEUR : moving units
     # Ordonne l'unité d'avancer d'une case dans la grille si elle en est capable
     newPosX = target.getPosX() + target.getAllegiance()
-
+    to_move = 1
     if newPosX <= grid.getGridSize() - 1 and newPosX >= 0:
         nextTarget = grid.getUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY())
         if nextTarget == 0:
             if(background.is_water(target.getPosX(), target.getPosY()) == True):
                 print("on water")
                 target.changeSprite(3*target.getAllegiance())  # Change le sprite en position de base
-                inputQueue.put("UPDATE_UNIT " + str(target.id) + " 0 " + "0.5" + "\n") # 0.5 => sprite = sprite-water
-            target.changeSprite(target.getAllegiance())  # Change le sprite en position de base
-            grid.moveUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY(), target)
-            inputQueue.put("UPDATE_UNIT " + str(target.id) + " 0 " + "1" + "\n")
+                #inputQueue.put("UPDATE_UNIT " + str(target.id) + " 0 " + "0.5" + "\n") # 0.5 => sprite = sprite-water
+                to_move += 0.5
+                if(target.half_walk == True):
+                    grid.moveUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY(), target)
+                    target.half_walk = False
+                target.half_walk = True
+
+
+
+            else:
+                target.changeSprite(target.getAllegiance())  # Change le sprite en position de base
+                grid.moveUnitAtGrid(target.getPosX() + target.getAllegiance(), target.getPosY(), target)
+            inputQueue.put("UPDATE_UNIT " + str(target.id) + " 0 " + str(to_move) + "\n")
             # print("new pos X", newPosX)
 
         else:  # Si la prochaine case contient une unité

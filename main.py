@@ -219,8 +219,8 @@ if __name__ == "__main__":
 
                     wait_for_connect = output_queue.get()  # attends que le client se connecte
                     while (wait_for_connect != "CONNECTED"):
-                        print("waiting", wait_for_connect)
                         wait_for_connect = output_queue.get()
+                        print("waiting", wait_for_connect)
                         pygame.display.flip()  # pour évite de freeze le jeu
 
                     print("connected from client")
@@ -340,6 +340,7 @@ if __name__ == "__main__":
 
                         for i in range(0, len(unitList)):  # pour chaque unité de la ligne, la déplacer
                             ret = game.moveUnit(unitList[i], grid, input_queue, background)
+                            print(unitList[i].getPosX())
 
                             if (ret == -2):
                                 print("ennemy died")

@@ -39,7 +39,7 @@ class Demon(multiprocessing.Process):
                     print("exception while trying to connect for the first time", e)
                     retry = True
             
-            self.comm.startClient()
+            #self.comm.startClient()
                     
 
         print("connected")
