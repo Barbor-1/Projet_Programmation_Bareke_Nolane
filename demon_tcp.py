@@ -81,7 +81,7 @@ class Demon(multiprocessing.Process):
             #print("received commands (or not) from network")
             sys.stdout.flush()
             command_receive = temp.split(" ")[0]
-
+            #commands from remote client / serveur
             # PAS DE GET UNIT ENTRE SERVEUR ET CLIENT :
             if(command_receive == "SET_UNIT"): #SET_UNIT UNIT_STATE
                 
@@ -107,6 +107,8 @@ class Demon(multiprocessing.Process):
                 print("closed connexion")
             
             elif(command_receive == "ATTACKED"): #ATTACKED unit_id
+                self.output_queue.put(temp)
+            elif(command_receive == "LOST"):
                 self.output_queue.put(temp)
         
         #COMMANDS FROM QUEUE
@@ -163,6 +165,11 @@ class Demon(multiprocessing.Process):
             
             if(first_arg == "ATTACKED"): # unit attacked => for animations
                 print("UNIT ATTACKED")
+                self.comm.send(command, is_byte=False)
+            if(first_arg ==  "LOST"):
+                print("somemody lost")
+                sys.stdout.flush()
+                # player has lost
                 self.comm.send(command, is_byte=False)
             #print("cycle ended")
             sys.stdout.flush()
