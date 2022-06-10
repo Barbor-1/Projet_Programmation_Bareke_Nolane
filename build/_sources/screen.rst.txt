@@ -1,7 +1,7 @@
 screen module
 =============
 
-.. automodule:: screen
+.. automodule:: ui.screen
    :members:
    :undoc-members:
    :show-inheritance:

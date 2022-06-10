@@ -1,7 +1,7 @@
-show\_menu module
+demon\_tcp module
 =================
 
-.. automodule:: show_menu
+.. automodule:: networking.demon_tcp
    :members:
    :undoc-members:
    :show-inheritance:

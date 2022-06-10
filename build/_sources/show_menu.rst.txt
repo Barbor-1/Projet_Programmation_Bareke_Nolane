@@ -1,7 +1,7 @@
 show\_menu module
 =================
 
-.. automodule:: show_menu
+.. automodule:: ui.show_menu
    :members:
    :undoc-members:
    :show-inheritance:

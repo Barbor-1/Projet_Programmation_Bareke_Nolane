@@ -6,7 +6,6 @@ import signal
 import time
 from multiprocessing import process, JoinableQueue
 
-import  ui.animation
 import unit.unit
 from ui import button
 import game

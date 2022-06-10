@@ -1,7 +1,7 @@
 toolbar module
 ==============
 
-.. automodule:: toolbar
+.. automodule:: ui.toolbar
    :members:
    :undoc-members:
    :show-inheritance:

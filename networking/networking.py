@@ -2,11 +2,18 @@ import socket
 
 
 class server():
+    """
+    server class
+    """
     def __init__(self, port="2001"):  # default value to change
         self.port = port
         self.ip_address = ""
 
     def startServer(self):
+        """
+        start server
+        :return:
+        """
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = ''
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # idk why ?

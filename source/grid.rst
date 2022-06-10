@@ -1,7 +1,7 @@
 grid module
 ===========
 
-.. automodule:: grid
+.. automodule:: ui.grid
    :members:
    :undoc-members:
    :show-inheritance:

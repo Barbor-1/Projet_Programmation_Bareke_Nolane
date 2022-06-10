@@ -1,7 +1,7 @@
 textbox module
 ==============
 
-.. automodule:: textbox
+.. automodule:: ui.textbox
    :members:
    :undoc-members:
    :show-inheritance:

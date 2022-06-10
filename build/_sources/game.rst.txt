@@ -1,7 +1,7 @@
-toolbar module
-==============
+game module
+===========
 
-.. automodule:: toolbar
+.. automodule:: game
    :members:
    :undoc-members:
    :show-inheritance:

@@ -1,7 +1,7 @@
 button module
 =============
 
-.. automodule:: button
+.. automodule:: ui.button
    :members:
    :undoc-members:
    :show-inheritance:

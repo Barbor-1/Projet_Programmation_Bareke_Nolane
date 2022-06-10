@@ -4,17 +4,20 @@
 <html lang="python">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>player module &#8212; Projet_Programmation_areke_Nolane 1.0.0 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="unit module" href="unit.html" />
+    <link rel="prev" title="toolbar module" href="toolbar.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -31,45 +34,84 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="module-player">
-<span id="player-module"></span><h1>player module<a class="headerlink" href="#module-player" title="Permalink to this headline">¶</a></h1>
+  <section id="module-unit.player">
+<span id="player-module"></span><h1>player module<a class="headerlink" href="#module-unit.player" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
-<dt id="player.Player">
-<em class="property">class </em><code class="sig-prename descclassname">player.</code><code class="sig-name descname">Player</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">allegiance</span></em><span class="sig-paren">)</span><a class="headerlink" href="#player.Player" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="unit.player.Player">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">unit.player.</span></span><span class="sig-name descname"><span class="pre">Player</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allegiance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#unit.player.Player" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
-<dt id="player.Player.cost">
-<code class="sig-name descname">cost</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">valeur</span></em><span class="sig-paren">)</span><a class="headerlink" href="#player.Player.cost" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="unit.player.Player.cost">
+<span class="sig-name descname"><span class="pre">cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">valeur</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#unit.player.Player.cost" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>valeur</strong> -- Nombre que l'on va soustraire à l'argent du joueur</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
-<dt id="player.Player.gain">
-<code class="sig-name descname">gain</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">valeur</span></em><span class="sig-paren">)</span><a class="headerlink" href="#player.Player.gain" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="unit.player.Player.gain">
+<span class="sig-name descname"><span class="pre">gain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">valeur</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#unit.player.Player.gain" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>valeur</strong> -- Nombre que l'on va additionner à l'argent du joueur</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
-<dt id="player.Player.getAllegiance">
-<code class="sig-name descname">getAllegiance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#player.Player.getAllegiance" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="unit.player.Player.getAllegiance">
+<span class="sig-name descname"><span class="pre">getAllegiance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#unit.player.Player.getAllegiance" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Donne le camp du joueur 1 pour allié -1 pour l'ennemie</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
-<dt id="player.Player.getHealth">
-<code class="sig-name descname">getHealth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#player.Player.getHealth" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="unit.player.Player.getHealth">
+<span class="sig-name descname"><span class="pre">getHealth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#unit.player.Player.getHealth" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Affiche la santé du joueur</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
-<dt id="player.Player.getMoney">
-<code class="sig-name descname">getMoney</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#player.Player.getMoney" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="unit.player.Player.getMoney">
+<span class="sig-name descname"><span class="pre">getMoney</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#unit.player.Player.getMoney" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Affiche les ressources du joueur</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
-<dt id="player.Player.hurt">
-<code class="sig-name descname">hurt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">atk</span></em><span class="sig-paren">)</span><a class="headerlink" href="#player.Player.hurt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="unit.player.Player.hurt">
+<span class="sig-name descname"><span class="pre">hurt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#unit.player.Player.hurt" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>atk</strong> -- Nombre dont on va soustraire la santé du joueur</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
-</div>
+</section>
 
 
           </div>
@@ -88,15 +130,23 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="modules.html">ui</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">player module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unit.html">unit module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networking.html">networking module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demon_tcp.html">demon_tcp module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ip_utils.html">ip_utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network_utils.html">network_utils module</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="toolbar.html" title="previous chapter">toolbar module</a></li>
+      <li>Next: <a href="unit.html" title="next chapter">unit module</a></li>
   </ul></li>
 </ul>
 </div>
@@ -104,12 +154,12 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -126,7 +176,7 @@
       &copy;2022, Bareke NTAWINIGA, Nolane DELILLE.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

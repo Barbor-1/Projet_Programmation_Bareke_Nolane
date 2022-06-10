@@ -1,7 +1,7 @@
-screen module
-=============
+main module
+===========
 
-.. automodule:: screen
+.. automodule:: main
    :members:
    :undoc-members:
    :show-inheritance:
