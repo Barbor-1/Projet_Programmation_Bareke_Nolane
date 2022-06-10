@@ -6,7 +6,12 @@ from unit.player import Player
 
 
 class Unit():
-    def __init__(self, screen=0, allegiance=0, id=0): # 0 pour éviter le chargement des images dans le démon TCP 
+    def __init__(self, screen=0, allegiance=0, id=0): # 0 pour éviter le chargement des images dans le démon TCP
+        """
+        :param screen: Ecran sur lequel on va mettre l'unité
+        :param allegiance: Camp auquel l'unité appartient
+        :param id: Identifiant unique à l'unité
+        """
         self.pos_x = 0.0 #
         self.pos_y = 0.0
         self.allegiance = allegiance  # A qui appartient l'unité. +1 pour un joueur -1 pour l'autre => ça peut passer
@@ -38,19 +43,35 @@ class Unit():
             self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/SoldierB.png"))
         self.limits = pygame.display.get_surface().get_size()[0]
 
-    def getPosX(self): # Donne la position en x
+    def getPosX(self):
+        """
+        :return: Donne la position en x
+        """
         return self.pos_x
 
-    def getPosY(self): # Donne la position en y
+    def getPosY(self):
+        """
+        :return: Donne la position en y
+        """
         return self.pos_y
 
-    def getAllegiance(self): # Indique a quel camp l'unité appartient
+    def getAllegiance(self):
+        """
+        :return: Donne à quel camp l'unité appartient
+        """
         return self.allegiance
 
-    def getId(self): # Donne l'identifiant
+    def getId(self):
+        """
+        :return: Donne l'identifiant
+        """
         return self.id
 
     def move(self, speed): # Fait déplacer l'unité d'une certaine quantité speed vers la base ennemie
+        """
+        :param speed: Distance en x dont on déplace l'unité
+        :return:
+        """
         if( abs(self.pos_x) > self.limits):
             pass
 
@@ -58,10 +79,18 @@ class Unit():
             self.pos_x += 1 * self.allegiance*speed  # TO DO : vérifier si on est pas en dehors de la grid
 
     def hurt(self, atk): # Appeler quand l'unité prend des dégats
+        """
+        :param atk: Puissance de l'attaque blessant l'unit
+        :return:
+        """
         self.health -= atk - random.randint(0, self.armor)  # Dégat infliger reduit par un nombre aléatoire inférieure ou égale à la valeur d'armure
 
 
     def attack(self, target): # Appeler quand l'unité inflige des dégats
+        """
+        :param target: Cible a attaquer
+        :return: Si l'unité est morte
+        """
         if target.getAllegiance() != self.allegiance: # Verifie si la cible est ennemie
             target.hurt(self.atk)
             self.changeSprite(2*self.allegiance) # Equipe le sprite en position d'attaque
@@ -69,6 +98,10 @@ class Unit():
                 return -1
 
     def hurtPlayer(self, joueur): # Attaque la base ennemie
+        """
+        :param joueur: Joueur ciblé par l'attaque
+        :return:
+        """
         joueur.hurt(self.atk)
         self.changeSprite(2*self.allegiance) # Animation d'attaque
         self.health = 0 # L'unité s'autodétruit en infligeant des dégats
@@ -77,6 +110,10 @@ class Unit():
         return str(self.pos_x) + " " +  str(self.pos_y) + " " + str(self.allegiance) + " " +  self.type + " "  + str(self.health)+ " " + str(self.atk)  + " " + str(self.armor) + " " + str(self.id)
 
     def show(self, offset): # Affiche l'unité
+        """
+        :param offset: Décalage avec lequel on affiche l'unité
+        :return:
+        """
         self.screen.blit(self.image, (self.pos_x * self.image.get_height(), self.pos_y * self.image.get_width() + offset))
 
     def __getstate__(self): # get unit state
@@ -92,10 +129,17 @@ class Unit():
         self.armor = int(i[6])
         self.id = int(i[7])
 
-    def getAttack(self): # Donne la valeur d'attaque
+    def getAttack(self):
+        """
+        :return: Donne la valeur d'attaque
+        """
         return  self.atk
 
     def changeSprite(self,valeur): # Change l'image de l'unité
+        """
+        :param valeur: valeur differenciant en quel image changer l'unité
+        :return:
+        """
         # Donne le sprite de base aux unités selon leur camps
         if valeur == 1:
             self.image = pygame.image.load(os.path.join(os.getcwd(), "Sprite/Soldat.png"))
