@@ -6,6 +6,8 @@ import signal
 import time
 from multiprocessing import process, JoinableQueue
 
+import  ui.animation
+import unit.unit
 from ui import button
 import game
 from networking import network_utils
@@ -79,6 +81,7 @@ if __name__ == "__main__":
     while (running == True):
         events = pygame.event.get()  # get event list
         clock.tick()  # met a jour le nombre de fps
+
         for event in events:
 
             if event.type == pygame.QUIT:  # on quitte
@@ -134,27 +137,28 @@ if __name__ == "__main__":
                     menu_screen.update()  # met a jour l'écran
                     pygame.display.flip()
 
-                if (clicked_once == True):
-                    pos_to_place = int((pos[
-                                            1] - 60) / 32)  # position de la future unité => 1 case fait 32*32 + le terrain de jeu commence qu'a 60 pixels
-                    if (pos_to_place < 0):  # si au dessus du terrain de jeu
-                        clicked_once = False  # reset flag
-                    else:
-                        print("put soldier at pos", pos_to_place)
-                        temp = game.spawnUnit(main_screen.getScreen(), grid,
-                                              joueur=player_one)  # spawn l'unité
-                        if (grid.getUnitAtGrid(0, pos_to_place) == 0):
-                            game.placeUnit(temp, pos_to_place, player_one,
-                                           grid)  # place une unité seulement si dans la case de l'unité il n'y a rien
+        if (clicked_once == True):
 
-                        data_to_send = "SET_UNIT " + str(temp) + "\n"
-                        input_queue.put(data_to_send)  # update network unit
+            pos_to_place = int((pos[
+                                    1] - 60) / 32)  # position de la future unité => 1 case fait 32*32 + le terrain de jeu commence qu'a 60 pixels
+            if (pos_to_place < 0):  # si au dessus du terrain de jeu
+                clicked_once = False  # reset flag
+            else:
+                print("put soldier at pos", pos_to_place)
+                temp = game.spawnUnit(main_screen.getScreen(), grid,
+                                      joueur=player_one)  # spawn l'unité
+                if (grid.getUnitAtGrid(0, pos_to_place) == 0):
+                    game.placeUnit(temp, pos_to_place, player_one,
+                                   grid)  # place une unité seulement si dans la case de l'unité il n'y a rien
 
-                        clicked_once = False  # reset flag
+                data_to_send = "SET_UNIT " + str(temp) + "\n"
+                input_queue.put(data_to_send)  # update network unit
 
-                        player_one.cost(30)  # TODO avoir le coût lié a une valeur de toolbar par exemple
-                        # enlève 30 d'argent au joueur
-                        print("money :", player_one.getMoney())  # debug
+                clicked_once = False  # reset flag
+
+                player_one.cost(30)  # TODO avoir le coût lié a une valeur de toolbar par exemple
+                # enlève 30 d'argent au joueur
+                print("money :", player_one.getMoney())  # debug
 
                 if (toolbar_soldier.collide(pos) and fliped == False):  # mode jeu + boutton cliqué
                     print("collide solider")

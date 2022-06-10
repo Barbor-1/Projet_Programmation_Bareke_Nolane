@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+
+<html lang="python">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>textbox module &#8212; Projet_Programmation_areke_Nolane 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="toolbar module" href="toolbar.html" />
+    <link rel="prev" title="show_menu module" href="show_menu.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-textbox">
+<span id="textbox-module"></span><h1>textbox module<a class="headerlink" href="#module-textbox" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="textbox.Textbox">
+<em class="property">class </em><code class="sig-prename descclassname">textbox.</code><code class="sig-name descname">Textbox</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">screen</span></em>, <em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">h</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">color</span></em>, <em class="sig-param"><span class="n">borderColor</span><span class="o">=</span><span class="default_value">0, 0, 0</span></em>, <em class="sig-param"><span class="n">textColor</span><span class="o">=</span><span class="default_value">255, 255, 255</span></em>, <em class="sig-param"><span class="n">fontSize</span><span class="o">=</span><span class="default_value">14</span></em><span class="sig-paren">)</span><a class="headerlink" href="#textbox.Textbox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Textbox class</p>
+<dl class="py method">
+<dt id="textbox.Textbox.draw">
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#textbox.Textbox.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>draw the textbox
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="textbox.Textbox.getText">
+<code class="sig-name descname">getText</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#textbox.Textbox.getText" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the text that was typed inside the textbox</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="textbox.Textbox.listen">
+<code class="sig-name descname">listen</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#textbox.Textbox.listen" title="Permalink to this definition">¶</a></dt>
+<dd><p>listen for events and manage the textbox (updating and drawing text inside it ...) dont forget to update the surface / screen after</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>event</strong> -- event to listen to (only one event)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Projet_Programmation_areke_Nolane</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">ui</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="button.html">button module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grid.html">grid module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="map_gen.html">map_gen module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="screen.html">screen module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="show_menu.html">show_menu module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">textbox module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="toolbar.html">toolbar module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">ui</a><ul>
+      <li>Previous: <a href="show_menu.html" title="previous chapter">show_menu module</a></li>
+      <li>Next: <a href="toolbar.html" title="next chapter">toolbar module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Bareke NTAWINIGA, Nolane DELILLE.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/textbox.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
