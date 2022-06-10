@@ -40,15 +40,37 @@
 <dt class="sig sig-object py" id="ui.map_gen.Background">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ui.map_gen.</span></span><span class="sig-name descname"><span class="pre">Background</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ui.map_gen.Background" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#ui.map_gen.Map" title="ui.map_gen.Map"><code class="xref py py-class docutils literal notranslate"><span class="pre">Map</span></code></a></p>
+<p>class for tiled map</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Map</strong> -- inherit from Map class</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="ui.map_gen.Background.display_map">
 <span class="sig-name descname"><span class="pre">display_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ui.map_gen.Background.display_map" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>draw map</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ui.map_gen.Background.is_water">
 <span class="sig-name descname"><span class="pre">is_water</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ui.map_gen.Background.is_water" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>test if point (x, y), is on water</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>int</em>) -- position x of the point</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- position y of the point</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if on water, otherwise return False</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -56,10 +78,12 @@
 <dt class="sig sig-object py" id="ui.map_gen.Map">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ui.map_gen.</span></span><span class="sig-name descname"><span class="pre">Map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ui.map_gen.Map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>used to load an image and draw it (in the background)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ui.map_gen.Map.display_map">
 <span class="sig-name descname"><span class="pre">display_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ui.map_gen.Map.display_map" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>draw image</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -100,6 +124,8 @@
 <li class="toctree-l1"><a class="reference internal" href="demon_tcp.html">demon_tcp module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ip_utils.html">ip_utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="network_utils.html">network_utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">game module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">main module</a></li>
 </ul>
 
 <div class="relations">

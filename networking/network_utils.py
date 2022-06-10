@@ -1,4 +1,12 @@
-def remove_unit(grid, id):  # remove unit for client
+def remove_unit(grid, id):  
+    """ remove unit for client
+
+    :param grid: grid
+    :type grid: Grid
+    :param id: id of unit to remove
+    :type id: int
+
+    """
     for i in range(0, grid.getGridSize()):
         for j in range(0, grid.getGridSize()):
             unit = grid.getUnitAtGrid(i, j)  # scan for the right unit to delete
@@ -9,7 +17,17 @@ def remove_unit(grid, id):  # remove unit for client
                     return
 
 
-def move_unit(grid, id, movement):  # move unit for client
+def move_unit(grid, id, movement):  #
+    """move unit for client
+
+    :param grid: grid
+    :type grid: Grid
+    :param id: id of unit to remove
+    :type id: int
+    :param movement: what to move for the said unit (int or float, if float (=1.5) it means that there is a tick to wait before moving the unit)
+    :type movement:  float 
+    """
+
     for i in range(0, grid.getGridSize()):
         for j in range(0, grid.getGridSize()):
             unit = grid.getUnitAtGrid(i, j)
@@ -36,7 +54,14 @@ def move_unit(grid, id, movement):  # move unit for client
                     return
 
 
-def animate_unit(grid, id):  # animate unit for client
+def animate_unit(grid, id):  # 
+    """animate unit for client
+
+    :param grid: grid
+    :type grid: Grid
+    :param id:  id of the unit to animate
+    :type id: int
+    """
     for i in range(0, grid.getGridSize()):
         for j in range(0, grid.getGridSize()):
             unit = grid.getUnitAtGrid(i, j)

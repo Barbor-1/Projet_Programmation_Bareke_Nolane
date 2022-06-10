@@ -10,7 +10,7 @@ import unit.unit
 from ui import button
 import game
 from networking import network_utils
-from networking.demon_tcp import Demon
+from demon_tcp import Demon
 from ui.grid import Grid
 from ui.map_gen import Map, Background
 from unit.player import Player
@@ -42,12 +42,15 @@ if __name__ == "__main__":
         pygame.cursors.arrow)  # for constitency issue with textbox : in order always have the same cursor
     # pygame.display.set_caption("RTS GAME - v1")
 
-    menu_screen = Screen("RTS GAME - v1-MENU", screen, 800, 800)  # crée la surface du menu
+    menu_screen = Screen("RTS GAME - v1-MENU", screen,
+                         800, 800)  # crée la surface du menu
     menu_screen.makeCurrent()  # change la surface courante par celle du menu
     screen = menu_screen.getScreen()  # screen contient la surface qui sert a dessiner
 
-    main_screen = Screen("RTS GAME - v1", screen, 640, 700)  # surface du jeu en lui même
-    background = Background(main_screen.getScreen(), "Sprite/Fond_ecran.tmx")  # charge la carte
+    main_screen = Screen("RTS GAME - v1", screen, 640,
+                         700)  # surface du jeu en lui même
+    background = Background(main_screen.getScreen(),
+                            "Sprite/Fond_ecran.tmx")  # charge la carte
 
     menu_screen.getScreen().fill((80, 80, 80))  # menu gris (fond)
 
@@ -58,7 +61,8 @@ if __name__ == "__main__":
     text1 = font.render("MENU", True, (0, 0, 0))  # TEXTE MENU
     screen.blit(text1, text1.get_rect(topleft=(10, 10)))  # affiche le  texte
 
-    button2 = button.Button(1, 1, (0, 0, 0), (235, 125, 56), main_screen.getScreen())  # bouton
+    button2 = button.Button(1, 1, (0, 0, 0), (235, 125, 56),
+                            main_screen.getScreen())  # bouton
     button2.initButton(  # initialise le bouton
         "Go back")
     # print(button2.text_rect.h, button2.text_rect.w) #DEBUG
@@ -85,10 +89,12 @@ if __name__ == "__main__":
 
             if event.type == pygame.QUIT:  # on quitte
                 input_queue.put("CLOSE")  # ferme la connexion
-                input_queue.put("KILL")  # tue le process demon_tcp par lui même
+                # tue le process demon_tcp par lui même
+                input_queue.put("KILL")
                 print("closing")  # DEBUG
                 print("active children", multiprocessing.active_children())
-                for prc in multiprocessing.active_children():  # tue tous les process enfants dans le cas où demon_tcp ne répond pas
+                # tue tous les process enfants dans le cas où demon_tcp ne répond pas
+                for prc in multiprocessing.active_children():
                     prc.join(5)
                     if (prc.exitcode == None):  # process was not killed
                         print("killing process", prc.pid)
@@ -101,20 +107,25 @@ if __name__ == "__main__":
                     event == back_menu_event):  # click gauche
                 pos = pygame.mouse.get_pos()  # position de la souris
 
-                if (button2.collide(pos) == 1 and fliped == False) or (event == back_menu_event):  # MAIN SCREEN to MENU
+                # MAIN SCREEN to MENU
+                if (button2.collide(pos) == 1 and fliped == False) or (event == back_menu_event):
 
                     input_queue.put("CLOSE")  # ferme la connexion
-                    input_queue.put("KILL")  # tue le process demon_tcp par lui même
+                    # tue le process demon_tcp par lui même
+                    input_queue.put("KILL")
                     print("closing")  # DEBUG
-                    print("active children", multiprocessing.active_children())  # DEBUG
-                    for prc in multiprocessing.active_children():  # tue tous les process enfants dans le cas où demon_tcp ne répond pas
+                    print("active children",
+                          multiprocessing.active_children())  # DEBUG
+                    # tue tous les process enfants dans le cas où demon_tcp ne répond pas
+                    for prc in multiprocessing.active_children():
                         prc.join(5)
                         if (prc.exitcode == None):  # process was not killed
                             print("killing process", prc.pid)
                             os.kill(prc.pid, signal.SIGKILL)
                     print("after killling", multiprocessing.active_children())
 
-                    mode = pygame.display.set_mode((800, 800))  # met a jout la taille de l'écran
+                    # met a jout la taille de l'écran
+                    mode = pygame.display.set_mode((800, 800))
                     menu_screen.screen = mode  # met a jour la surface
 
                     # B-Still able to press button 1 even if fliped, flashes white when pressed
@@ -123,12 +134,14 @@ if __name__ == "__main__":
                     switch_back = False  # reset flag for force going back to menu
 
                     menu_screen.makeCurrent()  # do nothing, see later
-                    main_screen.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
+                    # change screen + update screen => (maybe remove it dont know ?)
+                    main_screen.endCurrent()
 
                     # textbox.draw()
                     menu_screen.getScreen().fill((80, 80, 80))  # écran tout gris
 
-                    text1 = font.render("MENU", True, (0, 0, 0))  # texte du menu
+                    text1 = font.render(
+                        "MENU", True, (0, 0, 0))  # texte du menu
                     menu_screen.getScreen().blit(text1, text1.get_rect(topleft=(10, 10)))
 
                     show_menu.draw()  # affiche le menu
@@ -139,7 +152,7 @@ if __name__ == "__main__":
                 if (clicked_once == True):
 
                     pos_to_place = int((pos[
-                                            1] - 60) / 32)  # position de la future unité => 1 case fait 32*32 + le terrain de jeu commence qu'a 60 pixels
+                        1] - 60) / 32)  # position de la future unité => 1 case fait 32*32 + le terrain de jeu commence qu'a 60 pixels
                     if (pos_to_place < 0):  # si au dessus du terrain de jeu
                         clicked_once = False  # reset flag
                     else:
@@ -179,8 +192,10 @@ if __name__ == "__main__":
                 if (res == 1):  # le serveur a été sélectionné
                     is_client = False  # flag for unit update
                     print("server has bene selected")
-                    demon = Demon(input_queue, output_queue, port=defaut_port, is_client=False)  # init demon
-                    demon.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
+                    demon = Demon(input_queue, output_queue,
+                                  port=defaut_port, is_client=False)  # init demon
+                    # important pour que le process se ferme après que le le script principal s'est terminé !
+                    demon.daemon = True
                     demon.start()
 
                     wait_for_connect = output_queue.get()  # attend que le démon se connecte
@@ -191,7 +206,8 @@ if __name__ == "__main__":
                     print("connected from client")
                     game.resetPlayer()
 
-                    print("health", player_one.getHealth(), player_two.getHealth())
+                    print("health", player_one.getHealth(),
+                          player_two.getHealth())
                     mode = pygame.display.set_mode((640, 700),
                                                    vsync=True)  # switch screen into menu mode (put inside function ? idk)
                     main_screen.screen = mode
@@ -200,7 +216,8 @@ if __name__ == "__main__":
                     print("switched to main screen")
                     fliped = False
                     main_screen.makeCurrent()  # do nothing, see later
-                    menu_screen.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
+                    # change screen + update screen => (maybe remove it dont know ?)
+                    menu_screen.endCurrent()
                     screen = main_screen.getScreen()  #
                     # carte_menu.display_map()
                     button2.drawButton()  # back button
@@ -219,7 +236,8 @@ if __name__ == "__main__":
                     IP = show_menu.getIpText()  # si pas entrée => update addresse IP
                     demon = Demon(input_queue, output_queue, port=defaut_port, is_client=True,
                                   address=IP)  # même chose que le serveur sauf qui'il faut précisé l'addresse IP
-                    demon.daemon = True  # important pour que le process se ferme après que le le script principal s'est terminé !
+                    # important pour que le process se ferme après que le le script principal s'est terminé !
+                    demon.daemon = True
                     demon.start()
 
                     wait_for_connect = output_queue.get()  # attends que le client se connecte
@@ -230,16 +248,19 @@ if __name__ == "__main__":
 
                     print("connected from client")
 
-                    mode = pygame.display.set_mode((640, 700), vsync=True)  # met a jour la taille de l'écran
+                    # met a jour la taille de l'écran
+                    mode = pygame.display.set_mode((640, 700), vsync=True)
                     main_screen.screen = mode  # met a jour la surface
                     # Menu Screen
                     # B-Still able to press button 2 even if fliped
 
-                    print("switched to main screen")  # change pour l'écran de jeu
+                    # change pour l'écran de jeu
+                    print("switched to main screen")
                     fliped = False
 
                     main_screen.makeCurrent()  # do nothing, see later
-                    menu_screen.endCurrent()  # change screen + update screen => (maybe remove it dont know ?)
+                    # change screen + update screen => (maybe remove it dont know ?)
+                    menu_screen.endCurrent()
 
                     screen = main_screen.getScreen()
 
@@ -264,7 +285,8 @@ if __name__ == "__main__":
                 if (
                         counter == 1):  # pour faire que la mise a jour réseau se fasse tout les x ticks de physique (ici 1 mise a jour réseau / tick)
                     try:
-                        data_out = output_queue.get(False)  # not blocking => reçoit les mises a jour du serveur
+                        # not blocking => reçoit les mises a jour du serveur
+                        data_out = output_queue.get(False)
                     except Exception as e:
                         exception = True
                         # print("Exception while getting output from server ", e, flush=True)
@@ -273,7 +295,8 @@ if __name__ == "__main__":
                         print("got update from server")
 
                         print("data treated :", data_out)
-                        arg1 = data_out.split(" ")[0]  # premier argument de la commande
+                        # premier argument de la commande
+                        arg1 = data_out.split(" ")[0]
                         if (arg1 == "SET_UNIT"):
                             print("got a new unit !")  # spawn unit
                             unit_to_create = game.spawnUnit(main_screen.getScreen(), grid,
@@ -281,18 +304,22 @@ if __name__ == "__main__":
                             unit_to_create.setstate(data_out.split(" ")[
                                                     1:])  # charge l'état de l'unité sauf l'ALLEGIANCE CAR CELLE CI EST TOUJOURS -1 => ennemie
                             unit_to_create.loadImage()  # update image
-                            game.placeUnit(unit_to_create, unit_to_create.getPosY(), player_two, grid)  # place l'unité
+                            game.placeUnit(unit_to_create, unit_to_create.getPosY(
+                            ), player_two, grid)  # place l'unité
 
                         elif (arg1 == "REMOVE_UNIT"):  # REMOVE UNIT
                             print("got a new unit to remove")
-                            unit_list = network_utils.remove_unit(grid, data_out.split(" ")[1])
+                            unit_list = network_utils.remove_unit(
+                                grid, data_out.split(" ")[1])
 
                         elif (arg1 == "UPDATE_UNIT"):  # update unit
                             print("got a new unit to update")
                             unit_id = data_out.split(" ")[1]
                             movement = data_out.split(" ")[3]
-                            if (data_out.split(" ")[2] == "0"):  # we are only able to update the x position
-                                network_utils.move_unit(grid, int(unit_id), float(movement))  # move unit
+                            # we are only able to update the x position
+                            if (data_out.split(" ")[2] == "0"):
+                                network_utils.move_unit(
+                                    grid, int(unit_id), float(movement))  # move unit
 
                         elif (arg1 == "DISCONNECTED"):
                             pass  # see later for return button
@@ -315,22 +342,27 @@ if __name__ == "__main__":
                                 print("ennemi died")
                             elif (player_id == player_one.getAllegiance()):
                                 print("i died")
-                            pygame.event.post(back_menu_event)  # send back to menu
+                            # send back to menu
+                            pygame.event.post(back_menu_event)
 
                 counter = counter + 1  # for slowing down network pull rate
 
                 # Partie affichage Interface
                 main_screen.getScreen().fill((255, 255, 255))  # vide l'écran
                 button2.drawButton()  # IMPORTANT # affiche le bouton retour
-                toolbar_soldier.draw()  # affiche le boutton pour placer une unité (ou plusieurs see later)
-                if cancel == 1:  # pas asser d'argent => petite annimation (marche pas ?)
+                # affiche le boutton pour placer une unité (ou plusieurs see later)
+                toolbar_soldier.draw()
+                # pas asser d'argent => petite annimation (marche pas ?)
+                if cancel == 1:
                     # Pas fait de la meilleur manière, devrait peut etre mis dans une fonction
                     toolbar_soldier.cancel()
                     cancel = 0
 
                 background.display_map()  # met a jout la carte
-                game.showHealth(main_screen.getScreen())  # met a jour la vie des joueurs
-                game.showWealth(main_screen.getScreen())  # met a jout l'argent du joueur
+                # met a jour la vie des joueurs
+                game.showHealth(main_screen.getScreen())
+                # met a jout l'argent du joueur
+                game.showWealth(main_screen.getScreen())
 
                 game.showUnits(grid)  # affiche les unités
                 main_screen.update()  # IMPORTANT : UPDATE SCREEN
@@ -343,24 +375,29 @@ if __name__ == "__main__":
                         unitList = game.takeUnitFromAline(grid,
                                                           y)  # déplace les unités d'une ligne pour éviter de déplacer plusieur fois une unité
 
-                        for i in range(0, len(unitList)):  # pour chaque unité de la ligne, la déplacer
-                            ret = game.moveUnit(unitList[i], grid, input_queue, background)
+                        # pour chaque unité de la ligne, la déplacer
+                        for i in range(0, len(unitList)):
+                            ret = game.moveUnit(
+                                unitList[i], grid, input_queue, background)
                             print(unitList[i].getPosX())
 
                             if (ret == -2):
                                 print("ennemy died")
                                 # send end screen to ennemy
                                 # launch end screen
-                                pygame.event.post(back_menu_event)  # send back to menu
+                                # send back to menu
+                                pygame.event.post(back_menu_event)
 
                             elif (ret == -3):
                                 print("i died")
                                 # send end screen to ennemy                               switch_back = True
                                 # launch end screen
-                                pygame.event.post(back_menu_event)  # send back to menu
+                                # send back to menu
+                                pygame.event.post(back_menu_event)
 
                     player_one.gain(2)  # Fait gagner de l'argent
-                    start_ticks = time.time()  # met a jour le temps de dernière éxécution de ce code dans le server
+                    # met a jour le temps de dernière éxécution de ce code dans le server
+                    start_ticks = time.time()
 
                 if (is_client == True):
                     if ((

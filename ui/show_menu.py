@@ -7,7 +7,14 @@ import socket
 
 
 class ShowMenu():
+    """handling menu
+    """
     def __init__(self, menu_screen):
+        """init
+
+        :param menu_screen: menu surface
+        :type menu_screen: pygame.Surface
+        """
         self.screen = menu_screen
         self.height = self.screen.get_size()[1]
         self.width = self.screen.get_size()[0]
@@ -33,6 +40,8 @@ class ShowMenu():
         self.server_ip = self.font.render(socket.gethostbyname(socket.gethostname()), True, (255, 0, 0))
 
     def draw(self):
+        """draw this menu
+        """
         self.screen.blit(self.client_text,
                          self.server_text.get_rect(center=(self.width / 3, 50))) 
 
@@ -50,6 +59,15 @@ class ShowMenu():
         self.textbox_IP.draw()
 
     def collide(self, event):
+        """check for collision
+
+        :param event: event to check (only one)
+        :type event: pygame.Event
+        :return:  if return value == 1 => server has been selectionned
+                  if return value == 2 => client has been selectionned
+                  if return value == 4 => IP has been entered
+        :rtype: int
+        """
 
         if(self.textbox_IP.listen(event) == True):
             return 4
@@ -71,4 +89,9 @@ class ShowMenu():
 
 
     def getIpText(self):
+        """return the text with has been entered into the textbox of the ip address
+
+        :return: text
+        :rtype: string
+        """
         return  self.textbox_IP.getText()

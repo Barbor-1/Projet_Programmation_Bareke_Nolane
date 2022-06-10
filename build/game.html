@@ -16,6 +16,8 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="main module" href="main.html" />
+    <link rel="prev" title="network_utils module" href="network_utils.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -37,52 +39,184 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="game.getPlayer">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">getPlayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allegiance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.getPlayer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>allegiance</strong> -- Donne le camp</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Donne le joueur de la liste associé au camp</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="game.moveUnit">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">moveUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputQueue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.moveUnit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> -- Unité à deéplacer</p></li>
+<li><p><strong>grid</strong> -- Grille dans laquelle on agit</p></li>
+<li><p><strong>inputQueue</strong> -- </p></li>
+<li><p><strong>background</strong> -- Fond d'écran (carte Tiled)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Unit obect</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Grid object</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>multiprocess.JoinableQueue</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Background object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>-2 : ennemy has died, -1 : I died (this player)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="game.placeUnit">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">placeUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.placeUnit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> -- Unité à deplacer</p></li>
+<li><p><strong>y</strong> -- Positionde la case en y</p></li>
+<li><p><strong>player</strong> -- Joueur posant l'unité</p></li>
+<li><p><strong>grid</strong> -- Grille contenant l'unité</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Unit object</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Player object</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Grid object</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="game.resetPlayer">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">resetPlayer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#game.resetPlayer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>reseting players (their money for a bug where when we back to menu and started a new game, the money would not be resetted)</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="game.setPlayer">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">setPlayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allegiance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.setPlayer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>allegiance</strong> -- Donne le camp</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Donne le joueur, faisant partie a présent de la liste de joueur, associé au camp donné</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="game.showHealth">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">showHealth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screen</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.showHealth" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>screen</strong> -- Ecran sur lequel on affiche la santé des joueurs</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pygame.Surface</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="game.showUnits">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">showUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.showUnits" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>grid</strong> -- Grille dans lequel on agit</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Grid object</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="game.showWealth">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">showWealth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screen</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.showWealth" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>screen</strong> -- Ecran sur lequel on affiche la ressource des joueurs</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pygame.Surface</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="game.spawnUnit">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">spawnUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">joueur</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.spawnUnit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>screen</strong> -- Ecran sur lequel on affiche l'unité</p></li>
+<li><p><strong>grid</strong> -- Grille où on va poser l'unité</p></li>
+<li><p><strong>joueur</strong> -- Joueur auquel appartient l'unité</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pygame.Surface</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Grid object</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Player object</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Donne l'unité créer</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Unit object</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="game.takeUnitFromAline">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">takeUnitFromAline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.takeUnitFromAline" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid</strong> -- Grille contenant les unités</p></li>
+<li><p><strong>y</strong> -- Position en y</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Donne une liste avec les unités en position y</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 
@@ -104,7 +238,7 @@
 
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="modules.html">ui</a></li>
 <li class="toctree-l1"><a class="reference internal" href="player.html">player module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unit.html">unit module</a></li>
@@ -112,12 +246,16 @@
 <li class="toctree-l1"><a class="reference internal" href="demon_tcp.html">demon_tcp module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ip_utils.html">ip_utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="network_utils.html">network_utils module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">game module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">main module</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="network_utils.html" title="previous chapter">network_utils module</a></li>
+      <li>Next: <a href="main.html" title="next chapter">main module</a></li>
   </ul></li>
 </ul>
 </div>

@@ -24,14 +24,14 @@ class Player():
     def cost(self,valeur): # Réduit les ressources du joueur
         """
         :param valeur: Nombre que l'on va soustraire à l'argent du joueur
-        :return:
+        :rtype: int
         """
         self.money -= valeur
 
     def gain(self,valeur): # Augmente les ressources du joueur
         """
         :param valeur: Nombre que l'on va additionner à l'argent du joueur
-        :return:
+        :rtype: int
         """
         self.money += valeur
 
@@ -44,6 +44,6 @@ class Player():
     def hurt(self,atk): # Appeler quand le joueur subit des dégats
         """
         :param atk: Nombre dont on va soustraire la santé du joueur
-        :return:
+        :rtype: int
         """
         self.health -= atk

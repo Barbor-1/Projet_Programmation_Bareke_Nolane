@@ -2,7 +2,22 @@ import pygame
 
 
 class Screen(): #surface ? : https://www.pygame.org/docs/ref/surface.html + surface.blit()
+    """Surface class
+    """
     def __init__(self, title, screen, width=640, height=445, fill=(255, 255, 255) ):
+        """init surface
+
+        :param title: title of surface (not used)
+        :type title: string
+        :param screen: surface to draw on (main pygame screen usually)
+        :type screen: pygame.Surface
+        :param width: width of surface, defaults to 640
+        :type width: int, optional
+        :param height: height of surface, defaults to 445
+        :type height: int, optional
+        :param fill: fill color, defaults to (255, 255, 255)
+        :type fill: tuple (3 ints), optional
+        """
         self.title = title
         self.width = width
         self.height = height
@@ -12,6 +27,8 @@ class Screen(): #surface ? : https://www.pygame.org/docs/ref/surface.html + surf
         self.screen = screen
 
     def makeCurrent(self):
+        """make surface current
+        """
         self.current = True
         # update screen
         pygame.display.set_caption(self.title)
@@ -20,12 +37,21 @@ class Screen(): #surface ? : https://www.pygame.org/docs/ref/surface.html + surf
         #pygame.display.flip()
 
     def endCurrent(self): # TODO : IMPORTANT : make this function do something with makeCurrent(self)
+        """do nothing : supposed to put this surface into "background mode"
+        """
         self.current = False
 
 
     def getScreen(self):
+        """return surface (pygame object) of this surface object
+
+        :return: surface object
+        :rtype: pygame.Surface
+        """
         return self.surface
 
     def update(self):
+        """update surface
+        """
         self.screen.blit(self.surface, (0, 0))
 

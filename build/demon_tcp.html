@@ -34,16 +34,19 @@
 
           <div class="body" role="main">
             
-  <section id="module-networking.demon_tcp">
-<span id="demon-tcp-module"></span><h1>demon_tcp module<a class="headerlink" href="#module-networking.demon_tcp" title="Permalink to this heading">¶</a></h1>
+  <section id="module-demon_tcp">
+<span id="demon-tcp-module"></span><h1>demon_tcp module<a class="headerlink" href="#module-demon_tcp" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="networking.demon_tcp.Demon">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">networking.demon_tcp.</span></span><span class="sig-name descname"><span class="pre">Demon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_queue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_queue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'127.0.0.1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1234'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#networking.demon_tcp.Demon" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demon_tcp.Demon">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">demon_tcp.</span></span><span class="sig-name descname"><span class="pre">Demon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_queue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_queue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'127.0.0.1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1234'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#demon_tcp.Demon" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Process</span></code></p>
+<p>demon class for handling network stuff
+inherit from multiprocessing.Process
+run with TCP</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="networking.demon_tcp.Demon.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#networking.demon_tcp.Demon.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method to be run in sub-process; can be overridden in sub-class</p>
+<dt class="sig sig-object py" id="demon_tcp.Demon.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#demon_tcp.Demon.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>main run function (infinite loop)</p>
 </dd></dl>
 
 </dd></dl>
@@ -76,6 +79,8 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">demon_tcp module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ip_utils.html">ip_utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="network_utils.html">network_utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">game module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">main module</a></li>
 </ul>
 
 <div class="relations">

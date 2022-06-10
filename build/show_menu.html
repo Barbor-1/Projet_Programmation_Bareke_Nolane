@@ -40,20 +40,45 @@
 <dt class="sig sig-object py" id="ui.show_menu.ShowMenu">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ui.show_menu.</span></span><span class="sig-name descname"><span class="pre">ShowMenu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">menu_screen</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ui.show_menu.ShowMenu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>handling menu</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ui.show_menu.ShowMenu.collide">
 <span class="sig-name descname"><span class="pre">collide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ui.show_menu.ShowMenu.collide" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>check for collision</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>pygame.Event</em>) -- event to check (only one)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>if return value == 1 =&gt; server has been selectionned
+if return value == 2 =&gt; client has been selectionned
+if return value == 4 =&gt; IP has been entered</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ui.show_menu.ShowMenu.draw">
 <span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ui.show_menu.ShowMenu.draw" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>draw this menu</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ui.show_menu.ShowMenu.getIpText">
 <span class="sig-name descname"><span class="pre">getIpText</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ui.show_menu.ShowMenu.getIpText" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>return the text with has been entered into the textbox of the ip address</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>text</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -94,6 +119,8 @@
 <li class="toctree-l1"><a class="reference internal" href="demon_tcp.html">demon_tcp module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ip_utils.html">ip_utils module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="network_utils.html">network_utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">game module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">main module</a></li>
 </ul>
 
 <div class="relations">

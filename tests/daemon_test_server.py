@@ -1,7 +1,7 @@
 import multiprocessing
 import random
 
-from networking.demon_tcp import demon
+from demon_tcp import demon
 from multiprocessing import process, JoinableQueue
 import time
 input_queue = JoinableQueue() # Queue with task_done and join()
