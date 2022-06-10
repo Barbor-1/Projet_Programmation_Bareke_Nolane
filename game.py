@@ -12,18 +12,33 @@ playerList = []
 
 
 def setPlayer(allegiance):  # Ajoute le joueur a la liste de joueur
+    """
+    :param allegiance: Donne le camp
+    :return: Donne le joueur, faisant partie a présent de la liste de joueur, associé au camp donné
+    """
     joueur = Player(allegiance)
     playerList.append(joueur)
     return joueur
 
 
 def getPlayer(allegiance):  # get player with allegiance
+    """
+    :param allegiance: Donne le camp
+    :return: Donne le joueur de la liste associé au camp
+    """
     for joueur in playerList:
         if joueur.getAllegiance() == allegiance:
             return joueur
 
 
 def placeUnit(target, y, player, grid):  # put unit on grid
+    """
+    :param target: Unité à deplacer
+    :param y: Positionde la case en y
+    :param player: Joueur posant l'unité
+    :param grid: Grille contenant l'unité
+    :return:
+    """
     # Place une unité dans la grille, dans le cas où on en creer une nouvelle
     if player.allegiance == 1:
         grid.setUnitAtGrid(0, y, target)
@@ -32,6 +47,13 @@ def placeUnit(target, y, player, grid):  # put unit on grid
 
 
 def moveUnit(target, grid, inputQueue, background):  # SEULEMENT POUR LE SERVEUR : moving units
+    """
+    :param target: Unité à deéplacer
+    :param grid: Grille dans laquelle on agit
+    :param inputQueue:
+    :param background: Fond d'écran
+    :return:
+    """
     # Ordonne l'unité d'avancer d'une case dans la grille si elle en est capable
     newPosX = target.getPosX() + target.getAllegiance()
     to_move = 1
@@ -98,6 +120,10 @@ def moveUnit(target, grid, inputQueue, background):  # SEULEMENT POUR LE SERVEUR
 
 
 def showUnits(grid):  # show unit => put unit on screen
+    """
+    :param grid: Grille dans lequel on agit
+    :return:
+    """
     size = grid.getGridSize()
     for i in range(0, size):
         for j in range(0, size):
@@ -107,6 +133,12 @@ def showUnits(grid):  # show unit => put unit on screen
 
 
 def spawnUnit(screen, grid, joueur):  # create unit
+    """
+    :param screen: Ecran sur lequel on affiche l'unité
+    :param grid: Grille où on va poser l'unité
+    :param joueur: Joueur auquel appartient l'unité
+    :return: Donne l'unité créer
+    """
     global id
     target = Unit(screen, joueur.getAllegiance(), id)
     id = id + 1
@@ -115,6 +147,11 @@ def spawnUnit(screen, grid, joueur):  # create unit
 
 
 def takeUnitFromAline(grid, y):  # take all units from a line otherwise some units might go too fast
+    """
+    :param grid: Grille contenant les unités
+    :param y: Position en y
+    :return: Donne une liste avec les unités en position y
+    """
     ret = []
     for x in range(0, grid.getGridSize()):
         target = grid.getUnitAtGrid(x, y)
@@ -124,6 +161,10 @@ def takeUnitFromAline(grid, y):  # take all units from a line otherwise some uni
 
 
 def showHealth(screen):  # Affiche la santé des joueurs
+    """
+    :param screen: Ecran sur lequel on affiche la santé des joueurs
+    :return:
+    """
     font = pygame.font.SysFont('Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/CORBEL.TTF', 64)
     player1 = getPlayer(1)
     player2 = getPlayer(-1)
@@ -138,6 +179,10 @@ def showHealth(screen):  # Affiche la santé des joueurs
 
 # Pas impossible de fusionner showHealth et showWealth
 def showWealth(screen):  # Affiche les ressources du joueur
+    """
+    :param screen: Ecran sur lequel on affiche la ressource des joueurs
+    :return:
+    """
     font = pygame.font.SysFont('Corbel', 16)
     player1 = getPlayer(1)
     health = str(player1.getMoney())
@@ -151,6 +196,9 @@ def showWealth(screen):  # Affiche les ressources du joueur
 
 
 def resetPlayer():  # reseting players
+    """
+    :return:
+    """
     for player in playerList:
         player.money = 0
         player.health = 200
