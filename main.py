@@ -98,7 +98,10 @@ if __name__ == "__main__":
                     prc.join(5)
                     if (prc.exitcode == None):  # process was not killed
                         print("killing process", prc.pid)
-                        os.kill(prc.pid, signal.SIGKILL)
+                        try:
+                            os.kill(prc.pid, signal.SIGKILL)
+                        except:
+                            print("cant kill")
                 print("after killling", multiprocessing.active_children())
                 pygame.quit()  # quitting pygame
                 quit()  # quitte
@@ -121,7 +124,10 @@ if __name__ == "__main__":
                         prc.join(5)
                         if (prc.exitcode == None):  # process was not killed
                             print("killing process", prc.pid)
-                            os.kill(prc.pid, signal.SIGKILL)
+                            try:
+                                os.kill(prc.pid, signal.SIGKILL)
+                            except:
+                                print("cant kill")
                     print("after killling", multiprocessing.active_children())
 
                     # met a jout la taille de l'écran

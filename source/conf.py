@@ -19,7 +19,7 @@ sys.setrecursionlimit(1500)
 
 # -- Project information -----------------------------------------------------
 
-project = 'Projet_Programmation_areke_Nolane'
+project = 'Projet_Programmation_Bareke_Nolane'
 copyright = '2022, Bareke NTAWINIGA, Nolane DELILLE'
 author = 'Bareke NTAWINIGA, Nolane DELILLE'
 
@@ -32,7 +32,7 @@ release = '1.0.0'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc']
+extensions = ['sphinx.ext.autodoc', "sphinx_rtd_dark_mode"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = []

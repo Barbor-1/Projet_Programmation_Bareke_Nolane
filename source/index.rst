@@ -10,13 +10,10 @@ Welcome to Projet_Programmation_areke_Nolane's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   ui
    modules
-   player
-   unit
-   networking
+   network-modules
    demon_tcp
-   ip_utils
-   network_utils
    game
    main
 

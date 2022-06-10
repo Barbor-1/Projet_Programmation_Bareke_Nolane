@@ -96,7 +96,10 @@ class server():
         """
         self.client.close()
         if (shutdown == True):
-            self.socket.shutdown(socket.SHUT_RDWR)
+            try:
+                self.socket.shutdown(socket.SHUT_RDWR)
+            except:
+                pass
 
     def shutdown(self):
         """
