@@ -33,7 +33,7 @@ output_queue = JoinableQueue()  # Queue démon => main
 demon = ""  # pour utiliser la variable demon partout
 defaut_port = "9699"
 
-back_menu_event = Event1 = pygame.event.Event(pygame.USEREVENT, attr1='Event1')
+back_menu_event = Event1 = pygame.event.Event(pygame.USEREVENT, attr1='Event1') #event for back button
 if __name__ == "__main__":
     IP = ""  # addresse IP pour le client
     pygame.init()
