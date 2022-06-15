@@ -3,14 +3,16 @@ from pytmx.util_pygame import load_pygame # 2.7 mode !
 
 class Map: # for background not used here
     """used to load an image and draw it (in the background)
+
+    :param screen: surface to draw on
+    :type screen: pygame.Surface
+    :param image_path: path to image
+    :type image_path: string
+
     """
     def __init__(self, screen, image_path):
         """init function
-
-        :param screen: surface to draw on
-        :type screen: pygame.Surface
-        :param image_path: path to image
-        :type image_path: string
+       
         """
 
         self.screen = screen

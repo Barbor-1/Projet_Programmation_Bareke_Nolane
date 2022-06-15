@@ -14,7 +14,7 @@ class Demon(multiprocessing.Process):
     
     """
     def __init__(self, input_queue, output_queue, is_client=True, address="127.0.0.1", port="1234"):  # change address
-        """_summary_
+        """init function
 
         :param input_queue: input queue main => demon
         :type input_queue: queue : JoinableQueue

@@ -3,16 +3,24 @@ import pygame
 
 
 class Toolbar(): #barre en haut avec le soldat
-    """
-    Toolbar class :
-    :param screen : surface
-    :param : path to the image
-    :param : x : position of the toolbar
-    :param : y : position of the toolbar
+    """Toolbar class 
+
+    :parameter screen: surface of the toolbar
+    :type screen: pygame.Surface
+    :parameter path: : path to the image
+    :type path: string
+    :parameter x: position of the toolbar
+    :type x: int
+    :parameter y: position of the toolbar
+    :type y: int
 
 
     """
     def __init__(self, screen, x, y, path):
+        """
+    init function
+    
+        """
         self.screen = screen
         self.image_path = path
         self.image = pygame.image.load(self.image_path)
@@ -29,8 +37,6 @@ class Toolbar(): #barre en haut avec le soldat
     def draw(self):  #affiche la barre : ne pas oublier de refresh la surface et l'écran
         """
         draw the toolbar
-
-        :return:
         """
         self.rect = self.image.get_rect() # update rect
         self.rect.x= self.x
@@ -42,20 +48,16 @@ class Toolbar(): #barre en haut avec le soldat
 
     def collide(self, pos):
         """
-
-
-
         :param pos: position of the mouse
-        :return:
+        :type pos: tupple (x, y)
+        :return: True if collided else False
+        :rtype: bool
         """
         return self.rect.collidepoint(pos)
 
     def cancel(self):
         """
-        cancel animation
-
-
-        :return:
+        cancel animation for money
         """
         #Affiche un symbole stop quand on n'a pas assez de ressource et que l'on clique, le symbole disparait au prochain cycle d'affichage
         self.image = pygame.image.load("Sprite/Cancel-1.png")

@@ -1,7 +1,7 @@
 unit module
 ===========
 
-.. automodule:: unit
+.. automodule:: unit.unit
    :members:
    :undoc-members:
    :show-inheritance:

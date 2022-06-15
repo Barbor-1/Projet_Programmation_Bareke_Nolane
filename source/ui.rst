@@ -1,8 +1,9 @@
-ui
-==
+UI
+=====
 
 .. toctree::
    :maxdepth: 4
+
    button
    grid
    map_gen

@@ -8,12 +8,14 @@ import socket
 
 class ShowMenu():
     """handling menu
+
+    :param menu_screen: menu surface
+    :type menu_screen: pygame.Surface
+
     """
     def __init__(self, menu_screen):
-        """init
+        """init the elements of the menu
 
-        :param menu_screen: menu surface
-        :type menu_screen: pygame.Surface
         """
         self.screen = menu_screen
         self.height = self.screen.get_size()[1]

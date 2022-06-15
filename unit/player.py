@@ -1,9 +1,13 @@
 from ui.textbox import  Textbox
 
 class Player():
+    """player class
+
+    :parameter allegiance: Variable décrivant a quel camp le joueur appartient 1 : allié, -1: ennemie
+    :type allegiance: int
+    """
     def __init__(self, allegiance):
-        """
-        :param allegiance: Variable décrivant a quel camp le joueur appartient 1 : allié, -1: ennemie
+        """init function
         """
         self.health = 200
         self.allegiance = allegiance
@@ -11,39 +15,48 @@ class Player():
 
     def getHealth(self):
         """
+        getter for player health
         :return: Affiche la santé du joueur
+        :rtype: int
         """
         return self.health
 
     def getMoney(self):
         """
-        :return: Affiche les ressources du joueur
+        getter for the player money
+        :return: the player money (for displaying it later)
+        :rtype: int
         """
         return self.money
 
-    def cost(self,valeur): # Réduit les ressources du joueur
+    def cost(self,valeur): # 
         """
-        :param valeur: Nombre que l'on va soustraire à l'argent du joueur
-        :rtype: int
+        reduce the player money
+        :param valeur: value which is going to be substracted to the player money
+        :type valeur: int
         """
         self.money -= valeur
 
-    def gain(self,valeur): # Augmente les ressources du joueur
+    def gain(self,valeur): # 
         """
-        :param valeur: Nombre que l'on va additionner à l'argent du joueur
-        :rtype: int
+        augment the player resources
+        :param valeur:  value which is going to be added to the player money
+        :type valeur: int
         """
         self.money += valeur
 
     def getAllegiance(self):
         """
-        :return: Donne le camp du joueur 1 pour allié -1 pour l'ennemie
+        getter for the player side
+        :return: -1 for an ally, -1 for an ennemy
+        :rtype: int
         """
         return self.allegiance
 
-    def hurt(self,atk): # Appeler quand le joueur subit des dégats
+    def hurt(self,atk): # 
         """
-        :param atk: Nombre dont on va soustraire la santé du joueur
-        :rtype: int
+        called when the player takes damages
+        :param atk:  value which is going to be substracted to the player health
+        :type atk: int
         """
         self.health -= atk

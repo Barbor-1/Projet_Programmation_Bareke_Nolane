@@ -94,7 +94,10 @@ class server():
         :param shutdown: if True, also shutdown socket, defaults to True
         :type shutdown: bool, optional
         """
-        self.client.close()
+        try:
+            self.client.close()
+        except:
+            pass
         if (shutdown == True):
             try:
                 self.socket.shutdown(socket.SHUT_RDWR)
@@ -183,9 +186,12 @@ class client():
         :param shutdown: if true, also shutdown socketx, defaults to True
         :type shutdown: bool, optional
         """
-        if (shutdown):
-            self.socket.shutdown(socket.SHUT_RDWR)
-        self.socket.close()
+        try:
+            if (shutdown):
+                self.socket.shutdown(socket.SHUT_RDWR)
+            self.socket.close()
+        except:
+            pass
 
     def receive(self, limit, is_byte=False):  # byte = True : no encoding
         """receive data

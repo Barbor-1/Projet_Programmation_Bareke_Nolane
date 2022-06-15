@@ -6,11 +6,20 @@ from unit.player import Player
 
 
 class Unit():
+    """basic unit
+
+    :param screen: screen where we put the unit
+    :type screen: pygame.Surface
+    :param allegiance: which side the unit belongs to 
+    :type allegiance: int
+    :param id: unique unit id
+    :type id: int
+    """
     def __init__(self, screen=0, allegiance=0, id=0): # 0 pour éviter le chargement des images dans le démon TCP
         """
-        :param screen: Ecran sur lequel on va mettre l'unité
-        :param allegiance: Camp auquel l'unité appartient
-        :param id: Identifiant unique à l'unité
+        init unit
+        
+
         """
         self.pos_x = 0.0 #
         self.pos_y = 0.0
@@ -44,33 +53,38 @@ class Unit():
         self.limits = pygame.display.get_surface().get_size()[0]
 
     def getPosX(self):
-        """
-        :return: Donne la position en x
+        """get the x coordinate
+
+        :return: the x coordinate
+        :rtype: int
         """
         return self.pos_x
 
     def getPosY(self):
-        """
-        :return: Donne la position en y
+        """get the y coordinate
+        :return: the y coordinate
+        :rtype: int
         """
         return self.pos_y
 
     def getAllegiance(self):
-        """
-        :return: Donne à quel camp l'unité appartient
+        """give which side the unit belogngs
+        :return:the unit side ( 1 ou -1)
+        :rtype: int
         """
         return self.allegiance
 
     def getId(self):
-        """
-        :return: Donne l'identifiant
+        """gives the unique unit id
+        :return: the id 
+        :rtype: int
         """
         return self.id
 
-    def move(self, speed): # Fait déplacer l'unité d'une certaine quantité speed vers la base ennemie
-        """
-        :param speed: Distance en x dont on déplace l'unité
-        :int: speed of unit
+    def move(self, speed): #
+        """move the unit to the enemy base by a defined quantity by speed
+        :param speed: speed of the unit
+        :type speed: int
         """
         if( abs(self.pos_x) > self.limits):
             pass
@@ -78,19 +92,20 @@ class Unit():
         else:
             self.pos_x += 1 * self.allegiance*speed  # TO DO : vérifier si on est pas en dehors de la grid
 
-    def hurt(self, atk): # Appeler quand l'unité prend des dégats
-        """
-        :param atk: Puissance de l'attaque blessant l'unit
-        :rtype: int
+    def hurt(self, atk): # 
+        """called when the unit takes damages
+        :param atk: power of the unit which attacked this unit
+        :type atk: int
         """
         self.health -= atk - random.randint(0, self.armor)  # Dégat infliger reduit par un nombre aléatoire inférieure ou égale à la valeur d'armure
 
 
-    def attack(self, target): # Appeler quand l'unité inflige des dégats
-        """
-        :param target: Cible a attaquer
-        :rtype: Unit object
-        :return: Si l'unité est morte
+    def attack(self, target): 
+        """called when the unit makes damages
+        :param target: target to attack
+        :type target: Unit object
+        :return: -1 if the targeted unit has died
+        :rtype: int
         """
         if target.getAllegiance() != self.allegiance: # Verifie si la cible est ennemie
             target.hurt(self.atk)
@@ -98,10 +113,11 @@ class Unit():
             if(target.health < 0): # Si la cible meurt
                 return -1
 
-    def hurtPlayer(self, joueur): # Attaque la base ennemie
-        """
-        :param joueur: Joueur ciblé par l'attaque
-        :rtype: Player object
+    def hurtPlayer(self, joueur): 
+        """attack the enemy base
+
+        :param joueur: player targeted by the attack
+        :type joueur: Player object
         """
         joueur.hurt(self.atk)
         self.changeSprite(2*self.allegiance) # Animation d'attaque
@@ -115,10 +131,10 @@ class Unit():
         """
         return str(self.pos_x) + " " +  str(self.pos_y) + " " + str(self.allegiance) + " " +  self.type + " "  + str(self.health)+ " " + str(self.atk)  + " " + str(self.armor) + " " + str(self.id)
 
-    def show(self, offset): # Affiche l'unité
-        """
-        :param offset: Décalage avec lequel on affiche l'unité
-        :rtype: int
+    def show(self, offset): #
+        """Display the unit
+        :param offset: offset for displaying the unit (because of the top toolbar)
+        :type offset: int
         """
         self.screen.blit(self.image, (self.pos_x * self.image.get_height(), self.pos_y * self.image.get_width() + offset))
 
@@ -146,15 +162,17 @@ class Unit():
         self.id = int(i[7])
 
     def getAttack(self):
-        """
-        :return: Donne la valeur d'attaque
+        """return the attack level
+        :return: the attack level
+        :rtype: int
         """
         return  self.atk
 
-    def changeSprite(self,valeur): # Change l'image de l'unité
-        """
-        :param valeur: valeur differenciant en quel image changer l'unité
-        :rtype: int
+    def changeSprite(self,valeur): # 
+        """change the unit image
+     
+        :param valeur: value which differenciate which image to put
+        :type valeur: int
         """
         # Donne le sprite de base aux unités selon leur camps
         if valeur == 1:

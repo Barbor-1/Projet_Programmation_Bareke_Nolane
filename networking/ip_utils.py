@@ -1,9 +1,9 @@
 import re
-"""
-is not used !
-"""
+
 
 class IP():
+    """is not used !
+    """
     def __init__(self, ip=""):
         self.ip_str = ip
 

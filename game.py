@@ -13,20 +13,24 @@ playerList = []
 
 def setPlayer(allegiance):  # Ajoute le joueur a la liste de joueur
     """
-    :param allegiance: Donne le camp
-    :rtype: int
-    :return: Donne le joueur, faisant partie a présent de la liste de joueur, associé au camp donné
+    :param allegiance: the player side
+    :type allegiance: int
+    :return: the player object, which is now part of the player list, with the right side 
+    :rtype: Player object
+
     """
     joueur = Player(allegiance)
     playerList.append(joueur)
     return joueur
 
 
-def getPlayer(allegiance):  # get player with allegiance
+def getPlayer(allegiance):  # get player with a said allegiance
     """
-    :param allegiance: Donne le camp
+    :param allegiance: the player allegiance to be queried
+    :type allegiance: int
+    :return:return the player in the player list associated with the right side
     :rtype: int
-    :return: Donne le joueur de la liste associé au camp
+
     """
     for joueur in playerList:
         if joueur.getAllegiance() == allegiance:
@@ -35,14 +39,15 @@ def getPlayer(allegiance):  # get player with allegiance
 
 def placeUnit(target, y, player, grid):  # put unit on grid
     """
-    :param target: Unité à deplacer
+    :param target: unit to place
     :rtype: Unit object
-    :param y: Positionde la case en y
+    :param y: y pos of the unit to place (x position = 0 or 19 depending on the unit side)
     :rtype: int
-    :param player: Joueur posant l'unité
+    :param player: the player putting in the unit
     :rtype: Player object
-    :param grid: Grille contenant l'unité
+    :param grid: unit grid
     :rtype: Grid object
+
     """
     # Place une unité dans la grille, dans le cas où on en creer une nouvelle
     if player.allegiance == 1:
@@ -53,13 +58,13 @@ def placeUnit(target, y, player, grid):  # put unit on grid
 
 def moveUnit(target, grid, inputQueue, background):  # SEULEMENT POUR LE SERVEUR : moving units
     """
-    :param target: Unité à deéplacer
+    :param target: unit to move 
     :rtype: Unit obect
-    :param grid: Grille dans laquelle on agit
+    :param grid: the unit grid 
     :rtype: Grid object
-    :param inputQueue:
+    :param inputQueue: input queue to tcp demon
     :rtype: multiprocess.JoinableQueue
-    :param background: Fond d'écran (carte Tiled)
+    :param background: Tiled background (the map) => water nnimation
     :rtype: Background object
     :return: -2 : ennemy has died, -1 : I died (this player)
     :rtype: int
@@ -131,7 +136,7 @@ def moveUnit(target, grid, inputQueue, background):  # SEULEMENT POUR LE SERVEUR
 
 def showUnits(grid):  # show unit => put unit on screen
     """
-    :param grid: Grille dans lequel on agit
+    :param grid: grid in which we put the unit
     :rtype: Grid object
     """
     size = grid.getGridSize()
@@ -145,27 +150,27 @@ def showUnits(grid):  # show unit => put unit on screen
 def spawnUnit(screen, grid, joueur):  # create unit
 
     """
-    :param screen: Ecran sur lequel on affiche l'unité
+    :param screen: screen where the unit would be displayed
     :rtype: pygame.Surface
-    :param grid: Grille où on va poser l'unité
+    :param grid: unit grid
     :rtype: Grid object
-    :param joueur: Joueur auquel appartient l'unité
+    :param joueur:  player that own the unit
     :rtype: Player object
-    :return: Donne l'unité créer
+    :return: return the created unit
     :rtype: Unit object
     """
     global id
     target = Unit(screen, joueur.getAllegiance(), id)
-    id = id + 1
+    id = id + 1 #unique id
     # Inclure un placeUnit ducoup?
     return target  # De cette manière l'instance serait créer dans game mais utilisable dans main
 
 
 def takeUnitFromAline(grid, y):  # take all units from a line otherwise some units might go too fast
     """
-    :param grid: Grille contenant les unités
-    :param y: Position en y
-    :return: Donne une liste avec les unités en position y
+    :param grid: unit grid
+    :param y: y coordinate of the line
+    :return: return all the unit in the line
     """
     ret = []
     for x in range(0, grid.getGridSize()):
@@ -177,10 +182,10 @@ def takeUnitFromAline(grid, y):  # take all units from a line otherwise some uni
 
 def showHealth(screen):  # Affiche la santé des joueurs
     """
-    :param screen: Ecran sur lequel on affiche la santé des joueurs
+    :param screen:screen where we put the players health
     :rtype: pygame.Surface
     """
-    font = pygame.font.SysFont('Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/Sprite/CORBEL.TTF', 64)
+    font = pygame.font.SysFont('Sprite/CORBEL.TTF', 64)
     player1 = getPlayer(1)
     player2 = getPlayer(-1)
     health = str(player1.getHealth()) + " " + str(player2.getHealth())
@@ -195,7 +200,7 @@ def showHealth(screen):  # Affiche la santé des joueurs
 # Pas impossible de fusionner showHealth et showWealth
 def showWealth(screen):  # Affiche les ressources du joueur
     """
-    :param screen: Ecran sur lequel on affiche la ressource des joueurs
+    :param screen: screen where we put the player money
     :rtype: pygame.Surface
     """
     font = pygame.font.SysFont('Corbel', 16)

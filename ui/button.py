@@ -2,22 +2,24 @@
 import pygame
 class Button:
     """button class
+
+    :param x: x position of button
+    :type x: int
+    :param y: y position of button
+    :type y: int
+    :param color: color of button (text)
+    :type color: tupple of three int between 0 and 255
+    :param background_color: color of button (background)
+    :type background_color: tupple of three floats between 0 and 1
+    :param screen: surface 
+    :type screen: pygame.Surface
+    :param size: size of text, defaults to 32
+    :type size: int, optional
+
     """
     def __init__(self, x, y, color, background_color, screen, size=32):
-        """init function
-
-        :param x: x position of button
-        :type x: int
-        :param y: y position of button
-        :type y: int
-        :param color: color of button (text)
-        :type color: tupple of three int between 0 and 255
-        :param background_color: color of button (background)
-        :type background_color: tupple of three floats between 0 and 1
-        :param screen: surface 
-        :type screen: pygame.Surface
-        :param size: size of text, defaults to 32
-        :type size: int, optional
+        """init function for the class
+       
         """
         self.x = x
         self.y = y
