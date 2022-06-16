@@ -60,10 +60,12 @@ Nolane 1.0.0 documentation</title>
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="network_utils.html#networking.network_utils.animate_unit">animate_unit() (in module networking.network_utils)</a>
+      <li><a href="networking.html#networking.networking.server.accept">accept() (networking.networking.server method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="network_utils.html#networking.network_utils.animate_unit">animate_unit() (in module networking.network_utils)</a>
+</li>
       <li><a href="unit.html#unit.unit.Unit.attack">attack() (unit.unit.Unit method)</a>
 </li>
   </ul></td>
@@ -88,6 +90,18 @@ Nolane 1.0.0 documentation</title>
 </li>
       <li><a href="unit.html#unit.unit.Unit.changeSprite">changeSprite() (unit.unit.Unit method)</a>
 </li>
+      <li><a href="networking.html#networking.networking.client">client (class in networking.networking)</a>
+</li>
+      <li><a href="networking.html#networking.networking.server.clientAddr">clientAddr() (networking.networking.server method)</a>
+</li>
+      <li><a href="networking.html#networking.networking.client.close">close() (networking.networking.client method)</a>
+
+      <ul>
+        <li><a href="networking.html#networking.networking.server.close">(networking.networking.server method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="button.html#ui.button.Button.collide">collide() (ui.button.Button method)</a>
 
       <ul>
@@ -96,8 +110,6 @@ Nolane 1.0.0 documentation</title>
         <li><a href="toolbar.html#ui.toolbar.Toolbar.collide">(ui.toolbar.Toolbar method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="player.html#unit.player.Player.cost">cost() (unit.player.Player method)</a>
 </li>
   </ul></td>
@@ -269,11 +281,11 @@ Nolane 1.0.0 documentation</title>
 </li>
         <li><a href="main.html#module-main">main</a>
 </li>
-        <li><a href="networking.html#module-networking">networking</a>
-</li>
         <li><a href="ip_utils.html#module-networking.ip_utils">networking.ip_utils</a>
 </li>
         <li><a href="network_utils.html#module-networking.network_utils">networking.network_utils</a>
+</li>
+        <li><a href="networking.html#module-networking.networking">networking.networking</a>
 </li>
         <li><a href="button.html#module-ui.button">ui.button</a>
 </li>
@@ -317,26 +329,26 @@ Nolane 1.0.0 documentation</title>
       <li><a href="ip_utils.html#networking.ip_utils.IP.netmask_to_str">netmask_to_str() (networking.ip_utils.IP method)</a>
 </li>
       <li>
-    networking
-
-      <ul>
-        <li><a href="networking.html#module-networking">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
     networking.ip_utils
 
       <ul>
         <li><a href="ip_utils.html#module-networking.ip_utils">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     networking.network_utils
 
       <ul>
         <li><a href="network_utils.html#module-networking.network_utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    networking.networking
+
+      <ul>
+        <li><a href="networking.html#module-networking.networking">module</a>
 </li>
       </ul></li>
   </ul></td>
@@ -357,10 +369,22 @@ Nolane 1.0.0 documentation</title>
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="network_utils.html#networking.network_utils.remove_unit">remove_unit() (in module networking.network_utils)</a>
+      <li><a href="networking.html#networking.networking.client.readline">readline() (networking.networking.client method)</a>
+
+      <ul>
+        <li><a href="networking.html#networking.networking.server.readline">(networking.networking.server method)</a>
 </li>
+      </ul></li>
+      <li><a href="networking.html#networking.networking.client.receive">receive() (networking.networking.client method)</a>
+
+      <ul>
+        <li><a href="networking.html#networking.networking.server.receive">(networking.networking.server method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="network_utils.html#networking.network_utils.remove_unit">remove_unit() (in module networking.network_utils)</a>
+</li>
       <li><a href="game.html#game.resetPlayer">resetPlayer() (in module game)</a>
 </li>
       <li><a href="demon_tcp.html#demon_tcp.Demon.run">run() (demon_tcp.Demon method)</a>
@@ -372,6 +396,14 @@ Nolane 1.0.0 documentation</title>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="screen.html#ui.screen.Screen">Screen (class in ui.screen)</a>
+</li>
+      <li><a href="networking.html#networking.networking.client.send">send() (networking.networking.client method)</a>
+
+      <ul>
+        <li><a href="networking.html#networking.networking.server.send">(networking.networking.server method)</a>
+</li>
+      </ul></li>
+      <li><a href="networking.html#networking.networking.server">server (class in networking.networking)</a>
 </li>
       <li><a href="game.html#game.setPlayer">setPlayer() (in module game)</a>
 </li>
@@ -391,7 +423,13 @@ Nolane 1.0.0 documentation</title>
 </li>
       <li><a href="game.html#game.showWealth">showWealth() (in module game)</a>
 </li>
+      <li><a href="networking.html#networking.networking.server.shutdown">shutdown() (networking.networking.server method)</a>
+</li>
       <li><a href="game.html#game.spawnUnit">spawnUnit() (in module game)</a>
+</li>
+      <li><a href="networking.html#networking.networking.client.startClient">startClient() (networking.networking.client method)</a>
+</li>
+      <li><a href="networking.html#networking.networking.server.startServer">startServer() (networking.networking.server method)</a>
 </li>
   </ul></td>
 </tr></table>

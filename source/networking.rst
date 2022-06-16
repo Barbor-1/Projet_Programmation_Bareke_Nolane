@@ -1,7 +1,7 @@
-networking module
-=================
+networking\networking
+=====================
 
-.. automodule:: networking
+.. automodule:: networking.networking
    :members:
    :undoc-members:
    :show-inheritance:
