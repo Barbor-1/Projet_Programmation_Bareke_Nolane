@@ -21,9 +21,9 @@ class Map: # for background not used here
         """draw image
         """
         self.image =  pygame.image.load(self.path)
-        self.screen.blit(self.image, (0, 0))
+        self.screen.blit(self.image, (0, 0)) # draw image on screen
 class Background(Map): # for Tiled map
-    """class for tiled map
+    """class for tiled map : load and display 
 
     :param Map: inherit from Map class
     """
@@ -31,7 +31,7 @@ class Background(Map): # for Tiled map
         """draw map
         """
         self.tiled_map = load_pygame(self.path) # IMPORTANT : video mode must be set + same size plz
-        layer = self.tiled_map.layers[0]
+        layer = self.tiled_map.layers[0] #only one layer
         for x, y, image in layer.tiles():
             self.screen.blit(image, (x*32, y*32+60)) # 32 because tile are 32*32 and 60 because there is a toolbar of 60 of height at the top
             prop = self.tiled_map.get_tile_properties(x, y, 0) #layer 0

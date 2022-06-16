@@ -14,7 +14,7 @@ class Demon(multiprocessing.Process):
 
         :param input_queue: input queue main => demon
         :type input_queue: queue : JoinableQueue
-        :param output_queue: _description_
+        :param output_queue:  output queue demon => main
         :type output_queue: JoinableQueue
         :param is_client: if True => is a client otherwise is a server, defaults to True
         :type is_client: bool, optional
@@ -144,14 +144,14 @@ class Demon(multiprocessing.Process):
                 command = ""
                 # print("exception at queue reading", e)
 
-            first_arg = command.split(" ")[0]
-            sys.stdout.flush()
+            first_arg = command.split(" ")[0] # first arg
+            sys.stdout.flush() # debug
 
             if (first_arg == "SET_UNIT"):
                 print("got a SET_UNIT", command)
                 unit_to_send = command.split(" ")
                 unit_to_send.pop(0)
-                string2 = ""
+                string2 = "" # useless, similar to after : get all args and put it inside a string
                 for i in unit_to_send:
                     string2 = string2 + i
                     string2 = string2 + " "

@@ -2,7 +2,7 @@ import pygame
 
 
 class Screen(): #surface ? : https://www.pygame.org/docs/ref/surface.html + surface.blit()
-    """Surface class
+    """Surface class : used as a buffer between main screen and menu / game screen
 
     :param title: title of surface (not used)
     :type title: string

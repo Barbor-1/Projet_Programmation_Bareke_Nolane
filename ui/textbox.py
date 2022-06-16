@@ -3,9 +3,8 @@ import pygame
 
 class Textbox:
     # TODO : AUTO WIDTH ADJUST ? + continous key press ?
-    """Textbox class
+    """Textbox class  => for typing text
 
-   
     :param screen: surface to draw onto
     :type screen: pygame.Surface
     :param x: x coordinate of the textbox
@@ -27,7 +26,7 @@ class Textbox:
     """
     def __init__(self, screen, x, y, h, w, color, borderColor=(0, 0, 0), textColor=(255, 255, 255), fontSize=14):
         """
-
+        init the textbox
       
         """
         self.screen = screen
@@ -38,22 +37,22 @@ class Textbox:
         self.color = color
         self.borderColor = borderColor
         self.textColor = textColor
-        self.rect = pygame.Rect(x, y, w, h, )
+        self.rect = pygame.Rect(x, y, w, h, ) # rectangle
         self.rect.center = (self.x, self.y)
         self.borderWidth = 5
         self.active = False
         self.font = pygame.font.Font("Sprite/CORBEL.TTF", fontSize)
         self.text = ""
-        self.cursor = pygame.cursors.Cursor(pygame.SYSTEM_CURSOR_IBEAM)
+        self.cursor = pygame.cursors.Cursor(pygame.SYSTEM_CURSOR_IBEAM) # I cursor
 
     def draw(self):
         """
         draw the textbox
         """
-        text_surface = self.font.render(self.text, True, self.textColor)
-        pygame.draw.rect(self.screen, self.color, self.rect)
-        pygame.draw.rect(self.screen, self.borderColor, self.rect, width=self.borderWidth)
-        self.screen.blit(text_surface, text_surface.get_rect(center=(self.x, self.y)))
+        text_surface = self.font.render(self.text, True, self.textColor) # text surface
+        pygame.draw.rect(self.screen, self.color, self.rect) # main rect
+        pygame.draw.rect(self.screen, self.borderColor, self.rect, width=self.borderWidth) #border rect
+        self.screen.blit(text_surface, text_surface.get_rect(center=(self.x, self.y))) # draw everythingon the screen
 
     def listen(self, event):  # listen for events => clicked event ....
         """
@@ -61,35 +60,37 @@ class Textbox:
 
         :param event: event to listen to (only one event)
         :rtype: pygame.Event
+        :return: True if entered
+        :rtype: bool
         """
-        if (event.type == pygame.MOUSEBUTTONDOWN):
+        if (event.type == pygame.MOUSEBUTTONDOWN): # click 
             # print("pos", pygame.mouse.get_pos())
-            if (self.rect.collidepoint(pygame.mouse.get_pos())):
-                self.active = not self.active
+            if (self.rect.collidepoint(pygame.mouse.get_pos())): # on a cliqué dans la textbox
+                self.active = not self.active #actif
                 # print("active ?", self.active)
             else:
-                self.active = False
+                self.active = False # non actif
             # change color of input box ?
             if (self.active == True):
                 pygame.mouse.set_cursor(self.cursor)  # changing cursor to I
             if (self.active == False):
                 pygame.mouse.set_cursor(pygame.cursors.arrow)  # changing cursor to default
         if (event.type == pygame.KEYDOWN and self.active == True):
-            if event.key == pygame.K_RETURN:
+            if event.key == pygame.K_RETURN: # return True (not used)
                 # print(self.text + " return\n")
                 return True
             elif event.key == pygame.K_BACKSPACE:
                 self.text = self.text[:-1]  # return all element except last one
             else:
-                self.text += event.unicode
+                self.text += event.unicode # update text
                 # print(self.text)
 
-        self.draw()
+        self.draw() # update textbox
 
     def getText(self):
-        """
+        """return the text that was typed inside the textbox
 
         :return: the text that was typed inside the textbox
         :rtype: string
         """
-        return self.text
+        return self.text 

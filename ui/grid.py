@@ -69,6 +69,7 @@ class Grid():
         :param y: y coordinate of the case where the unit will be put
         :type y: int
         :return: the grid modified
+        :rtype: Grid object
 
         """
         self.grid[y][x] = 0

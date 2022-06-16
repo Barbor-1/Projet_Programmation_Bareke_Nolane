@@ -43,7 +43,7 @@ Nolane 1.0.0 documentation</title>
 <dt class="sig sig-object py" id="ui.textbox.Textbox">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ui.textbox.</span></span><span class="sig-name descname"><span class="pre">Textbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">borderColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">textColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(255,</span> <span class="pre">255,</span> <span class="pre">255)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">14</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ui.textbox.Textbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Textbox class</p>
+<p>Textbox class  =&gt; for typing text</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -68,7 +68,8 @@ Nolane 1.0.0 documentation</title>
 <dl class="py method">
 <dt class="sig sig-object py" id="ui.textbox.Textbox.getText">
 <span class="sig-name descname"><span class="pre">getText</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ui.textbox.Textbox.getText" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>return the text that was typed inside the textbox</p>
+<dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the text that was typed inside the textbox</p>
 </dd>
@@ -88,6 +89,12 @@ Nolane 1.0.0 documentation</title>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>pygame.Event</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if entered</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>

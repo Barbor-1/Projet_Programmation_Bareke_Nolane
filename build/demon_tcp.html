@@ -50,7 +50,7 @@ run with TCP</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input_queue</strong> (<em>queue : JoinableQueue</em>) -- input queue main =&gt; demon</p></li>
-<li><p><strong>output_queue</strong> (<em>JoinableQueue</em>) -- _description_</p></li>
+<li><p><strong>output_queue</strong> (<em>JoinableQueue</em>) -- output queue demon =&gt; main</p></li>
 <li><p><strong>is_client</strong> (<em>bool</em><em>, </em><em>optional</em>) -- if True =&gt; is a client otherwise is a server, defaults to True</p></li>
 <li><p><strong>address</strong> (<em>str</em><em>, </em><em>optional</em>) -- ip address, ignored with is_client = False, defaults to &quot;127.0.0.1&quot;</p></li>
 <li><p><strong>port</strong> (<em>str</em><em>, </em><em>optional</em>) -- inout port,ignored with is_client = False , defaults to &quot;1234&quot;</p></li>
