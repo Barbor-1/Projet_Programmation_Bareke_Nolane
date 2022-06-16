@@ -14,6 +14,7 @@ class Unit():
     :type allegiance: int
     :param id: unique unit id
     :type id: int
+
     """
     def __init__(self, screen=0, allegiance=0, id=0): # 0 pour éviter le chargement des images dans le démon TCP
         """
@@ -57,34 +58,43 @@ class Unit():
 
         :return: the x coordinate
         :rtype: int
+
         """
         return self.pos_x
 
     def getPosY(self):
         """get the y coordinate
+
         :return: the y coordinate
         :rtype: int
+
         """
         return self.pos_y
 
     def getAllegiance(self):
-        """give which side the unit belogngs
-        :return:the unit side ( 1 ou -1)
+        """give which side the unit belong
+
+        :return: the unit side ( 1 ou -1)
         :rtype: int
+
         """
         return self.allegiance
 
     def getId(self):
         """gives the unique unit id
+
         :return: the id 
         :rtype: int
+
         """
         return self.id
 
     def move(self, speed): #
         """move the unit to the enemy base by a defined quantity by speed
+
         :param speed: speed of the unit
         :type speed: int
+
         """
         if( abs(self.pos_x) > self.limits):
             pass
@@ -94,18 +104,22 @@ class Unit():
 
     def hurt(self, atk): # 
         """called when the unit takes damages
+
         :param atk: power of the unit which attacked this unit
         :type atk: int
+
         """
         self.health -= atk - random.randint(0, self.armor)  # Dégat infliger reduit par un nombre aléatoire inférieure ou égale à la valeur d'armure
 
 
     def attack(self, target): 
         """called when the unit makes damages
+
         :param target: target to attack
         :type target: Unit object
         :return: -1 if the targeted unit has died
         :rtype: int
+
         """
         if target.getAllegiance() != self.allegiance: # Verifie si la cible est ennemie
             target.hurt(self.atk)
@@ -118,6 +132,7 @@ class Unit():
 
         :param joueur: player targeted by the attack
         :type joueur: Player object
+
         """
         joueur.hurt(self.atk)
         self.changeSprite(2*self.allegiance) # Animation d'attaque
@@ -128,13 +143,16 @@ class Unit():
 
         :return: state of the unit
         :rtype: string
+
         """
         return str(self.pos_x) + " " +  str(self.pos_y) + " " + str(self.allegiance) + " " +  self.type + " "  + str(self.health)+ " " + str(self.atk)  + " " + str(self.armor) + " " + str(self.id)
 
     def show(self, offset): #
-        """Display the unit
+        """display the unit
+
         :param offset: offset for displaying the unit (because of the top toolbar)
         :type offset: int
+
         """
         self.screen.blit(self.image, (self.pos_x * self.image.get_height(), self.pos_y * self.image.get_width() + offset))
 
@@ -143,6 +161,7 @@ class Unit():
 
         :return: unit state
         :rtype: string
+
         """
         return (self.pos_x, self.pos_y, self.allegiance,  self.type, self.health, self.atk,self.armor,self.id)
 
@@ -151,6 +170,7 @@ class Unit():
 
         :param i: unit state
         :type i: string
+
         """
         self.pos_x = int(i[0])
         self.pos_y = int(i[1])
@@ -163,8 +183,10 @@ class Unit():
 
     def getAttack(self):
         """return the attack level
+
         :return: the attack level
         :rtype: int
+
         """
         return  self.atk
 
@@ -173,6 +195,7 @@ class Unit():
      
         :param valeur: value which differenciate which image to put
         :type valeur: int
+
         """
         # Donne le sprite de base aux unités selon leur camps
         if valeur == 1:

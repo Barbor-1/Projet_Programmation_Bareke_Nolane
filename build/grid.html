@@ -47,24 +47,24 @@ Nolane 1.0.0 documentation</title>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>size</strong> (<em>int</em>) -- Taille de la grille</p></li>
-<li><p><strong>unit_size</strong> (<em>int</em>) -- Taille de l'unité</p></li>
+<li><p><strong>size</strong> (<em>int</em>) -- size of the grid</p></li>
+<li><p><strong>unit_size</strong> (<em>int</em>) -- size of the unit</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="ui.grid.Grid.deleteUnitAtGrid">
 <span class="sig-name descname"><span class="pre">deleteUnitAtGrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ui.grid.Grid.deleteUnitAtGrid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Supprime l'unité de la grille</p>
+<dd><p>delete a unit from the grid</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>int</em>) -- Position de la case en x</p></li>
-<li><p><strong>y</strong> (<em>int</em>) -- Position de la case en y</p></li>
+<li><p><strong>x</strong> (<em>int</em>) -- x coordinate of the case where the unit will be deleted</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- y coordinate of the case where the unit will be put</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Retourne la liste contenant les unités</p>
+<dd class="field-even"><p>the grid modified</p>
 </dd>
 </dl>
 </dd></dl>
@@ -72,10 +72,10 @@ Nolane 1.0.0 documentation</title>
 <dl class="py method">
 <dt class="sig sig-object py" id="ui.grid.Grid.getGridSize">
 <span class="sig-name descname"><span class="pre">getGridSize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ui.grid.Grid.getGridSize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Donne la taille de la grille</p>
+<dd><p>return the grid size(square)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Donne la taille de la grille</p>
+<dd class="field-odd"><p>the grid size</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>int</p>
@@ -86,16 +86,16 @@ Nolane 1.0.0 documentation</title>
 <dl class="py method">
 <dt class="sig sig-object py" id="ui.grid.Grid.getUnitAtGrid">
 <span class="sig-name descname"><span class="pre">getUnitAtGrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ui.grid.Grid.getUnitAtGrid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Recupère l'unité dans la grille</p>
+<dd><p>get a unit at a position</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>int</em>) -- Position de la case en x</p></li>
-<li><p><strong>y</strong> (<em>int</em>) -- Postion de la case en y</p></li>
+<li><p><strong>x</strong> (<em>int</em>) -- x coordinate of the unit</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- y coordinate of the unit</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Donne l'unité présente à la case</p>
+<dd class="field-even"><p>the unit at the (x,y) position</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Unit object</p>
@@ -106,20 +106,14 @@ Nolane 1.0.0 documentation</title>
 <dl class="py method">
 <dt class="sig sig-object py" id="ui.grid.Grid.moveUnitAtGrid">
 <span class="sig-name descname"><span class="pre">moveUnitAtGrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ui.grid.Grid.moveUnitAtGrid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deplace l'unité</p>
+<dd><p>move the unit</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> -- Position de la case en x</p></li>
-<li><p><strong>y</strong> -- Position de la case en y</p></li>
-<li><p><strong>target</strong> -- Unité à deplacer</p></li>
+<li><p><strong>x</strong> (<em>int</em>) -- x coordinate of the case where the unit is before being moved</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- y coordinate of the case where the unit is before being moved</p></li>
+<li><p><strong>target</strong> (<em>Unit object</em>) -- Unit to move</p></li>
 </ul>
-</dd>
-<dt class="field-even">Type</dt>
-<dd class="field-even"><p>int</p>
-</dd>
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -127,13 +121,13 @@ Nolane 1.0.0 documentation</title>
 <dl class="py method">
 <dt class="sig sig-object py" id="ui.grid.Grid.setUnitAtGrid">
 <span class="sig-name descname"><span class="pre">setUnitAtGrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ui.grid.Grid.setUnitAtGrid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Place une unité dans la grille</p>
+<dd><p>put a unit in the grid</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>int</em>) -- Position de la case en x</p></li>
-<li><p><strong>y</strong> (<em>int</em>) -- Position de la case en y</p></li>
-<li><p><strong>target</strong> (<em>Unit object</em>) -- Unité à placer</p></li>
+<li><p><strong>x</strong> (<em>int</em>) -- x coordinate of the case where the unit will be put</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- ycoordinate of the case where the unit will be put</p></li>
+<li><p><strong>target</strong> (<em>Unit object</em>) -- unit to place</p></li>
 </ul>
 </dd>
 </dl>

@@ -4,9 +4,9 @@ from unit.unit import Unit
 class Grid():
     """Grid class for storing units
 
-    :param size: Taille de la grille
+    :param size: size of the grid
     :type size: int
-    :param unit_size: Taille de l'unité
+    :param unit_size: size of the unit
     :type unit_size: int
 
     """
@@ -23,13 +23,13 @@ class Grid():
         self.grid = [[0 for i in range(0, self.grid_size)] for j in range(0, self.grid_size)]
 
     def getUnitAtGrid(self, x, y):  # 
-        """Recupère l'unité dans la grille
+        """get a unit at a position
 
-        :param x: Position de la case en x
+        :param x: x coordinate of the unit
         :type x: int
-        :param y: Postion de la case en y
+        :param y: y coordinate of the unit
         :type y: int 
-        :return: Donne l'unité présente à la case
+        :return: the unit at the (x,y) position
         :rtype: Unit object
 
         """
@@ -37,13 +37,13 @@ class Grid():
         return self.grid[y][x]
 
     def setUnitAtGrid(self, x, y, target):  # 
-        """Place une unité dans la grille
+        """put a unit in the grid
         
-        :param x: Position de la case en x
+        :param x: x coordinate of the case where the unit will be put
         :type x: int
-        :param y: Position de la case en y
+        :param y: ycoordinate of the case where the unit will be put
         :type y: int
-        :param target: Unité à placer
+        :param target: unit to place
         :type target: Unit object
 
         """
@@ -53,35 +53,36 @@ class Grid():
 
     def getGridSize(self): #
         """
-        Donne la taille de la grille
+        return the grid size(square)
 
-        :return: Donne la taille de la grille
+        :return: the grid size
         :rtype: int
 
         """
         return self.grid_size
 
     def deleteUnitAtGrid(self, x, y): 
-        """Supprime l'unité de la grille
+        """delete a unit from the grid
 
-        :param x: Position de la case en x
+        :param x: x coordinate of the case where the unit will be deleted
         :type x: int
-        :param y: Position de la case en y
+        :param y: y coordinate of the case where the unit will be put
         :type y: int
-        :return: Retourne la liste contenant les unités
+        :return: the grid modified
 
         """
         self.grid[y][x] = 0
         return self.grid
 
     def moveUnitAtGrid(self, x, y, target):  # 
-        """Deplace l'unité
+        """move the unit
         
-        :param x: Position de la case en x
-        :type: int
-        :param y: Position de la case en y
-        :type: int
-        :param target: Unité à deplacer
+        :param x: x coordinate of the case where the unit is before being moved
+        :type x: int
+        :param y: y coordinate of the case where the unit is before being moved
+        :type y: int
+        :param target: Unit to move
+        :type target: Unit object
 
         """
         self.deleteUnitAtGrid(target.getPosX(), target.getPosY())

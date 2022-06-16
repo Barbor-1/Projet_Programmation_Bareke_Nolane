@@ -56,11 +56,18 @@ Nolane 1.0.0 documentation</title>
 <dl class="py method">
 <dt class="sig sig-object py" id="unit.unit.Unit.attack">
 <span class="sig-name descname"><span class="pre">attack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#unit.unit.Unit.attack" title="Permalink to this definition">¶</a></dt>
-<dd><p>called when the unit makes damages
-:param target: target to attack
-:type target: Unit object
-:return: -1 if the targeted unit has died
-:rtype: int</p>
+<dd><p>called when the unit makes damages</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target</strong> (<em>Unit object</em>) -- target to attack</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>-1 if the targeted unit has died</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -77,25 +84,43 @@ Nolane 1.0.0 documentation</title>
 <dl class="py method">
 <dt class="sig sig-object py" id="unit.unit.Unit.getAllegiance">
 <span class="sig-name descname"><span class="pre">getAllegiance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#unit.unit.Unit.getAllegiance" title="Permalink to this definition">¶</a></dt>
-<dd><p>give which side the unit belogngs
-:return:the unit side ( 1 ou -1)
-:rtype: int</p>
+<dd><p>give which side the unit belong</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the unit side ( 1 ou -1)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="unit.unit.Unit.getAttack">
 <span class="sig-name descname"><span class="pre">getAttack</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#unit.unit.Unit.getAttack" title="Permalink to this definition">¶</a></dt>
-<dd><p>return the attack level
-:return: the attack level
-:rtype: int</p>
+<dd><p>return the attack level</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the attack level</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="unit.unit.Unit.getId">
 <span class="sig-name descname"><span class="pre">getId</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#unit.unit.Unit.getId" title="Permalink to this definition">¶</a></dt>
-<dd><p>gives the unique unit id
-:return: the id 
-:rtype: int</p>
+<dd><p>gives the unique unit id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the id</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -115,17 +140,26 @@ Nolane 1.0.0 documentation</title>
 <dl class="py method">
 <dt class="sig sig-object py" id="unit.unit.Unit.getPosY">
 <span class="sig-name descname"><span class="pre">getPosY</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#unit.unit.Unit.getPosY" title="Permalink to this definition">¶</a></dt>
-<dd><p>get the y coordinate
-:return: the y coordinate
-:rtype: int</p>
+<dd><p>get the y coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the y coordinate</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="unit.unit.Unit.hurt">
 <span class="sig-name descname"><span class="pre">hurt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atk</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#unit.unit.Unit.hurt" title="Permalink to this definition">¶</a></dt>
-<dd><p>called when the unit takes damages
-:param atk: power of the unit which attacked this unit
-:type atk: int</p>
+<dd><p>called when the unit takes damages</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>atk</strong> (<em>int</em>) -- power of the unit which attacked this unit</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -148,9 +182,12 @@ Nolane 1.0.0 documentation</title>
 <dl class="py method">
 <dt class="sig sig-object py" id="unit.unit.Unit.move">
 <span class="sig-name descname"><span class="pre">move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#unit.unit.Unit.move" title="Permalink to this definition">¶</a></dt>
-<dd><p>move the unit to the enemy base by a defined quantity by speed
-:param speed: speed of the unit
-:type speed: int</p>
+<dd><p>move the unit to the enemy base by a defined quantity by speed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>speed</strong> (<em>int</em>) -- speed of the unit</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -167,9 +204,12 @@ Nolane 1.0.0 documentation</title>
 <dl class="py method">
 <dt class="sig sig-object py" id="unit.unit.Unit.show">
 <span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#unit.unit.Unit.show" title="Permalink to this definition">¶</a></dt>
-<dd><p>Display the unit
-:param offset: offset for displaying the unit (because of the top toolbar)
-:type offset: int</p>
+<dd><p>display the unit</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>offset</strong> (<em>int</em>) -- offset for displaying the unit (because of the top toolbar)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

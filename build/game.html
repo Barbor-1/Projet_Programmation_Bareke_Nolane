@@ -42,38 +42,32 @@ Nolane 1.0.0 documentation</title>
 <dl class="py function">
 <dt class="sig sig-object py" id="game.getPlayer">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">getPlayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allegiance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.getPlayer" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>get player with a said allegiance</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>allegiance</strong> (<em>int</em>) -- the player allegiance to be queried</p>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return the player in the player list associated with the right side</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
 </dl>
-<p>:return:return the player in the player list associated with the right side
-:rtype: int</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="game.moveUnit">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">moveUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputQueue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.moveUnit" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>moving units</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>target</strong> -- unit to move</p></li>
-<li><p><strong>grid</strong> -- the unit grid</p></li>
-<li><p><strong>inputQueue</strong> -- input queue to tcp demon</p></li>
-<li><p><strong>background</strong> -- Tiled background (the map) =&gt; water nnimation</p></li>
+<li><p><strong>target</strong> (<em>Unit obect</em>) -- unit to move</p></li>
+<li><p><strong>grid</strong> (<em>Grid object</em>) -- the unit grid</p></li>
+<li><p><strong>inputQueue</strong> (<em>multiprocess.JoinableQueue</em>) -- input queue to tcp demon</p></li>
+<li><p><strong>background</strong> (<em>Background object</em>) -- Tiled background (the map) =&gt; water nnimation</p></li>
 </ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Unit obect</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Grid object</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>multiprocess.JoinableQueue</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Background object</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>-2 : ennemy has died, -1 : I died (this player)</p>
@@ -87,26 +81,15 @@ Nolane 1.0.0 documentation</title>
 <dl class="py function">
 <dt class="sig sig-object py" id="game.placeUnit">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">placeUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.placeUnit" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>put unit on grid</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>target</strong> -- unit to place</p></li>
-<li><p><strong>y</strong> -- y pos of the unit to place (x position = 0 or 19 depending on the unit side)</p></li>
-<li><p><strong>player</strong> -- the player putting in the unit</p></li>
-<li><p><strong>grid</strong> -- unit grid</p></li>
+<li><p><strong>target</strong> (<em>Unit object</em>) -- unit to place</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- y pos of the unit to place (x position = 0 or 19 depending on the unit side)</p></li>
+<li><p><strong>player</strong> (<em>Player object</em>) -- the player putting in the unit</p></li>
+<li><p><strong>grid</strong> (<em>Grid object</em>) -- unit grid</p></li>
 </ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Unit object</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Player object</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Grid object</p>
 </dd>
 </dl>
 </dd></dl>
@@ -120,7 +103,8 @@ Nolane 1.0.0 documentation</title>
 <dl class="py function">
 <dt class="sig sig-object py" id="game.setPlayer">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">setPlayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allegiance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.setPlayer" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>add the player to the player list</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>allegiance</strong> (<em>int</em>) -- the player side</p>
 </dd>
@@ -136,19 +120,21 @@ Nolane 1.0.0 documentation</title>
 <dl class="py function">
 <dt class="sig sig-object py" id="game.showHealth">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">showHealth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screen</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.showHealth" title="Permalink to this definition">¶</a></dt>
-<dd><p>:param screen:screen where we put the players health
-:rtype: pygame.Surface</p>
+<dd><p>display the players health</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>screen</strong> (<em>pygame.Surface</em>) -- screen where we put the players health</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="game.showUnits">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">showUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.showUnits" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>show unit =&gt; put unit on screen</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>grid</strong> -- grid in which we put the unit</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Grid object</p>
+<dd class="field-odd"><p><strong>grid</strong> (<em>Grid object</em>) -- grid in which we put the unit</p>
 </dd>
 </dl>
 </dd></dl>
@@ -156,12 +142,10 @@ Nolane 1.0.0 documentation</title>
 <dl class="py function">
 <dt class="sig sig-object py" id="game.showWealth">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">showWealth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screen</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.showWealth" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>display the players health</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>screen</strong> -- screen where we put the player money</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>pygame.Surface</p>
+<dd class="field-odd"><p><strong>screen</strong> (<em>pygame.Surface</em>) -- screen where we put the player money</p>
 </dd>
 </dl>
 </dd></dl>
@@ -169,28 +153,20 @@ Nolane 1.0.0 documentation</title>
 <dl class="py function">
 <dt class="sig sig-object py" id="game.spawnUnit">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">spawnUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">joueur</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.spawnUnit" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>create unit</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>screen</strong> -- screen where the unit would be displayed</p></li>
-<li><p><strong>grid</strong> -- unit grid</p></li>
-<li><p><strong>joueur</strong> -- player that own the unit</p></li>
+<li><p><strong>screen</strong> (<em>pygame.Surface</em>) -- screen where the unit would be displayed</p></li>
+<li><p><strong>grid</strong> (<em>Grid object</em>) -- unit grid</p></li>
+<li><p><strong>joueur</strong> (<em>Player object</em>) -- player that own the unit</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>pygame.Surface</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return the created unit</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Grid object</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Player object</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>return the created unit</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Unit object</p>
+<dd class="field-odd"><p>Unit object</p>
 </dd>
 </dl>
 </dd></dl>
@@ -198,15 +174,19 @@ Nolane 1.0.0 documentation</title>
 <dl class="py function">
 <dt class="sig sig-object py" id="game.takeUnitFromAline">
 <span class="sig-prename descclassname"><span class="pre">game.</span></span><span class="sig-name descname"><span class="pre">takeUnitFromAline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#game.takeUnitFromAline" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>take all units from a line otherwise some units might go too fast</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> -- unit grid</p></li>
-<li><p><strong>y</strong> -- y coordinate of the line</p></li>
+<li><p><strong>grid</strong> (<em>Grid object</em>) -- unit grid</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- y coordinate of the line</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>return all the unit in the line</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
