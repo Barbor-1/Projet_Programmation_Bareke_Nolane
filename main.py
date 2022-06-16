@@ -1,3 +1,6 @@
+"""main game loop
+"""
+
 import multiprocessing
 import os
 import pygame
@@ -19,6 +22,7 @@ from ui.show_menu import ShowMenu
 from ui.textbox import Textbox
 from ui.toolbar import Toolbar
 from unit.unit import Unit
+
 
 # from pytmx.util_pygame import load_pygame  # 2.7 mode !
 
