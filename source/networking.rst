@@ -1,4 +1,4 @@
-networking\networking
+networking
 =====================
 
 .. automodule:: networking.networking
