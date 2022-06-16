@@ -75,7 +75,7 @@ class Grid():
         return self.grid
 
     def moveUnitAtGrid(self, x, y, target):  # 
-        """move the unit
+        """move the unit (delete the unit and create another unit at the now position)
         
         :param x: x coordinate of the case where the unit is before being moved
         :type x: int

@@ -11,10 +11,6 @@ class Demon(multiprocessing.Process):
     """demon class for handling network stuff
         inherit from multiprocessing.Process
         run with TCP
-    
-    """
-    def __init__(self, input_queue, output_queue, is_client=True, address="127.0.0.1", port="1234"):  # change address
-        """init function
 
         :param input_queue: input queue main => demon
         :type input_queue: queue : JoinableQueue
@@ -22,10 +18,15 @@ class Demon(multiprocessing.Process):
         :type output_queue: JoinableQueue
         :param is_client: if True => is a client otherwise is a server, defaults to True
         :type is_client: bool, optional
-        :param address:ip address, ignored with is_client = False, defaults to "127.0.0.1"
+        :param address: ip address, ignored with is_client = False, defaults to "127.0.0.1"
         :type address: str, optional
         :param port: inout port,ignored with is_client = False , defaults to "1234"
         :type port: str, optional
+    
+    """
+    def __init__(self, input_queue, output_queue, is_client=True, address="127.0.0.1", port="1234"):  # change address
+        """init function : call the inherited init function and start client / server
+        
         """
         super().__init__()
         self.port = port

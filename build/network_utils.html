@@ -42,7 +42,7 @@ Nolane 1.0.0 documentation</title>
 <dl class="py function">
 <dt class="sig sig-object py" id="networking.network_utils.animate_unit">
 <span class="sig-prename descclassname"><span class="pre">networking.network_utils.</span></span><span class="sig-name descname"><span class="pre">animate_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#networking.network_utils.animate_unit" title="Permalink to this definition">¶</a></dt>
-<dd><p>animate unit for client</p>
+<dd><p>animate unit for client using.changeSprite</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -56,13 +56,13 @@ Nolane 1.0.0 documentation</title>
 <dl class="py function">
 <dt class="sig sig-object py" id="networking.network_utils.move_unit">
 <span class="sig-prename descclassname"><span class="pre">networking.network_utils.</span></span><span class="sig-name descname"><span class="pre">move_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movement</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#networking.network_utils.move_unit" title="Permalink to this definition">¶</a></dt>
-<dd><p>move unit for client</p>
+<dd><p>move unit for client. Will also do the animation (if movement = 0.5, trigger annimation and switch the flag for delaying the animation)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference internal" href="grid.html#ui.grid.Grid" title="ui.grid.Grid"><em>Grid</em></a>) -- grid</p></li>
+<li><p><strong>grid</strong> (<em>Grid object</em>) -- unit grid</p></li>
 <li><p><strong>id</strong> (<em>int</em>) -- id of unit to remove</p></li>
-<li><p><strong>movement</strong> (<em>float</em>) -- what to move for the said unit (int or float, if float (=1.5) it means that there is a tick to wait before moving the unit)</p></li>
+<li><p><strong>movement</strong> (<em>float</em>) -- what to move for the said unit (int or float, if float (=1.5) / -1.5 it means that there is a tick to wait before moving the unit)</p></li>
 </ul>
 </dd>
 </dl>
@@ -75,7 +75,7 @@ Nolane 1.0.0 documentation</title>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference internal" href="grid.html#ui.grid.Grid" title="ui.grid.Grid"><em>Grid</em></a>) -- grid</p></li>
+<li><p><strong>grid</strong> (<em>Grid object</em>) -- unit grid</p></li>
 <li><p><strong>id</strong> (<em>int</em>) -- id of unit to remove</p></li>
 </ul>
 </dd>

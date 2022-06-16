@@ -46,8 +46,8 @@ class Toolbar(): #barre en haut avec le soldat
         #pygame.draw.rect(self.screen, (255, 0, 0), self.rect)
 
 
-    def collide(self, pos):
-        """
+    def collide(self, pos): 
+        """handle collisions with the soldier image
         :param pos: position of the mouse
         :type pos: tupple (x, y)
         :return: True if collided else False

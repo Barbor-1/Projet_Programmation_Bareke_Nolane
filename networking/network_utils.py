@@ -1,8 +1,8 @@
 def remove_unit(grid, id):  
     """ remove unit for client
 
-    :param grid: grid
-    :type grid: Grid
+    :param grid: unit grid
+    :type grid: Grid object
     :param id: id of unit to remove
     :type id: int
 
@@ -18,13 +18,13 @@ def remove_unit(grid, id):
 
 
 def move_unit(grid, id, movement):  #
-    """move unit for client
+    """move unit for client. Will also do the animation (if movement = 0.5, trigger annimation and switch the flag for delaying the animation)
 
-    :param grid: grid
-    :type grid: Grid
+    :param grid: unit grid
+    :type grid: Grid object
     :param id: id of unit to remove
     :type id: int
-    :param movement: what to move for the said unit (int or float, if float (=1.5) it means that there is a tick to wait before moving the unit)
+    :param movement: what to move for the said unit (int or float, if float (=1.5) / -1.5 it means that there is a tick to wait before moving the unit)
     :type movement:  float 
     """
 
@@ -55,7 +55,7 @@ def move_unit(grid, id, movement):  #
 
 
 def animate_unit(grid, id):  # 
-    """animate unit for client
+    """animate unit for client using.changeSprite
 
     :param grid: grid
     :type grid: Grid

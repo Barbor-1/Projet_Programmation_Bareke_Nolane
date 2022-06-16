@@ -3,7 +3,7 @@ import socket
 
 class server():
     """
-    server class
+    server class with TCP
     """
     def __init__(self, port="2001"):  # default value to change
         """
@@ -16,7 +16,7 @@ class server():
 
     def startServer(self):
         """
-        start server
+        start server 
         :return:
         """
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -26,7 +26,7 @@ class server():
         self.socket.listen(1)  # one for onyl one client
 
     def send(self, data, is_byte=False):  # byte = True : no encoding
-        """send data
+        """send data to client
 
         :param data: data to send
         :type data: string if is_byte = False, otherwise byte
@@ -39,7 +39,7 @@ class server():
             self.client.send(data.encode())
 
     def receive(self, limit, is_byte=False):  # byte = True : no encoding
-        """receive data
+        """receive data from server
 
         :param limit: receive limit
         :type limit: int
@@ -106,7 +106,7 @@ class server():
 
     def shutdown(self):
         """
-        shutdown socket
+        shutdown socket 
 
         """
         self.client.close()
@@ -114,7 +114,7 @@ class server():
 
 
 class client():
-    """client class
+    """client class with TCP
 
     """
     def __init__(self, ip_address, port="2001"):  # default value to change
@@ -145,7 +145,7 @@ class client():
 
     def send(self, data, is_byte=False):
         """
-         send data
+         send data to server
 
         :param data: data to send
         :type data: string if is_byte = False, otherwise byte
@@ -194,7 +194,7 @@ class client():
             pass
 
     def receive(self, limit, is_byte=False):  # byte = True : no encoding
-        """receive data
+        """receive data from server
 
         :param limit: receive limit
         :type limit: int

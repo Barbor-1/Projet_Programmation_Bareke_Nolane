@@ -60,7 +60,7 @@ def placeUnit(target, y, player, grid):  #
 
 
 def moveUnit(target, grid, inputQueue, background):  # SEULEMENT POUR LE SERVEUR 
-    """moving units
+    """moving units on the grid, handle the attack logic. Run only on the server
 
     :param target: unit to move 
     :type target: Unit obect
